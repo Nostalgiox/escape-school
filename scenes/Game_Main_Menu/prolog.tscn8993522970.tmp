@@ -1,0 +1,102 @@
+[gd_scene load_steps=6 format=3 uid="uid://b6igtk6udn6tg"]
+
+[ext_resource type="Script" uid="uid://biyugfgjsrvdo" path="res://scenes/Game_Main_Menu/prolog.gd" id="1_c8v5g"]
+[ext_resource type="PackedScene" uid="uid://cr16qvxkng034" path="res://Player/PlayerPrefab.tscn" id="1_nci5y"]
+[ext_resource type="PackedScene" uid="uid://bgqhmoyjejr8v" path="res://Items/Notatka/notatka.tscn" id="2_lqxng"]
+[ext_resource type="Script" uid="uid://cvhkpkcsmeupt" path="res://scenes/Game_Main_Menu/MonologUI.gd" id="4_cnecy"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_lqxng"]
+
+[node name="Prolog" type="Node3D"]
+script = ExtResource("1_c8v5g")
+
+[node name="PlayerBody" parent="." instance=ExtResource("1_nci5y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.270925, 1.55469, -7.92423)
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.144684, 0, -9.23816)
+use_collision = true
+
+[node name="Floor" type="CSGBox3D" parent="CSGCombiner3D"]
+size = Vector3(10, 0.1, 19.4763)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.46988, 1.85205, -0.0281067)
+size = Vector3(1, 5, 19.533)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.54649, 1.85205, -0.0281067)
+size = Vector3(1, 5, 19.533)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.144684, 1.76953, 9.23816)
+size = Vector3(10, 5, 1)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.144684, 2.0022, -9.58598)
+size = Vector3(10, 5, 1)
+
+[node name="Notatka" parent="." instance=ExtResource("2_lqxng")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.15676, 0.898664, -11.9478)
+
+[node name="Node3D" type="Node3D" parent="."]
+
+[node name="Lamp1" type="MeshInstance3D" parent="Node3D"]
+transform = Transform3D(0.225, 0, 0, 0, 0.225, 0, 0, 0, 0.225, 0.649, 4.195, -9)
+mesh = SubResource("SphereMesh_lqxng")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Node3D/Lamp1"]
+transform = Transform3D(4.44444, 0, 0, 0, 4.44444, 0, 0, 0, 4.44444, 0, 0, 0)
+light_color = Color(1, 1, 0.815686, 1)
+light_energy = 2.0
+shadow_enabled = true
+
+[node name="Lamp2" type="MeshInstance3D" parent="Node3D"]
+transform = Transform3D(0.225, 0, 0, 0, 0.225, 0, 0, 0, 0.225, 0.649, 4.195, -5)
+mesh = SubResource("SphereMesh_lqxng")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Node3D/Lamp2"]
+transform = Transform3D(4.44444, 0, 0, 0, 4.44444, 0, 0, 0, 4.44444, 0, 0, 0)
+light_color = Color(1, 1, 0.815686, 1)
+light_energy = 2.0
+shadow_enabled = true
+
+[node name="Lamp3" type="MeshInstance3D" parent="Node3D"]
+transform = Transform3D(0.225, 0, 0, 0, 0.225, 0, 0, 0, 0.225, 0.649, 4.195, -13)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Node3D/Lamp3"]
+transform = Transform3D(4.44444, 0, 0, 0, 4.44444, 0, 0, 0, 4.44444, 0, 0, 0)
+light_color = Color(1, 1, 0.815686, 1)
+light_energy = 2.0
+shadow_enabled = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="MonologUI" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 344.0
+offset_top = 531.0
+offset_right = -344.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("4_cnecy")
+
+[node name="MonologPanel" type="PanelContainer" parent="CanvasLayer/MonologUI"]
+visible = false
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -40.0
+offset_right = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="MonologLabel" type="Label" parent="CanvasLayer/MonologUI/MonologPanel"]
+layout_mode = 2

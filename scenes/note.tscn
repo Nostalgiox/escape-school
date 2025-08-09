@@ -1,0 +1,28 @@
+[gd_scene load_steps=6 format=3 uid="uid://cdvhrf0gbnh3"]
+
+[ext_resource type="Script" uid="uid://nqkkn5njynnx" path="res://scripts/note.gd" id="1_t3yvt"]
+[ext_resource type="Texture2D" uid="uid://cpuvypwe472ab" path="res://assets/note.png" id="2_1bnk6"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1bnk6"]
+size = Vector3(1.50269, 1, 0.0194092)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_43c4j"]
+albedo_texture = ExtResource("2_1bnk6")
+
+[sub_resource type="QuadMesh" id="QuadMesh_njo4t"]
+size = Vector2(1.5, 1)
+
+[node name="Note" type="Area3D" groups=["Notes"]]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, -0.354134, 0)
+script = ExtResource("1_t3yvt")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.231567, 0, 0.490295)
+shape = SubResource("BoxShape3D_1bnk6")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00200534, -0.00190133, 0.00062722)
+material_override = SubResource("StandardMaterial3D_43c4j")
+mesh = SubResource("QuadMesh_njo4t")
+
+[node name="Label3D" type="Label3D" parent="CollisionShape3D/MeshInstance3D"]

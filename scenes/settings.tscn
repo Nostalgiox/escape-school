@@ -1,0 +1,102 @@
+[gd_scene load_steps=3 format=3 uid="uid://yhkjeo8u6sf1"]
+
+[ext_resource type="Script" uid="uid://bj6x3w5uf1mkv" path="res://scripts/settings.gd" id="1_5p8wc"]
+[ext_resource type="AudioStream" uid="uid://b0s6a5eofnfhb" path="res://scenes/ui/mouse-click-290204.mp3" id="2_r6d6q"]
+
+[node name="SettingsUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_5p8wc")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.501961)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -24.0
+offset_right = 24.0
+offset_bottom = 8.0
+grow_horizontal = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Grafika" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Ustawienia Graficzne"
+
+[node name="Dzwiek" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Ustawienia Audio"
+
+[node name="Sterowanie" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Sterowanie"
+
+[node name="Inne" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Inne"
+
+[node name="Wstecz" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Wstecz"
+
+[node name="Zapisz" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Zapisz zmiany"
+
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="GrafikaPanel" type="VBoxContainer" parent="VBoxContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="FullscreenCheck" type="CheckBox" parent="VBoxContainer/PanelContainer/GrafikaPanel"]
+layout_mode = 2
+text = "Fullscreen"
+
+[node name="ResolutionOption" type="OptionButton" parent="VBoxContainer/PanelContainer/GrafikaPanel"]
+layout_mode = 2
+
+[node name="VSYNCCheck" type="CheckBox" parent="VBoxContainer/PanelContainer/GrafikaPanel"]
+layout_mode = 2
+text = "VSYNC"
+
+[node name="DzwiekPanel" type="VBoxContainer" parent="VBoxContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/PanelContainer/DzwiekPanel"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/PanelContainer/DzwiekPanel/HBoxContainer"]
+layout_mode = 2
+text = "Dźwięk ogólny"
+
+[node name="volume_slider" type="HSlider" parent="VBoxContainer/PanelContainer/DzwiekPanel/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.01
+value = 1.0
+
+[node name="SterowaniePanel" type="VBoxContainer" parent="VBoxContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="InnePanel" type="VBoxContainer" parent="VBoxContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_r6d6q")

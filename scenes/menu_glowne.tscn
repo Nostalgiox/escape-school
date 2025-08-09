@@ -1,0 +1,45 @@
+[gd_scene load_steps=4 format=3 uid="uid://cg67wectrdec"]
+
+[ext_resource type="Script" uid="uid://cg7tnkmo06ihh" path="res://scripts/menu_glowne.gd" id="1_rbc1a"]
+[ext_resource type="AudioStream" uid="uid://b0s6a5eofnfhb" path="res://scenes/ui/mouse-click-290204.mp3" id="2_jlfp8"]
+
+[sub_resource type="Theme" id="Theme_jlfp8"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+grow_vertical = 0
+script = ExtResource("1_rbc1a")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -40.0
+offset_right = 40.0
+grow_vertical = 0
+alignment = 2
+
+[node name="Zagraj" type="Button" parent="VBoxContainer" groups=["UIButtons"]]
+layout_mode = 2
+theme = SubResource("Theme_jlfp8")
+text = "Zagraj"
+
+[node name="Ustawienia" type="Button" parent="VBoxContainer" groups=["UIButtons"]]
+layout_mode = 2
+text = "Ustawienia"
+
+[node name="Wyjdz" type="Button" parent="VBoxContainer" groups=["UIButtons"]]
+layout_mode = 2
+text = "Wyjdź"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_jlfp8")

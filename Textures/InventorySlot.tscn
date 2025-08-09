@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://unjftrynyhod"]
+
+[ext_resource type="Script" uid="uid://w3flxsjwpw4v" path="res://assets/Player/Inventory/InventorySlot.gd" id="1_uvlhp"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nfqiu"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uvlhp"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r8r6d"]
+bg_color = Color(0.370364, 0.370365, 0.370364, 1)
+
+[node name="InventorySlot" type="Button" node_paths=PackedStringArray("IconSlot")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1048.0
+offset_bottom = -544.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/hover = SubResource("StyleBoxFlat_nfqiu")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_uvlhp")
+theme_override_styles/normal = SubResource("StyleBoxFlat_r8r6d")
+script = ExtResource("1_uvlhp")
+IconSlot = NodePath("TextureRect")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1

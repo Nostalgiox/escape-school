@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://cltvh284ac82v"]
+
+[ext_resource type="PackedScene" uid="uid://ci4twa08leqri" path="res://assets/Chemistry_Class/CHEMISTRYlabdemoscene.glb" id="1_755k1"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_kl7eo"]
+size = Vector3(6.45825, 1.0376, 10.05)
+
+[node name="Node3D" type="Node3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.206541, -0.524658, 0.241742)
+shape = SubResource("BoxShape3D_kl7eo")
+
+[node name="CHEMISTRYlabdemoscene2" parent="." instance=ExtResource("1_755k1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.762083, 0, 0.106854)

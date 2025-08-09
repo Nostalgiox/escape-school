@@ -1,0 +1,88 @@
+[remap]
+
+importer="scene"
+importer_version=1
+type="PackedScene"
+uid="uid://fdlyivj11eqo"
+path="res://.godot/imported/COMPUTERdemoscene.glb-1e0519d29a8e25dbd1fc692f089c1bde.scn"
+
+[deps]
+
+source_file="res://assets/Computer_Class/COMPUTERdemoscene.glb"
+dest_files=["res://.godot/imported/COMPUTERdemoscene.glb-1e0519d29a8e25dbd1fc692f089c1bde.scn"]
+
+[params]
+
+nodes/root_type=""
+nodes/root_name=""
+nodes/apply_root_scale=true
+nodes/root_scale=1.0
+nodes/import_as_skeleton_bones=false
+nodes/use_node_type_suffixes=true
+meshes/ensure_tangents=true
+meshes/generate_lods=true
+meshes/create_shadow_meshes=true
+meshes/light_baking=1
+meshes/lightmap_texel_size=0.2
+meshes/force_disable_compression=false
+skins/use_named_skins=true
+animation/import=true
+animation/fps=30
+animation/trimming=false
+animation/remove_immutable_tracks=true
+animation/import_rest_as_RESET=false
+import_script/path=""
+_subresources={
+"meshes": {
+"COMPUTERdemoscene_Cube_116": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"save_to_file/enabled": true,
+"save_to_file/path": "res://assets/Computer_Class/computer.res"
+},
+"COMPUTERdemoscene_Cube_117": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"save_to_file/enabled": true,
+"save_to_file/path": "res://assets/Computer_Class/mouse.res"
+},
+"COMPUTERdemoscene_Cube_118": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"save_to_file/enabled": true,
+"save_to_file/path": "res://assets/Computer_Class/keyboard.res"
+},
+"COMPUTERdemoscene_Cube_120": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"save_to_file/enabled": true,
+"save_to_file/path": "res://assets/Computer_Class/chair.res"
+},
+"COMPUTERdemoscene_Cube_131": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"save_to_file/enabled": true,
+"save_to_file/path": "res://assets/Computer_Class/monitor.res"
+},
+"COMPUTERdemoscene_Cube_144": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"save_to_file/enabled": true,
+"save_to_file/path": "res://assets/Computer_Class/table.res"
+}
+}
+}
+gltf/naming_version=1
+gltf/embedded_image_handling=1
