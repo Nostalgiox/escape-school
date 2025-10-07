@@ -1,10 +1,12 @@
 extends CharacterBody3D
 
 @export var CameraContainerNode : Node3D
-@export var VerticalRotationSpeed : float = 0.01
-@export var HorizontalRotationSpeed : float = 0.5
+# @export var VerticalRotationSpeed : float = 0.01
+# @export var HorizontalRotationSpeed : float = 0.5
 @onready var animator : AnimationPlayer = $"../AnimationPlayer"
 @onready var inventory_ui : Control = $InventoryUI
+@onready var raycast = $CameraContainer/Camera3D/interact_raycast
+
 var can_open_door = false
 
 const SPEED = 5.0
@@ -18,8 +20,8 @@ func _input(event: InputEvent) -> void:
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED if (Input.mouse_mode == Input.MOUSE_MODE_VISIBLE) else Input.MOUSE_MODE_VISIBLE
 	
 	if (event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED):
-		rotate_y(deg_to_rad(-event.relative.x) * HorizontalRotationSpeed)
-		CameraContainerNode.rotation.x = clamp(CameraContainerNode.rotation.x - event.relative.y * VerticalRotationSpeed, deg_to_rad(-45), deg_to_rad(45))
+		rotate_y(deg_to_rad(-event.relative.x) * Global.mouse_sensitivity)
+		CameraContainerNode.rotation.x = clamp(CameraContainerNode.rotation.x - event.relative.y * (Global.mouse_sensitivity / 50), deg_to_rad(-45), deg_to_rad(45))
 	if(event.is_action_pressed("open")):
 		if(!can_open_door):
 			open_door()
@@ -66,3 +68,7 @@ func open_door():
 func close_door():
 	animator.play("close_door1")
 	can_open_door = !can_open_door
+
+
+func _on_trigger_zone_body_entered(body: Node3D) -> void:
+	pass # Replace with function body.

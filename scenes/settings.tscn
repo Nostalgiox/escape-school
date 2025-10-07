@@ -21,14 +21,30 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.501961)
 
+[node name="Zapisz" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -58.0
+offset_top = -15.5
+offset_right = 58.0
+offset_bottom = 15.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Zapisz zmiany"
+metadata/_edit_use_anchors_ = true
+
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -24.0
-offset_right = 24.0
-offset_bottom = 8.0
+offset_left = -267.0
+offset_right = 267.0
+offset_bottom = 187.0
 grow_horizontal = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
@@ -54,10 +70,6 @@ text = "Inne"
 layout_mode = 2
 text = "Wstecz"
 
-[node name="Zapisz" type="Button" parent="VBoxContainer/HBoxContainer"]
-layout_mode = 2
-text = "Zapisz zmiany"
-
 [node name="PanelContainer" type="PanelContainer" parent="VBoxContainer"]
 layout_mode = 2
 
@@ -75,6 +87,38 @@ layout_mode = 2
 layout_mode = 2
 text = "VSYNC"
 
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/PanelContainer/GrafikaPanel"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/PanelContainer/GrafikaPanel/HBoxContainer"]
+layout_mode = 2
+text = "Gamma"
+
+[node name="GammaSlider" type="HSlider" parent="VBoxContainer/PanelContainer/GrafikaPanel/HBoxContainer"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+value = 100.0
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/PanelContainer/GrafikaPanel"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/PanelContainer/GrafikaPanel/HBoxContainer2"]
+layout_mode = 2
+text = "FOV"
+
+[node name="FOVSlider" type="HSlider" parent="VBoxContainer/PanelContainer/GrafikaPanel/HBoxContainer2"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+value = 100.0
+
+[node name="ShadowsOption" type="ItemList" parent="VBoxContainer/PanelContainer/GrafikaPanel"]
+layout_mode = 2
+
+[node name="TexturesOption" type="ItemList" parent="VBoxContainer/PanelContainer/GrafikaPanel"]
+layout_mode = 2
+
 [node name="DzwiekPanel" type="VBoxContainer" parent="VBoxContainer/PanelContainer"]
 layout_mode = 2
 
@@ -86,13 +130,51 @@ layout_mode = 2
 text = "Dźwięk ogólny"
 
 [node name="volume_slider" type="HSlider" parent="VBoxContainer/PanelContainer/DzwiekPanel/HBoxContainer"]
+custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
-size_flags_horizontal = 3
+size_flags_horizontal = 10
 max_value = 1.0
 step = 0.01
 value = 1.0
 
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/PanelContainer/DzwiekPanel"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/PanelContainer/DzwiekPanel/HBoxContainer2"]
+layout_mode = 2
+text = "SFX"
+
+[node name="SFXVolumeSlider" type="HSlider" parent="VBoxContainer/PanelContainer/DzwiekPanel/HBoxContainer2"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+value = 100.0
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="VBoxContainer/PanelContainer/DzwiekPanel"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/PanelContainer/DzwiekPanel/HBoxContainer4"]
+layout_mode = 2
+text = "Muzyka"
+
+[node name="MusicVolumeSlider" type="HSlider" parent="VBoxContainer/PanelContainer/DzwiekPanel/HBoxContainer4"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+value = 100.0
+
+[node name="MuteCheckbox" type="CheckBox" parent="VBoxContainer/PanelContainer/DzwiekPanel"]
+layout_mode = 2
+text = "Wycisz"
+
 [node name="SterowaniePanel" type="VBoxContainer" parent="VBoxContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="SensitivityLabel" type="Label" parent="VBoxContainer/PanelContainer/SterowaniePanel"]
+layout_mode = 2
+text = "Czułość myszy"
+
+[node name="MouseSensitivitySlider" type="HSlider" parent="VBoxContainer/PanelContainer/SterowaniePanel"]
 layout_mode = 2
 
 [node name="InnePanel" type="VBoxContainer" parent="VBoxContainer/PanelContainer"]

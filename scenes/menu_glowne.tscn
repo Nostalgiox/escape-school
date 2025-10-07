@@ -1,45 +1,57 @@
-[gd_scene load_steps=4 format=3 uid="uid://cg67wectrdec"]
+[gd_scene load_steps=5 format=3 uid="uid://cg67wectrdec"]
 
 [ext_resource type="Script" uid="uid://cg7tnkmo06ihh" path="res://scripts/menu_glowne.gd" id="1_rbc1a"]
+[ext_resource type="PackedScene" uid="uid://yhkjeo8u6sf1" path="res://scenes/settings.tscn" id="2_8ew7s"]
 [ext_resource type="AudioStream" uid="uid://b0s6a5eofnfhb" path="res://scenes/ui/mouse-click-290204.mp3" id="2_jlfp8"]
 
 [sub_resource type="Theme" id="Theme_jlfp8"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
-anchors_preset = 2
-anchor_top = 1.0
+anchors_preset = 15
+anchor_right = 1.0
 anchor_bottom = 1.0
-grow_vertical = 0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
 script = ExtResource("1_rbc1a")
 
-[node name="TextureRect" type="TextureRect" parent="."]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_jlfp8")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="CenterContainer" type="CenterContainer" parent="."]
 layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
+anchors_preset = 9
 anchor_bottom = 1.0
-offset_top = -40.0
-offset_right = 40.0
-grow_vertical = 0
+offset_top = 3.0
+offset_right = 105.0
+offset_bottom = 3.0
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="CenterContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+layout_mode = 2
 alignment = 2
 
-[node name="Zagraj" type="Button" parent="VBoxContainer" groups=["UIButtons"]]
+[node name="Zagraj" type="Button" parent="CenterContainer/VBoxContainer" groups=["UIButtons"]]
 layout_mode = 2
 theme = SubResource("Theme_jlfp8")
 text = "Zagraj"
 
-[node name="Ustawienia" type="Button" parent="VBoxContainer" groups=["UIButtons"]]
+[node name="Ustawienia" type="Button" parent="CenterContainer/VBoxContainer" groups=["UIButtons"]]
 layout_mode = 2
 text = "Ustawienia"
 
-[node name="Wyjdz" type="Button" parent="VBoxContainer" groups=["UIButtons"]]
+[node name="Wyjdz" type="Button" parent="CenterContainer/VBoxContainer" groups=["UIButtons"]]
 layout_mode = 2
 text = "Wyjdź"
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("2_jlfp8")
+[node name="SettingsUI" parent="." instance=ExtResource("2_8ew7s")]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.0
+grow_vertical = 1
