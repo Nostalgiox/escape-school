@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://dxmt7cndti7xy"]
+
+[ext_resource type="ArrayMesh" uid="uid://b78n4wn78krpc" path="res://scenes/Level1/assets/book_mesh.res" id="1_nlvxp"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_nlvxp"]
+size = Vector3(0.10498047, 0.37646484, 0.30368042)
+
+[node name="BookOnFloor" type="RigidBody3D"]
+disable_mode = 2
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
+mesh = ExtResource("1_nlvxp")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.14672852, -0.22485352, -0.013259888)
+shape = SubResource("BoxShape3D_nlvxp")

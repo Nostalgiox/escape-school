@@ -2,13 +2,13 @@
 
 [ext_resource type="Script" uid="uid://cdkiywahxr5bb" path="res://Inventory/InventorySlot.gd" id="1_3b2p6"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hosvb"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1h2uy"]
 bg_color = Color(0.180392, 0.2, 0.211765, 1)
 border_width_left = 3
 border_width_top = 3
 border_width_right = 3
 border_width_bottom = 3
-border_color = Color(0.8, 0.8, 0.8, 0.733333)
+border_color = Color(0.8, 0.8, 0.8, 0.0980392)
 border_blend = true
 corner_radius_top_left = 5
 corner_radius_top_right = 5
@@ -34,13 +34,13 @@ shadow_color = Color(0, 0, 0, 0.109804)
 shadow_size = 1
 shadow_offset = Vector2(0, 2)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1h2uy"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hosvb"]
 bg_color = Color(0.180392, 0.2, 0.211765, 1)
 border_width_left = 3
 border_width_top = 3
 border_width_right = 3
 border_width_bottom = 3
-border_color = Color(0.8, 0.8, 0.8, 0.0980392)
+border_color = Color(0.8, 0.8, 0.8, 0.733333)
 border_blend = true
 corner_radius_top_left = 5
 corner_radius_top_right = 5
@@ -71,9 +71,9 @@ custom_minimum_size = Vector2(64, 64)
 offset_right = 64.0
 offset_bottom = 64.0
 focus_mode = 0
-theme_override_styles/hover = SubResource("StyleBoxFlat_hosvb")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_faiu1")
 theme_override_styles/normal = SubResource("StyleBoxFlat_1h2uy")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_faiu1")
+theme_override_styles/hover = SubResource("StyleBoxFlat_hosvb")
 script = ExtResource("1_3b2p6")
 EquippedHighlight = NodePath("EquipedHighlight")
 IconSlot = NodePath("TextureRect")

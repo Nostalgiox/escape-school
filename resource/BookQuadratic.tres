@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=2 format=3 uid="uid://vp3vwhv1hwq6"]
+
+[ext_resource type="Script" uid="uid://dlr5ccd40vty0" path="res://Inventory/ItemData.gd" id="1_oh5ql"]
+
+[resource]
+script = ExtResource("1_oh5ql")
+DetailsText = "[b]Funkcja kwadratowa[/b]
+f(x) = ax^2 + bx + c, a ≠ 0
+
+[b]Wykres:[/b] parabola
+– a > 0: ramiona w górę
+– a < 0: ramiona w dół
+
+[b]Delta:[/b] Δ = b^2 − 4ac
+– Δ > 0: dwa miejsca zerowe x₁,₂ = (−b ± √Δ)/(2a)
+– Δ = 0: jedno miejsce zerowe x₀ = −b/(2a)
+– Δ < 0: brak miejsc zerowych
+
+[b]Wierzchołek:[/b] (xw, yw) = ( −b/(2a), −Δ/(4a) )
+[b]Oś symetrii:[/b] x = −b/(2a)
+[b]Przecięcie z OY:[/b] f(0) = c
+
+[b]Przykład:[/b] f(x) = x^2 − 5x + 6 → Δ = 25 − 24 = 1,
+x₁ = 2, x₂ = 3, wierzchołek (2.5, −0.25)"
+ShortDescription = "Notatki o funkcji kwadratowej."
+metadata/_custom_type_script = "uid://dlr5ccd40vty0"

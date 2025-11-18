@@ -6,6 +6,7 @@ extends CharacterBody3D
 @onready var animator : AnimationPlayer = $"../AnimationPlayer"
 @onready var inventory_ui : Control = $InventoryUI
 @onready var raycast = $CameraContainer/Camera3D/interact_raycast
+@onready var camera : Camera3D = $CameraContainer/Camera3D
 
 var can_open_door = false
 
@@ -14,26 +15,49 @@ const JUMP_VELOCITY = 4.5
 
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	if camera:
+		camera.fov = Global.fov
+	Global.fov_changed.connect(_on_global_fov_changed)
+
+func _on_global_fov_changed(new_fov: float) -> void:
+	if camera:
+		camera.fov = new_fov
 
 func _input(event: InputEvent) -> void:
 	if (event.is_action_pressed("ui_cancel")):
-		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED if (Input.mouse_mode == Input.MOUSE_MODE_VISIBLE) else Input.MOUSE_MODE_VISIBLE
+		var invh = $InventoryHandler
+		if invh and invh.IsDetailsOpen():
+			invh.CloseItemDetails()
+			get_viewport().set_input_as_handled()
+			return
+			# print("Closing item details")
+		if inventory_ui.visible:
+			inventory_ui.visible = false
+			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED 
+			get_viewport().set_input_as_handled()
+			return
+		if get_tree().paused:
+			$PauseMenu.unpause()
+		else:
+			$PauseMenu.pause()
+		get_viewport().set_input_as_handled()
+		return
 	
 	if (event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED):
 		rotate_y(deg_to_rad(-event.relative.x) * Global.mouse_sensitivity)
 		CameraContainerNode.rotation.x = clamp(CameraContainerNode.rotation.x - event.relative.y * (Global.mouse_sensitivity / 50), deg_to_rad(-45), deg_to_rad(45))
-	if(event.is_action_pressed("open")):
-		if(!can_open_door):
-			open_door()
-		else:
-			close_door()
+
 	if (event.is_action_pressed("inventory")):
+		if get_tree().paused:
+			return
 		inventory_ui.visible = !inventory_ui.visible
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE if inventory_ui.visible else Input.MOUSE_MODE_CAPTURED
-
-func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_cancel"):
-		$PauseMenu.pause()
+		if not inventory_ui.visible:
+			var invh = $InventoryHandler
+			if invh:
+				invh.CloseItemDetails()
+		get_viewport().set_input_as_handled()
+		return
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.

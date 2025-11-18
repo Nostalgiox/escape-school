@@ -2,7 +2,7 @@ extends CanvasLayer
 
 @onready var color_rect : ColorRect = $ColorRect
 @onready var progress_bar : ProgressBar = $ColorRect/ProgressBar
-@onready var anim_player : AnimationPlayer = $"../AnimationPlayer"
+@onready var anim_player : AnimationPlayer = $"AnimationPlayer"
 
 var loading = false
 var _loading_target_scene : String = ""
@@ -13,6 +13,9 @@ func _ready():
 	if progress_bar:
 		progress_bar.visible = false
 	print_debug("[FadeLayer] ready - visible = false")
+
+	if not anim_player.animation_finished.is_connected(_on_animation_player_animation_finished):
+		anim_player.animation_finished.connect(_on_animation_player_animation_finished)
 	
 	if Global.should_fade_in_on_load:
 		print_debug("[FadeLayer] should_fade_in_on_load = true, fading in")

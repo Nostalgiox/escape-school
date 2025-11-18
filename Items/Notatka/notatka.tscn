@@ -1,16 +1,11 @@
-[gd_scene load_steps=12 format=3 uid="uid://bgqhmoyjejr8v"]
+[gd_scene load_steps=11 format=3 uid="uid://bgqhmoyjejr8v"]
 
 [ext_resource type="Script" uid="uid://dcywnmle2jte6" path="res://Items/Notatka/Notatka.gd" id="1_ik8ql"]
+[ext_resource type="ArrayMesh" uid="uid://b78n4wn78krpc" path="res://scenes/Level1/assets/book_mesh.res" id="2_0y514"]
 [ext_resource type="Script" uid="uid://cpl20uhf5cl1r" path="res://Items/Notatka/info_panel.gd" id="2_4xefr"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ik8ql"]
 radius = 2.69847
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4xefr"]
-albedo_color = Color(0.462745, 1, 1, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_0y514"]
-material = SubResource("StandardMaterial3D_4xefr")
 
 [sub_resource type="FontFile" id="FontFile_ik8ql"]
 subpixel_positioning = 0
@@ -102,7 +97,8 @@ script = ExtResource("1_ik8ql")
 shape = SubResource("SphereShape3D_ik8ql")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-mesh = SubResource("BoxMesh_0y514")
+transform = Transform3D(-8.742278e-08, -2, 0, 2, -8.742278e-08, 0, 0, 0, 2, -0.34120438, 0.73874635, 0)
+mesh = ExtResource("2_0y514")
 
 [node name="Label3D" type="Label3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.07658, 0)
@@ -143,7 +139,11 @@ offset_right = -42.0
 offset_bottom = -92.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "Witaj w Escape School! Twoim zadaniem jest rozwiązywanie zagadek matematycznych, aby wydostać się z kolejnych sal szkoły. Każdy pokój to nowe wyzwanie, a im dalej zajdziesz, tym trudniejsze będą zadania. Powodzenia!"
+text = "Witaj w Escape School! Budzisz się w opustoszałej szkole. Drzwi są zamknięte, a jedyna droga na zewnątrz wiedzie przez serię zagadek i łamigłówek matematycznych. Każda sala to nowe wyzwanie – od prostych działań i ułamków, przez równania i procenty, aż po logarytmy i sprytne łamigłówki logiczne. Szukaj wskazówek w książkach, na tablicach, w notatkach i urządzeniach – wszystko może kryć trop. Czasem otrzymasz cyfrę, innym razem symbol lub fragment kodu; łącz je, by otwierać kłódki, sejfy i drzwi prowadzące dalej.
+
+Rozglądaj się uważnie, poruszaj (domyślnie WSAD), a przyciskiem F wchodź w interakcje z otoczeniem. Zebrane przedmioty i notatki znajdziesz w ekwipunku (I). Nie spiesz się – błędy to część nauki, a każda kolejna sala będzie odrobinę trudniejsza. Zapisuj to, co wydaje się ważne, a jeśli utkniesz, wróć do wskazówek i spróbuj połączyć fakty na nowo.
+
+Twoim celem jest uciec ze szkoły. Twoją bronią – spostrzegawczość, logika i odrobina odwagi. Powodzenia!"
 autowrap_mode = 2
 
 [node name="Button" type="Button" parent="CanvasLayer/InfoPanel"]

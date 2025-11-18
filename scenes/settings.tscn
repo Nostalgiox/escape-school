@@ -1,7 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://yhkjeo8u6sf1"]
+[gd_scene load_steps=2 format=3 uid="uid://yhkjeo8u6sf1"]
 
 [ext_resource type="Script" uid="uid://bj6x3w5uf1mkv" path="res://scripts/settings.gd" id="1_5p8wc"]
-[ext_resource type="AudioStream" uid="uid://b0s6a5eofnfhb" path="res://scenes/ui/mouse-click-290204.mp3" id="2_r6d6q"]
 
 [node name="SettingsUI" type="Control"]
 layout_mode = 3
@@ -23,19 +22,16 @@ color = Color(0, 0, 0, 0.501961)
 
 [node name="Zapisz" type="Button" parent="."]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -58.0
-offset_top = -15.5
-offset_right = 58.0
-offset_bottom = 15.5
-grow_horizontal = 2
-grow_vertical = 2
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -116.0
+offset_top = -31.0
+grow_horizontal = 0
+grow_vertical = 0
 text = "Zapisz zmiany"
-metadata/_edit_use_anchors_ = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -98,7 +94,10 @@ text = "Gamma"
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
 size_flags_horizontal = 10
-value = 100.0
+min_value = 0.5
+max_value = 1.5
+step = 0.01
+value = 1.0
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/PanelContainer/GrafikaPanel"]
 layout_mode = 2
@@ -111,7 +110,8 @@ text = "FOV"
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
 size_flags_horizontal = 10
-value = 100.0
+min_value = 60.0
+value = 75.0
 
 [node name="ShadowsOption" type="ItemList" parent="VBoxContainer/PanelContainer/GrafikaPanel"]
 layout_mode = 2
@@ -148,7 +148,9 @@ text = "SFX"
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
 size_flags_horizontal = 10
-value = 100.0
+max_value = 1.0
+step = 0.01
+value = 1.0
 
 [node name="HBoxContainer4" type="HBoxContainer" parent="VBoxContainer/PanelContainer/DzwiekPanel"]
 layout_mode = 2
@@ -161,7 +163,9 @@ text = "Muzyka"
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
 size_flags_horizontal = 10
-value = 100.0
+max_value = 1.0
+step = 0.01
+value = 1.0
 
 [node name="MuteCheckbox" type="CheckBox" parent="VBoxContainer/PanelContainer/DzwiekPanel"]
 layout_mode = 2
@@ -176,9 +180,17 @@ text = "Czułość myszy"
 
 [node name="MouseSensitivitySlider" type="HSlider" parent="VBoxContainer/PanelContainer/SterowaniePanel"]
 layout_mode = 2
+max_value = 1.0
+step = 0.01
+
+[node name="Bindings" type="VBoxContainer" parent="VBoxContainer/PanelContainer/SterowaniePanel"]
+layout_mode = 2
 
 [node name="InnePanel" type="VBoxContainer" parent="VBoxContainer/PanelContainer"]
 layout_mode = 2
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("2_r6d6q")
+[node name="SFX" type="AudioStreamPlayer" parent="."]
+bus = &"SFX"
+
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
+bus = &"Music"

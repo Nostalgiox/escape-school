@@ -1,5 +1,7 @@
 extends Control
 
+signal monolog_finished
+
 @onready var monolog_panel = $MonologPanel
 @onready var monolog_label = $MonologPanel/MonologLabel
 
@@ -61,5 +63,7 @@ func _process(delta: float) -> void:
 			if current_line_index < dialog_lines.size():
 				_start_line(dialog_lines[current_line_index])
 			else:
+				# KONIEC DIALOGU
 				is_showing = false
 				monolog_panel.visible = false
+				emit_signal("monolog_finished")

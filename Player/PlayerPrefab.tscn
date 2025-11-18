@@ -1,12 +1,14 @@
-[gd_scene load_steps=17 format=3 uid="uid://cr16qvxkng034"]
+[gd_scene load_steps=20 format=3 uid="uid://cr16qvxkng034"]
 
 [ext_resource type="Script" uid="uid://c4hufc8gty534" path="res://Player/PlayerController.gd" id="1_lqs8g"]
 [ext_resource type="Script" uid="uid://bfbu2ih0dvxc2" path="res://Player/Interaction/PlayerInteractionHandler.gd" id="2_kykvu"]
 [ext_resource type="Script" uid="uid://dlr5ccd40vty0" path="res://Inventory/ItemData.gd" id="3_05jue"]
 [ext_resource type="PackedScene" uid="uid://cuiklvlmyu8n6" path="res://Inventory/TestCube.tscn" id="4_g74hu"]
 [ext_resource type="Texture2D" uid="uid://djx5ov4jr3f3i" path="res://Textures/BoxIcon.png" id="4_s6nxe"]
+[ext_resource type="Texture2D" uid="uid://0ijqqtxog35i" path="res://scenes/Level1/materials/book.jpg" id="6_l1aap"]
 [ext_resource type="PackedScene" uid="uid://c8oest5454tl4" path="res://scenes/pauseMenu.tscn" id="7_a0mcx"]
 [ext_resource type="Script" uid="uid://clulriu3kevem" path="res://Inventory/InventoryHandler.gd" id="7_lpwd7"]
+[ext_resource type="PackedScene" uid="uid://cmx8prd4y05sp" path="res://scenes/Level1/scenes/Book.tscn" id="7_ttj6a"]
 [ext_resource type="Script" uid="uid://colar6wdxgvfi" path="res://Player/fade_layer.gd" id="8_lpwd7"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_jqxt5"]
@@ -17,6 +19,36 @@
 script = ExtResource("3_05jue")
 Icon = ExtResource("4_s6nxe")
 ItemModelPrefab = ExtResource("4_g74hu")
+DetailsText = "Testowa kostka"
+ShortDescription = "kostka"
+metadata/_custom_type_script = "uid://dlr5ccd40vty0"
+
+[sub_resource type="Resource" id="Resource_73ll8"]
+script = ExtResource("3_05jue")
+ItemName = "BookQuadratic"
+Icon = ExtResource("6_l1aap")
+ItemModelPrefab = ExtResource("7_ttj6a")
+DetailsText = "[font_size=14]
+[b]Funkcja kwadratowa[/b]
+f(x) = ax^2 + bx + c, a ≠ 0
+
+[b]Wykres:[/b] parabola
+– a > 0: ramiona w górę
+– a < 0: ramiona w dół
+
+[b]Delta:[/b] Δ = b^2 − 4ac
+– Δ > 0: dwa miejsca zerowe x₁,₂ = (−b ± √Δ)/(2a)
+– Δ = 0: jedno miejsce zerowe x₀ = −b/(2a)
+– Δ < 0: brak miejsc zerowych
+
+[b]Wierzchołek:[/b] (xw, yw) = ( −b/(2a), −Δ/(4a) )
+[b]Oś symetrii:[/b] x = −b/(2a)
+[b]Przecięcie z OY:[/b] f(0) = c
+
+[b]Przykład:[/b] f(x) = x^2 − 5x + 6 → Δ = 25 − 24 = 1,
+x₁ = 2, x₂ = 3, wierzchołek (2.5, −0.25)
+[/font_size]"
+ShortDescription = " Notatki o funkcji kwadratowej."
 metadata/_custom_type_script = "uid://dlr5ccd40vty0"
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_kv1ul"]
@@ -98,12 +130,12 @@ cull_mask = 786431
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("2_kykvu")
-ItemTypes = Array[ExtResource("3_05jue")]([SubResource("Resource_b7jcg")])
+ItemTypes = Array[ExtResource("3_05jue")]([SubResource("Resource_b7jcg"), SubResource("Resource_73ll8")])
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="InteractionArea"]
 shape = SubResource("SphereShape3D_kv1ul")
 
-[node name="InventoryUI" type="Control" parent="." node_paths=PackedStringArray("PlayerBody", "InventoryGrid")]
+[node name="InventoryUI" type="Control" parent="." node_paths=PackedStringArray("PlayerBody", "InventoryGrid", "DetailsRoot", "PreviewContainer", "PreviewViewport", "PreviewRoot", "PreviewCamera", "PreviewTitle", "PreviewDesc")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -113,22 +145,50 @@ grow_vertical = 2
 script = ExtResource("7_lpwd7")
 PlayerBody = NodePath("..")
 CollisionMask = 1
-InventoryGrid = NodePath("Panel/MarginContainer/InventoryGrid")
+ItemSlotsCount = 56
+InventoryGrid = NodePath("HSplitContainer/LeftPane/MarginContainer/VBoxContainer/InventoryGrid")
+DetailsRoot = NodePath("DetailsRoot")
+PreviewContainer = NodePath("HSplitContainer/RightPane/MarginContainer/VBoxContainer/PreviewContainer")
+PreviewViewport = NodePath("HSplitContainer/RightPane/MarginContainer/VBoxContainer/PreviewContainer/SubViewport")
+PreviewRoot = NodePath("HSplitContainer/RightPane/MarginContainer/VBoxContainer/PreviewContainer/SubViewport/PreviewRoot")
+PreviewCamera = NodePath("HSplitContainer/RightPane/MarginContainer/VBoxContainer/PreviewContainer/SubViewport/PreviewRoot/PreviewCamera")
+PreviewTitle = NodePath("HSplitContainer/RightPane/MarginContainer/VBoxContainer/PreviewTitle")
+PreviewDesc = NodePath("HSplitContainer/RightPane/MarginContainer/VBoxContainer/PreviewDesc")
 
-[node name="Panel" type="Panel" parent="InventoryUI"]
-custom_minimum_size = Vector2(100, 100)
+[node name="Label" type="Label" parent="InventoryUI"]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 1152.0
+offset_bottom = 28.0
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 40
+text = "Plecak"
+horizontal_alignment = 1
+
+[node name="DetailsRoot" type="Control" parent="InventoryUI"]
 layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
+anchors_preset = 15
+anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 49.0
-offset_top = -328.0
-offset_right = 414.0
-offset_bottom = -43.0
-grow_vertical = 0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HSplitContainer" type="HSplitContainer" parent="InventoryUI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 60.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LeftPane" type="Panel" parent="InventoryUI/HSplitContainer"]
+custom_minimum_size = Vector2(600, 100)
+layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_q84h6")
 
-[node name="MarginContainer" type="MarginContainer" parent="InventoryUI/Panel"]
+[node name="MarginContainer" type="MarginContainer" parent="InventoryUI/HSplitContainer/LeftPane"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -140,17 +200,75 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="InventoryGrid" type="GridContainer" parent="InventoryUI/Panel/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="InventoryUI/HSplitContainer/LeftPane/MarginContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
+
+[node name="InventoryGrid" type="GridContainer" parent="InventoryUI/HSplitContainer/LeftPane/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
 theme_override_constants/h_separation = 5
 theme_override_constants/v_separation = 5
-columns = 5
+columns = 7
+
+[node name="RightPane" type="Panel" parent="InventoryUI/HSplitContainer"]
+custom_minimum_size = Vector2(360, 0)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="InventoryUI/HSplitContainer/RightPane"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.99100006
+offset_bottom = 0.2919922
+
+[node name="VBoxContainer" type="VBoxContainer" parent="InventoryUI/HSplitContainer/RightPane/MarginContainer"]
+layout_mode = 2
+
+[node name="PreviewTitle" type="Label" parent="InventoryUI/HSplitContainer/RightPane/MarginContainer/VBoxContainer"]
+layout_mode = 2
+horizontal_alignment = 1
+
+[node name="PreviewContainer" type="SubViewportContainer" parent="InventoryUI/HSplitContainer/RightPane/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(320, 220)
+layout_mode = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="InventoryUI/HSplitContainer/RightPane/MarginContainer/VBoxContainer/PreviewContainer"]
+handle_input_locally = false
+size = Vector2i(540, 220)
+render_target_update_mode = 4
+
+[node name="PreviewRoot" type="Node3D" parent="InventoryUI/HSplitContainer/RightPane/MarginContainer/VBoxContainer/PreviewContainer/SubViewport"]
+
+[node name="PreviewCamera" type="Camera3D" parent="InventoryUI/HSplitContainer/RightPane/MarginContainer/VBoxContainer/PreviewContainer/SubViewport/PreviewRoot"]
+
+[node name="PreviewDesc" type="RichTextLabel" parent="InventoryUI/HSplitContainer/RightPane/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 16
+theme_override_font_sizes/bold_font_size = 16
+theme_override_font_sizes/bold_italics_font_size = 16
+theme_override_font_sizes/italics_font_size = 16
+theme_override_font_sizes/mono_font_size = 16
+bbcode_enabled = true
+
+[node name="ContextMenuRoot" type="Control" parent="InventoryUI"]
+visible = false
+anchors_preset = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+mouse_filter = 2
 
 [node name="PauseMenu" parent="." groups=["player"] instance=ExtResource("7_a0mcx")]
 
 [node name="FadeLayer" type="CanvasLayer" parent="."]
+visible = false
 script = ExtResource("8_lpwd7")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="FadeLayer"]
+root_node = NodePath("../..")
+libraries = {
+&"": SubResource("AnimationLibrary_q84h6")
+}
 
 [node name="ColorRect" type="ColorRect" parent="FadeLayer"]
 anchors_preset = 15
@@ -158,7 +276,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 0)
+color = Color(0, 0, 0, 1)
 
 [node name="ProgressBar" type="ProgressBar" parent="FadeLayer/ColorRect"]
 layout_mode = 1
@@ -174,12 +292,7 @@ offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_q84h6")
-}
-
 [connection signal="OnItemPickedUp" from="InteractionArea" to="InventoryUI" method="PickupItem"]
 [connection signal="body_entered" from="InteractionArea" to="InteractionArea" method="OnObjectEnteredArea"]
 [connection signal="body_exited" from="InteractionArea" to="InteractionArea" method="OnObjectExitedArea"]
-[connection signal="animation_finished" from="AnimationPlayer" to="FadeLayer" method="_on_animation_player_animation_finished"]
+[connection signal="animation_finished" from="FadeLayer/AnimationPlayer" to="FadeLayer" method="_on_animation_player_animation_finished"]
