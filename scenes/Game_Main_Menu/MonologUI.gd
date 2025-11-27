@@ -1,69 +1,91 @@
 extends Control
+class_name MonologUI
 
 signal monolog_finished
 
-@onready var monolog_panel = $MonologPanel
-@onready var monolog_label = $MonologPanel/MonologLabel
+@onready var panel := $MonologPanel
+@onready var label := $MonologPanel/MonologLabel
 
-var dialog_lines : Array[String] = []
-var current_line_index : int = 0
-var time_per_line : float = 2.50
-var is_showing : bool = false
-var wait_timer: float = 0.0
+var lines: Array[String] = []
+var current := 0
+var show_speed := 0.03
+var auto_time := 2.0
 
-#typewriter effect
-var full_text : String = ""
-var displayed_text : String = ""
-var letter_timer : float = 0.0
-var letter_interval : float = 0.05
-var current_char_index : int = 0
-var line_fully_displayed : bool = false
+var _full := ""
+var _shown := ""
+var _timer := 0.0
+var _index := 0
+var _typing := false
+var _waiting := false
 
 func _ready():
-	start_monolog([
-		"Ale tutaj jakoś dziwnie...",
-		"Czuję sie nieswojo",
-		"Czy któs tu był wcześniej?"
-	], 2.5)
+	visible = false
+	panel.visible = false
 
-func start_monolog(lines: Array[String], duration_per_line: float = 2.5):
-	is_showing = false
-	dialog_lines = lines
-	time_per_line = duration_per_line
-	current_line_index = 0
-	is_showing = true
-	monolog_panel.visible = true
-	_start_line(dialog_lines[current_line_index])
+
+# ============================
+#      PUBLIC FUNCTION
+# ============================
+func start_monolog(text_lines: Array[String], per_line_time: float = 2.0):
+	if text_lines.is_empty(): return
 	
-func _start_line(text : String):
-	full_text = text
-	displayed_text = ""
-	current_char_index = 0
-	letter_timer = 0.0
-	line_fully_displayed = false
-	monolog_label.text = ""
+	lines = text_lines
+	auto_time = per_line_time
+	current = 0
+	
+	visible = true
+	panel.visible = true
+
+	_start_line(lines[current])
+
+
+# ============================
+#    INTERNAL FLOW
+# ============================
+func _start_line(t: String):
+	_full = t
+	_index = 0
+	_shown = ""
+	_typing = true
+	_waiting = false
+	label.text = ""
+
 
 func _process(delta: float) -> void:
-	if not is_showing:
+	if not visible:
 		return
-	if not line_fully_displayed:
-		letter_timer += delta
-		if letter_timer >= letter_interval and current_char_index < full_text.length():
-			displayed_text += full_text[current_char_index]
-			monolog_label.text = displayed_text
-			current_char_index += 1
-			letter_timer = 0.0
-		if current_char_index >= full_text.length():
-			line_fully_displayed = true
-			wait_timer = 0.0
-	else:
-		wait_timer += delta
-		if wait_timer >= time_per_line:
-			current_line_index += 1
-			if current_line_index < dialog_lines.size():
-				_start_line(dialog_lines[current_line_index])
+
+	# TYPEWRITER PHASE
+	if _typing:
+		_timer += delta
+		if _timer >= show_speed:
+			_timer = 0.0
+			if _index < _full.length():
+				_shown += _full[_index]
+				_index += 1
+				label.text = _shown
 			else:
-				# KONIEC DIALOGU
-				is_showing = false
-				monolog_panel.visible = false
-				emit_signal("monolog_finished")
+				_typing = false
+				_waiting = true
+				_timer = 0.0
+		return
+
+	# WAIT PHASE
+	if _waiting:
+		_timer += delta
+		if _timer >= auto_time:
+			_next_line()
+
+
+func _next_line():
+	current += 1
+	if current >= lines.size():
+		_finish()
+	else:
+		_start_line(lines[current])
+
+
+func _finish():
+	visible = false
+	panel.visible = false
+	emit_signal("monolog_finished")

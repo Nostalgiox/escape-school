@@ -1,0 +1,31 @@
+[gd_scene load_steps=3 format=3 uid="uid://c1xgbglj66kfw"]
+
+[ext_resource type="Script" uid="uid://b5ar5cwya0sut" path="res://scripts/MeasurementDropUI.gd" id="1_51vlf"]
+[ext_resource type="Script" uid="uid://cdkiywahxr5bb" path="res://Inventory/InventorySlot.gd" id="2_cgf43"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_51vlf")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="InventorySlot" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("2_cgf43")
+metadata/_custom_type_script = "uid://cdkiywahxr5bb"

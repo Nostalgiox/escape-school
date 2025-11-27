@@ -1,15 +1,23 @@
-[gd_scene load_steps=20 format=3 uid="uid://cr16qvxkng034"]
+[gd_scene load_steps=32 format=3 uid="uid://cr16qvxkng034"]
 
 [ext_resource type="Script" uid="uid://c4hufc8gty534" path="res://Player/PlayerController.gd" id="1_lqs8g"]
 [ext_resource type="Script" uid="uid://bfbu2ih0dvxc2" path="res://Player/Interaction/PlayerInteractionHandler.gd" id="2_kykvu"]
 [ext_resource type="Script" uid="uid://dlr5ccd40vty0" path="res://Inventory/ItemData.gd" id="3_05jue"]
 [ext_resource type="PackedScene" uid="uid://cuiklvlmyu8n6" path="res://Inventory/TestCube.tscn" id="4_g74hu"]
-[ext_resource type="Texture2D" uid="uid://djx5ov4jr3f3i" path="res://Textures/BoxIcon.png" id="4_s6nxe"]
-[ext_resource type="Texture2D" uid="uid://0ijqqtxog35i" path="res://scenes/Level1/materials/book.jpg" id="6_l1aap"]
+[ext_resource type="Texture2D" uid="uid://cde2lfye63set" path="res://Items/Books/RedBookInventory.png" id="5_46m5n"]
+[ext_resource type="Texture2D" uid="uid://0uyckee4igr0" path="res://Items/Books/BlueBookInventory.png" id="7_73ll8"]
 [ext_resource type="PackedScene" uid="uid://c8oest5454tl4" path="res://scenes/pauseMenu.tscn" id="7_a0mcx"]
+[ext_resource type="Texture2D" uid="uid://c0lwuffmm312u" path="res://Items/Klucz/key.png" id="7_jn4p5"]
 [ext_resource type="Script" uid="uid://clulriu3kevem" path="res://Inventory/InventoryHandler.gd" id="7_lpwd7"]
 [ext_resource type="PackedScene" uid="uid://cmx8prd4y05sp" path="res://scenes/Level1/scenes/Book.tscn" id="7_ttj6a"]
 [ext_resource type="Script" uid="uid://colar6wdxgvfi" path="res://Player/fade_layer.gd" id="8_lpwd7"]
+[ext_resource type="PackedScene" uid="uid://7dxic084whck" path="res://Items/Books/blue_book.tscn" id="8_mxh34"]
+[ext_resource type="Texture2D" uid="uid://crruew6hfx881" path="res://Items/Books/GreenBookInventory.png" id="9_46m5n"]
+[ext_resource type="PackedScene" uid="uid://dwepsd0yovnp3" path="res://Items/Klucz/key.tscn" id="9_mxh34"]
+[ext_resource type="PackedScene" uid="uid://e31k2xr5kk87" path="res://Items/Books/green_book.tscn" id="10_uff31"]
+[ext_resource type="Texture2D" uid="uid://b876c5h5r20ks" path="res://Items/Linijka/ruler.png" id="12_8wo0o"]
+[ext_resource type="PackedScene" uid="uid://nmtalb8anxun" path="res://Items/Linijka/ruler.tscn" id="13_6wxwc"]
+[ext_resource type="PackedScene" uid="uid://c1xgbglj66kfw" path="res://Inventory/MeasurementDropUI.tscn" id="15_6wxwc"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_jqxt5"]
 
@@ -17,26 +25,24 @@
 
 [sub_resource type="Resource" id="Resource_b7jcg"]
 script = ExtResource("3_05jue")
-Icon = ExtResource("4_s6nxe")
 ItemModelPrefab = ExtResource("4_g74hu")
 DetailsText = "Testowa kostka"
-ShortDescription = "kostka"
 metadata/_custom_type_script = "uid://dlr5ccd40vty0"
 
 [sub_resource type="Resource" id="Resource_73ll8"]
 script = ExtResource("3_05jue")
 ItemName = "BookQuadratic"
-Icon = ExtResource("6_l1aap")
+Icon = ExtResource("5_46m5n")
 ItemModelPrefab = ExtResource("7_ttj6a")
 DetailsText = "[font_size=14]
 [b]Funkcja kwadratowa[/b]
-f(x) = ax^2 + bx + c, a ≠ 0
+f(x) = ax²  + bx + c, a ≠ 0
 
 [b]Wykres:[/b] parabola
 – a > 0: ramiona w górę
 – a < 0: ramiona w dół
 
-[b]Delta:[/b] Δ = b^2 − 4ac
+[b]Delta:[/b] Δ = b²  − 4ac
 – Δ > 0: dwa miejsca zerowe x₁,₂ = (−b ± √Δ)/(2a)
 – Δ = 0: jedno miejsce zerowe x₀ = −b/(2a)
 – Δ < 0: brak miejsc zerowych
@@ -45,10 +51,71 @@ f(x) = ax^2 + bx + c, a ≠ 0
 [b]Oś symetrii:[/b] x = −b/(2a)
 [b]Przecięcie z OY:[/b] f(0) = c
 
-[b]Przykład:[/b] f(x) = x^2 − 5x + 6 → Δ = 25 − 24 = 1,
+[b]Przykład:[/b] f(x) = x²  − 5x + 6 → Δ = 25 − 24 = 1,
 x₁ = 2, x₂ = 3, wierzchołek (2.5, −0.25)
 [/font_size]"
-ShortDescription = " Notatki o funkcji kwadratowej."
+metadata/_custom_type_script = "uid://dlr5ccd40vty0"
+
+[sub_resource type="Resource" id="Resource_mxh34"]
+script = ExtResource("3_05jue")
+ItemName = "Klucz do drzwi wejściowych"
+Icon = ExtResource("7_jn4p5")
+ItemModelPrefab = ExtResource("9_mxh34")
+DetailsText = "[b] Klucz do drzwi...
+[/b]"
+metadata/_custom_type_script = "uid://dlr5ccd40vty0"
+
+[sub_resource type="Resource" id="Resource_46m5n"]
+script = ExtResource("3_05jue")
+ItemName = "Książka"
+Icon = ExtResource("7_73ll8")
+ItemModelPrefab = ExtResource("8_mxh34")
+DetailsText = "[font_size=14]
+[b]Zadanie z funkcją kwadratową[/b]
+
+Rozwiąż równanie korzystając z delty:
+
+[b]f(x) = 2x² − 6x − 8 = 0[/b]
+
+Skorzystaj z wzoru:
+Δ = b² − 4ac
+x₁,₂ = (−b ± √Δ) / (2a)
+
+Po obliczeniu delty wyznacz oba miejsca zerowe.
+Zanotuj wszystkie rozwiązania x.
+[/font_size]
+"
+ShortDescription = "Stara niebieska książka"
+metadata/_custom_type_script = "uid://dlr5ccd40vty0"
+
+[sub_resource type="Resource" id="Resource_8wo0o"]
+script = ExtResource("3_05jue")
+ItemName = "Zielona książka"
+Icon = ExtResource("9_46m5n")
+ItemModelPrefab = ExtResource("10_uff31")
+DetailsText = "[font_size=14]
+[b]Równanie liniowe[/b]
+
+Rozwiąż równanie:
+
+[b](3x − 4)/2 = 5 − x[/b]
+
+Doprowadź równanie do postaci:
+Ax + B = C
+
+Następnie wyznacz x.
+[/font_size]
+"
+ShortDescription = "Stara zielona książka"
+metadata/_custom_type_script = "uid://dlr5ccd40vty0"
+
+[sub_resource type="Resource" id="Resource_jn4p5"]
+script = ExtResource("3_05jue")
+ItemName = "Linijka 30cm"
+Icon = ExtResource("12_8wo0o")
+ItemModelPrefab = ExtResource("13_6wxwc")
+DetailsText = "[b]Może się do czegoś przyda...
+[/b]"
 metadata/_custom_type_script = "uid://dlr5ccd40vty0"
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_kv1ul"]
@@ -130,12 +197,12 @@ cull_mask = 786431
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("2_kykvu")
-ItemTypes = Array[ExtResource("3_05jue")]([SubResource("Resource_b7jcg"), SubResource("Resource_73ll8")])
+ItemTypes = Array[ExtResource("3_05jue")]([SubResource("Resource_b7jcg"), SubResource("Resource_73ll8"), SubResource("Resource_mxh34"), SubResource("Resource_46m5n"), SubResource("Resource_8wo0o"), SubResource("Resource_jn4p5")])
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="InteractionArea"]
 shape = SubResource("SphereShape3D_kv1ul")
 
-[node name="InventoryUI" type="Control" parent="." node_paths=PackedStringArray("PlayerBody", "InventoryGrid", "DetailsRoot", "PreviewContainer", "PreviewViewport", "PreviewRoot", "PreviewCamera", "PreviewTitle", "PreviewDesc")]
+[node name="InventoryUI" type="Control" parent="." node_paths=PackedStringArray("PlayerBody", "InventoryGrid", "DetailsRoot", "PreviewContainer", "PreviewViewport", "PreviewRoot", "PreviewCamera", "PreviewTitle", "PreviewDesc", "RightPane")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -145,7 +212,7 @@ grow_vertical = 2
 script = ExtResource("7_lpwd7")
 PlayerBody = NodePath("..")
 CollisionMask = 1
-ItemSlotsCount = 56
+ItemSlotsCount = 49
 InventoryGrid = NodePath("HSplitContainer/LeftPane/MarginContainer/VBoxContainer/InventoryGrid")
 DetailsRoot = NodePath("DetailsRoot")
 PreviewContainer = NodePath("HSplitContainer/RightPane/MarginContainer/VBoxContainer/PreviewContainer")
@@ -154,6 +221,8 @@ PreviewRoot = NodePath("HSplitContainer/RightPane/MarginContainer/VBoxContainer/
 PreviewCamera = NodePath("HSplitContainer/RightPane/MarginContainer/VBoxContainer/PreviewContainer/SubViewport/PreviewRoot/PreviewCamera")
 PreviewTitle = NodePath("HSplitContainer/RightPane/MarginContainer/VBoxContainer/PreviewTitle")
 PreviewDesc = NodePath("HSplitContainer/RightPane/MarginContainer/VBoxContainer/PreviewDesc")
+MeasurementDropUIPrefab = ExtResource("15_6wxwc")
+RightPane = NodePath("HSplitContainer/RightPane")
 
 [node name="Label" type="Label" parent="InventoryUI"]
 layout_mode = 0

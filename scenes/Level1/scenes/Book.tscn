@@ -22,9 +22,9 @@ emission = Color(0.92549, 0.917647, 0, 1)
 emission_energy_multiplier = 3.0
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_56xb4"]
-size = Vector3(0.104003906, 0.37036133, 0.33547974)
+size = Vector3(0.16210938, 0.49987793, 0.3719635)
 
-[node name="Book" type="RigidBody3D" node_paths=PackedStringArray("ItemHighlightMesh")]
+[node name="BookRed" type="RigidBody3D" node_paths=PackedStringArray("ItemHighlightMesh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.95556587, 0)
 collision_layer = 2
 collision_mask = 3

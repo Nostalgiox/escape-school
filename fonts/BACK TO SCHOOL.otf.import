@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://c5eb11e5lojmq"
-path="res://.godot/imported/DkCrayonCrumble-ddll.ttf-8b7ff154db001f282fd211be7e12cc1b.fontdata"
+uid="uid://r4nhmnce54jw"
+path="res://.godot/imported/BACK TO SCHOOL.otf-2122e06acb9652ec4bc71a5d17437a48.fontdata"
 
 [deps]
 
-source_file="res://scenes/Level1/fonts/DkCrayonCrumble-ddll.ttf"
-dest_files=["res://.godot/imported/DkCrayonCrumble-ddll.ttf-8b7ff154db001f282fd211be7e12cc1b.fontdata"]
+source_file="res://fonts/BACK TO SCHOOL.otf"
+dest_files=["res://.godot/imported/BACK TO SCHOOL.otf-2122e06acb9652ec4bc71a5d17437a48.fontdata"]
 
 [params]
 
