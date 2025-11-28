@@ -180,6 +180,7 @@ func _on_auto_close_timeout() -> void:
 func _close_door_deferred() -> void:
 	if animator and animator.has_animation(close_animation):
 		animator.play(close_animation)
+		door_open_player.play()
 		is_open = false
 
 
