@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://cr16qvxkng034"]
+[gd_scene load_steps=39 format=3 uid="uid://cr16qvxkng034"]
 
 [ext_resource type="Script" uid="uid://c4hufc8gty534" path="res://Player/PlayerController.gd" id="1_lqs8g"]
 [ext_resource type="Script" uid="uid://bfbu2ih0dvxc2" path="res://Player/Interaction/PlayerInteractionHandler.gd" id="2_kykvu"]
@@ -20,6 +20,8 @@
 [ext_resource type="PackedScene" uid="uid://c1xgbglj66kfw" path="res://Inventory/MeasurementDropUI.tscn" id="15_6wxwc"]
 [ext_resource type="Texture2D" uid="uid://ywd0vcexpp5t" path="res://Items/Klucz_level1/Klucz_level1.png" id="15_k3oe0"]
 [ext_resource type="PackedScene" uid="uid://635f3qscbudr" path="res://Items/Klucz_level1/level1_key.tscn" id="16_2wtmw"]
+[ext_resource type="PackedScene" uid="uid://b3lvc8svdu4pq" path="res://Items/pendrive.tscn" id="17_5c26t"]
+[ext_resource type="Texture2D" uid="uid://eq1xuye2w2r5" path="res://Items/pen.png" id="17_44rfi"]
 [ext_resource type="AudioStream" uid="uid://bimrutgugt3eh" path="res://assets/prolog/sounds/pickup.mp3" id="21_2wtmw"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_jqxt5"]
@@ -130,6 +132,14 @@ DetailsText = "[b] Klucz do otworzenia drzwi w pierwszym pokoju [/b]"
 ShortDescription = "Brązowy klucz"
 metadata/_custom_type_script = "uid://dlr5ccd40vty0"
 
+[sub_resource type="Resource" id="Resource_2wtmw"]
+script = ExtResource("3_05jue")
+ItemName = "Pendrive"
+Icon = ExtResource("17_44rfi")
+ItemModelPrefab = ExtResource("17_5c26t")
+DetailsText = "[b]Pnedrive... pewnie trzeba go gdzieś podpiąć...[/b]"
+metadata/_custom_type_script = "uid://dlr5ccd40vty0"
+
 [sub_resource type="SphereShape3D" id="SphereShape3D_kv1ul"]
 radius = 2.25705
 
@@ -209,7 +219,7 @@ cull_mask = 786431
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("2_kykvu")
-ItemTypes = Array[ExtResource("3_05jue")]([SubResource("Resource_b7jcg"), SubResource("Resource_73ll8"), SubResource("Resource_mxh34"), SubResource("Resource_46m5n"), SubResource("Resource_8wo0o"), SubResource("Resource_jn4p5"), SubResource("Resource_5c26t")])
+ItemTypes = Array[ExtResource("3_05jue")]([SubResource("Resource_b7jcg"), SubResource("Resource_73ll8"), SubResource("Resource_mxh34"), SubResource("Resource_46m5n"), SubResource("Resource_8wo0o"), SubResource("Resource_jn4p5"), SubResource("Resource_5c26t"), SubResource("Resource_2wtmw")])
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="InteractionArea"]
 shape = SubResource("SphereShape3D_kv1ul")

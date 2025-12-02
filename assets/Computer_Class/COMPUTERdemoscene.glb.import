@@ -15,9 +15,11 @@ dest_files=["res://.godot/imported/COMPUTERdemoscene.glb-1e0519d29a8e25dbd1fc692
 
 nodes/root_type=""
 nodes/root_name=""
+nodes/root_script=null
 nodes/apply_root_scale=true
 nodes/root_scale=1.0
 nodes/import_as_skeleton_bones=false
+nodes/use_name_suffixes=true
 nodes/use_node_type_suffixes=true
 meshes/ensure_tangents=true
 meshes/generate_lods=true
@@ -32,15 +34,28 @@ animation/trimming=false
 animation/remove_immutable_tracks=true
 animation/import_rest_as_RESET=false
 import_script/path=""
+materials/extract=0
+materials/extract_format=0
+materials/extract_path=""
 _subresources={
 "meshes": {
+"COMPUTERdemoscene_Cube_081": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 20.0,
+"save_to_file/enabled": true,
+"save_to_file/fallback_path": "res://scenes/Level1/Secondroom/monitor.res",
+"save_to_file/path": "uid://f4ywpukbkb0c"
+},
 "COMPUTERdemoscene_Cube_116": {
 "generate/lightmap_uv": 0,
 "generate/lods": 0,
 "generate/shadow_meshes": 0,
 "lods/normal_merge_angle": 60.0,
 "save_to_file/enabled": true,
-"save_to_file/path": "res://assets/Computer_Class/computer.res"
+"save_to_file/fallback_path": "res://assets/Computer_Class/computer.res",
+"save_to_file/path": "uid://bpmfoyhvj2loo"
 },
 "COMPUTERdemoscene_Cube_117": {
 "generate/lightmap_uv": 0,
@@ -48,7 +63,8 @@ _subresources={
 "generate/shadow_meshes": 0,
 "lods/normal_merge_angle": 60.0,
 "save_to_file/enabled": true,
-"save_to_file/path": "res://assets/Computer_Class/mouse.res"
+"save_to_file/fallback_path": "res://assets/Computer_Class/mouse.res",
+"save_to_file/path": "uid://b63we57em0acc"
 },
 "COMPUTERdemoscene_Cube_118": {
 "generate/lightmap_uv": 0,
@@ -56,7 +72,8 @@ _subresources={
 "generate/shadow_meshes": 0,
 "lods/normal_merge_angle": 60.0,
 "save_to_file/enabled": true,
-"save_to_file/path": "res://assets/Computer_Class/keyboard.res"
+"save_to_file/fallback_path": "res://assets/Computer_Class/keyboard.res",
+"save_to_file/path": "uid://bqwx33qu28juv"
 },
 "COMPUTERdemoscene_Cube_120": {
 "generate/lightmap_uv": 0,
@@ -64,7 +81,35 @@ _subresources={
 "generate/shadow_meshes": 0,
 "lods/normal_merge_angle": 60.0,
 "save_to_file/enabled": true,
-"save_to_file/path": "res://assets/Computer_Class/chair.res"
+"save_to_file/fallback_path": "res://assets/Computer_Class/chair.res",
+"save_to_file/path": "uid://cjj2fwike3u6r"
+},
+"COMPUTERdemoscene_Cube_121": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 20.0,
+"save_to_file/enabled": true,
+"save_to_file/fallback_path": "res://scenes/Level1/Secondroom/tables.res",
+"save_to_file/path": "uid://tjr28oncy11b"
+},
+"COMPUTERdemoscene_Cube_128": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 20.0,
+"save_to_file/enabled": true,
+"save_to_file/fallback_path": "res://scenes/Level1/Secondroom/flat_pc.res",
+"save_to_file/path": "uid://dmswuwdiehbey"
+},
+"COMPUTERdemoscene_Cube_130": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 20.0,
+"save_to_file/enabled": true,
+"save_to_file/fallback_path": "res://scenes/Level1/Secondroom/pendrive.res",
+"save_to_file/path": "uid://4c7sukvu5ykf"
 },
 "COMPUTERdemoscene_Cube_131": {
 "generate/lightmap_uv": 0,
@@ -72,7 +117,35 @@ _subresources={
 "generate/shadow_meshes": 0,
 "lods/normal_merge_angle": 60.0,
 "save_to_file/enabled": true,
-"save_to_file/path": "res://assets/Computer_Class/monitor.res"
+"save_to_file/fallback_path": "res://assets/Computer_Class/monitor.res",
+"save_to_file/path": "uid://pl4wd3oad8ti"
+},
+"COMPUTERdemoscene_Cube_132": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 20.0,
+"save_to_file/enabled": true,
+"save_to_file/fallback_path": "res://scenes/Level1/Secondroom/PC.res",
+"save_to_file/path": "uid://cafue15k0gkia"
+},
+"COMPUTERdemoscene_Cube_140": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 20.0,
+"save_to_file/enabled": true,
+"save_to_file/fallback_path": "res://scenes/Level1/Secondroom/mouse.res",
+"save_to_file/path": "uid://conptsxmuju70"
+},
+"COMPUTERdemoscene_Cube_143": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 20.0,
+"save_to_file/enabled": true,
+"save_to_file/fallback_path": "res://scenes/Level1/Secondroom/keyboard.res",
+"save_to_file/path": "uid://dxojin8tftqid"
 },
 "COMPUTERdemoscene_Cube_144": {
 "generate/lightmap_uv": 0,
@@ -80,7 +153,35 @@ _subresources={
 "generate/shadow_meshes": 0,
 "lods/normal_merge_angle": 60.0,
 "save_to_file/enabled": true,
-"save_to_file/path": "res://assets/Computer_Class/table.res"
+"save_to_file/fallback_path": "res://assets/Computer_Class/table.res",
+"save_to_file/path": "uid://2fxu6vpobv3s"
+},
+"COMPUTERdemoscene_Cube_145": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 20.0,
+"save_to_file/enabled": true,
+"save_to_file/fallback_path": "res://scenes/Level1/Secondroom/table.res",
+"save_to_file/path": "uid://bdjpuenmgnm5t"
+},
+"COMPUTERdemoscene_Cube_148": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 20.0,
+"save_to_file/enabled": true,
+"save_to_file/fallback_path": "res://scenes/Level1/Secondroom/printer.res",
+"save_to_file/path": "uid://bfhdmmns6px8e"
+},
+"COMPUTERdemoscene_Plane_011": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 20.0,
+"save_to_file/enabled": true,
+"save_to_file/fallback_path": "res://scenes/Level1/on_window.res",
+"save_to_file/path": "uid://dvss5asgbtq2w"
 }
 }
 }

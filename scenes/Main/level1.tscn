@@ -1,9 +1,10 @@
-[gd_scene load_steps=92 format=3 uid="uid://bk83ojjrx7ee3"]
+[gd_scene load_steps=101 format=3 uid="uid://bk83ojjrx7ee3"]
 
 [ext_resource type="PackedScene" uid="uid://cyexwquywx03s" path="res://scenes/world.tscn" id="2_br8qb"]
 [ext_resource type="PackedScene" uid="uid://b5s20kntva38x" path="res://scenes/Level1/assets/whiteboard.glb" id="4_iihbi"]
 [ext_resource type="Texture2D" uid="uid://dycphsarwigmy" path="res://Textures/interior_tiles_diff_4k.jpg" id="5_eap2h"]
 [ext_resource type="Script" uid="uid://c18o48jq5ohtk" path="res://scripts/whiteboard.gd" id="5_y8pcn"]
+[ext_resource type="FontFile" uid="uid://cej0bftcptybc" path="res://fonts/Pwscritch-7yBE.ttf" id="6_ckwgf"]
 [ext_resource type="Script" uid="uid://1laraq8mgn8v" path="res://scripts/exit_door_level1.gd" id="7_a2r73"]
 [ext_resource type="Script" uid="uid://bjhinhun1hrar" path="res://scenes/Level1/algebra_puzzle.gd" id="7_c6ie0"]
 [ext_resource type="AudioStream" uid="uid://dun8hufv5ytva" path="res://assets/prolog/sounds/door-opening.mp3" id="8_1kp80"]
@@ -46,10 +47,20 @@
 [ext_resource type="ArrayMesh" uid="uid://cjj2fwike3u6r" path="res://assets/Computer_Class/chair.res" id="32_bblod"]
 [ext_resource type="PackedScene" uid="uid://4r3ccoi7jdkb" path="res://Teacher/Teacher.tscn" id="34_ho2gr"]
 [ext_resource type="PackedScene" uid="uid://bak8ltrhbmlv5" path="res://addons/CSGStairMaker3D.tscn" id="40_elren"]
+[ext_resource type="ArrayMesh" uid="uid://cr56ki72cr0nc" path="res://scenes/Level1/on_window.res" id="41_6dame"]
 [ext_resource type="Script" uid="uid://d1mqvbgqcu507" path="res://scripts/secondroom_entry_door.gd" id="41_su8p0"]
+[ext_resource type="ArrayMesh" uid="uid://n2vspkn1ojbp" path="res://scenes/Level1/Secondroom/tables.res" id="50_kp83n"]
+[ext_resource type="ArrayMesh" uid="uid://b6klvik4khoir" path="res://scenes/Level1/Secondroom/flat_pc.res" id="51_kla54"]
+[ext_resource type="ArrayMesh" uid="uid://chq22cjqe87rq" path="res://scenes/Level1/Secondroom/monitor.res" id="52_3tec7"]
+[ext_resource type="ArrayMesh" uid="uid://blj7yeib41053" path="res://scenes/Level1/Secondroom/mouse.res" id="53_huc3t"]
+[ext_resource type="ArrayMesh" uid="uid://dhah4u42ns5sb" path="res://scenes/Level1/Secondroom/keyboard.res" id="54_ic5wy"]
+[ext_resource type="ArrayMesh" uid="uid://bu7vh8rt4amsb" path="res://scenes/Level1/Secondroom/printer.res" id="55_fmtfn"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_y8pcn"]
 size = Vector3(3.951416, 1.8839111, 0.41845703)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ckwgf"]
+size = Vector3(3.8552246, 1.2869873, 1.668457)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_josj7"]
 radius = 2.3750525
@@ -402,13 +413,28 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.713779, -1.1960267, -41.276
 
 [node name="Whiteboard" parent="FirstRoom" instance=ExtResource("4_iihbi")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.138766, 0.89584494, -0.5015757)
-script = ExtResource("5_y8pcn")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="FirstRoom/Whiteboard"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="FirstRoom/Whiteboard/StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.015991211, 1.8568106, -0.29077148)
 shape = SubResource("BoxShape3D_y8pcn")
+
+[node name="InteractionAreaPath" type="Area3D" parent="FirstRoom/Whiteboard"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5231762, 0.06387198, -1.145448)
+script = ExtResource("5_y8pcn")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="FirstRoom/Whiteboard/InteractionAreaPath"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.51086426, 0.14349365, -0.33422852)
+shape = SubResource("BoxShape3D_ckwgf")
+
+[node name="BoardCamera" type="Camera3D" parent="FirstRoom/Whiteboard"]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 1.9138033, -1.7321775)
+
+[node name="Label3D" type="Label3D" parent="FirstRoom/Whiteboard"]
+transform = Transform3D(-0.35, 0, -3.059797e-08, 0, 0.35, 0, 3.059797e-08, 0, -0.35, 0, 1.9489684, -0.05738759)
+text = "asdczxczcawd"
+font = ExtResource("6_ckwgf")
 
 [node name="wall_doorway2" parent="FirstRoom" instance=ExtResource("8_otveq")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -14.358305, 0.895845, -10.749844)
@@ -881,7 +907,7 @@ shape = SubResource("BoxShape3D_0fnvg")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2066369, 0)
 
 [node name="Lamp2" parent="FirstRoom/CeilingLamps" instance=ExtResource("30_otveq")]
-transform = Transform3D(0.06, 0, 0, 0, 0.06, 0, 0, 0, 0.06, -13.756762, 4.334735, -6.190255)
+transform = Transform3D(0.06, 0, 0, 0, 0.06, 0, 0, 0, 0.06, -13.756762, 4.334735, -2.7951136)
 
 [node name="SpotLight3D" type="SpotLight3D" parent="FirstRoom/CeilingLamps/Lamp2"]
 transform = Transform3D(1.6666665, 0, 0, 0, -7.2852316e-08, 1.6666665, 0, -1.6666665, -7.2852316e-08, 0, 0.63558483, 0)
@@ -891,7 +917,7 @@ spot_attenuation = 0.4
 spot_angle = 80.0
 
 [node name="Lamp3" parent="FirstRoom/CeilingLamps" instance=ExtResource("30_otveq")]
-transform = Transform3D(0.06, 0, 0, 0, 0.06, 0, 0, 0, 0.06, -13.756762, 4.334735, -9.921232)
+transform = Transform3D(0.06, 0, 0, 0, 0.06, 0, 0, 0, 0.06, -13.756762, 4.334735, -9.864115)
 
 [node name="SpotLight3D" type="SpotLight3D" parent="FirstRoom/CeilingLamps/Lamp3"]
 transform = Transform3D(1.6666665, 0, 0, 0, -7.2852316e-08, 1.6666665, 0, -1.6666665, -7.2852316e-08, 0, 0.63558483, 0)
@@ -901,7 +927,7 @@ spot_attenuation = 0.4
 spot_angle = 80.0
 
 [node name="Lamp4" parent="FirstRoom/CeilingLamps" instance=ExtResource("30_otveq")]
-transform = Transform3D(0.06, 0, 0, 0, 0.06, 0, 0, 0, 0.06, 1.0173684, 4.334735, -6.190255)
+transform = Transform3D(0.06, 0, 0, 0, 0.06, 0, 0, 0, 0.06, 1.0173684, 4.334735, -3.6212885)
 
 [node name="SpotLight3D" type="SpotLight3D" parent="FirstRoom/CeilingLamps/Lamp4"]
 transform = Transform3D(1.6666665, 0, 0, 0, -7.2852316e-08, 1.6666665, 0, -1.6666665, -7.2852316e-08, 0, 0.63558483, 0)
@@ -914,6 +940,39 @@ spot_angle = 80.0
 transform = Transform3D(0.06, 0, 0, 0, 0.06, 0, 0, 0, 0.06, 1.0173684, 4.334735, -9.921232)
 
 [node name="SpotLight3D" type="SpotLight3D" parent="FirstRoom/CeilingLamps/Lamp5"]
+transform = Transform3D(1.6666665, 0, 0, 0, -7.2852316e-08, 1.6666665, 0, -1.6666665, -7.2852316e-08, 0, 0.63558483, 0)
+light_color = Color(0.9934649, 0.9913377, 0.98364335, 1)
+light_energy = 2.0
+spot_range = 25.142
+spot_attenuation = 0.4
+spot_angle = 80.0
+
+[node name="Lamp6" parent="FirstRoom/CeilingLamps" instance=ExtResource("30_otveq")]
+transform = Transform3D(0.06, 0, 0, 0, 0.06, 0, 0, 0, 0.06, -3.6579728, 4.334735, -9.921232)
+
+[node name="SpotLight3D" type="SpotLight3D" parent="FirstRoom/CeilingLamps/Lamp6"]
+transform = Transform3D(1.6666665, 0, 0, 0, -7.2852316e-08, 1.6666665, 0, -1.6666665, -7.2852316e-08, 0, 0.63558483, 0)
+light_color = Color(0.9934649, 0.9913377, 0.98364335, 1)
+light_energy = 2.0
+spot_range = 25.142
+spot_attenuation = 0.4
+spot_angle = 80.0
+
+[node name="Lamp7" parent="FirstRoom/CeilingLamps" instance=ExtResource("30_otveq")]
+transform = Transform3D(0.06, 0, 0, 0, 0.06, 0, 0, 0, 0.06, -10.202801, 4.334735, -3.2062197)
+
+[node name="SpotLight3D" type="SpotLight3D" parent="FirstRoom/CeilingLamps/Lamp7"]
+transform = Transform3D(1.6666665, 0, 0, 0, -7.2852316e-08, 1.6666665, 0, -1.6666665, -7.2852316e-08, 0, 0.63558483, 0)
+light_color = Color(0.9934649, 0.9913377, 0.98364335, 1)
+light_energy = 2.0
+spot_range = 25.142
+spot_attenuation = 0.4
+spot_angle = 80.0
+
+[node name="Lamp8" parent="FirstRoom/CeilingLamps" instance=ExtResource("30_otveq")]
+transform = Transform3D(0.06, 0, 0, 0, 0.06, 0, 0, 0, 0.06, -3.6579728, 4.334735, -3.7825222)
+
+[node name="SpotLight3D" type="SpotLight3D" parent="FirstRoom/CeilingLamps/Lamp8"]
 transform = Transform3D(1.6666665, 0, 0, 0, -7.2852316e-08, 1.6666665, 0, -1.6666665, -7.2852316e-08, 0, 0.63558483, 0)
 light_color = Color(0.9934649, 0.9913377, 0.98364335, 1)
 light_energy = 2.0
@@ -992,6 +1051,29 @@ visible = false
 
 [node name="Key_spawn" type="Node3D" parent="FirstRoom"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.219722, -6.3781996)
+
+[node name="Accesories" type="Node3D" parent="FirstRoom"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.4663304, 0.8592489, -12.503481)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="FirstRoom/Accesories"]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -6.6393776, 0, 2.5066862)
+mesh = ExtResource("41_6dame")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="FirstRoom/Accesories"]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -5.116096, 0, 2.5066862)
+mesh = ExtResource("41_6dame")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="FirstRoom/Accesories"]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -8.74727, 0, 2.5066862)
+mesh = ExtResource("41_6dame")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="FirstRoom/Accesories"]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -12.1128235, 0, 2.5066862)
+mesh = ExtResource("41_6dame")
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="FirstRoom/Accesories"]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -0.58547175, 0, 2.5066862)
+mesh = ExtResource("41_6dame")
 
 [node name="Ruler" parent="." instance=ExtResource("21_2mqmo")]
 transform = Transform3D(-4.3711385e-08, -1, 0, -4.3711385e-08, 1.9106855e-15, 0.99999994, -0.99999994, 4.371139e-08, -4.3711385e-08, -8.015694, 2.1207504, -10.3382225)
@@ -1118,6 +1200,12 @@ size = Vector3(1.1601563, 3.0028076, 1.6729736)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.664307, 4.2708073, -2.6389465)
 size = Vector3(6.248413, 1, 3.7901611)
 
+[node name="Ceiling" type="CSGBox3D" parent="SecondRoom/CSGCombiner3D"]
+transform = Transform3D(6.380333, 0, 0, 0, 1, 0, 0, 0, 1, -4.444503, 9.237804, -6.889244)
+visible = false
+size = Vector3(3.1273193, 0.48171997, 12.804916)
+material = SubResource("StandardMaterial3D_snkc6")
+
 [node name="Secondroom_door" type="Node3D" parent="SecondRoom"]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -14.433605, 5.1127663, -4.095899)
 
@@ -1146,6 +1234,37 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7687738, -0.3839717, -0.451
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.58165, 4.53352, -6.861983)
 size = Vector3(19.71579, 0.4375, 12.655334)
 material = SubResource("StandardMaterial3D_qcibk")
+
+[node name="Tables" type="Node3D" parent="SecondRoom"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="SecondRoom/Tables"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4149604, 4.7193274, -6.592306)
+mesh = ExtResource("50_kp83n")
+
+[node name="PC" type="Node3D" parent="SecondRoom"]
+
+[node name="pc" type="MeshInstance3D" parent="SecondRoom/PC"]
+transform = Transform3D(0.5877852, 0, -0.80901694, 0, 1, 0, 0.80901694, 0, 0.5877852, 9.069017, 4.6906486, -11.075721)
+mesh = ExtResource("51_kla54")
+
+[node name="monitor" type="MeshInstance3D" parent="SecondRoom/PC"]
+transform = Transform3D(0.9884119, 0, 0.15179563, 0, 1, 0, -0.15179563, 0, 0.9884119, 2.6364038, 4.881449, -6.393773)
+mesh = ExtResource("52_3tec7")
+
+[node name="mouse" type="MeshInstance3D" parent="SecondRoom/PC"]
+transform = Transform3D(0.33034965, 0, -0.9438586, 0, 1, 0, 0.9438586, 0, 0.33034965, 3.0844524, 4.7299542, -10.519406)
+mesh = ExtResource("53_huc3t")
+
+[node name="keyboard" type="MeshInstance3D" parent="SecondRoom/PC"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.3980305, 4.769515, -12.467987)
+mesh = ExtResource("54_ic5wy")
+
+[node name="printers" type="Node3D" parent="SecondRoom/PC"]
+
+[node name="printer" type="MeshInstance3D" parent="SecondRoom/PC/printers"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.4106817, 4.7316885, -6.422288)
+mesh = ExtResource("55_fmtfn")
+skeleton = NodePath("../..")
 
 [connection signal="body_entered" from="FirstRoom/AlgebraPuzzle/InteractArea" to="FirstRoom/AlgebraPuzzle" method="_on_interact_area_body_entered"]
 [connection signal="body_exited" from="FirstRoom/AlgebraPuzzle/InteractArea" to="FirstRoom/AlgebraPuzzle" method="_on_interact_area_body_exited"]

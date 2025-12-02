@@ -1,147 +1,325 @@
-# Whiteboard.gd (poprawiona wersja - jawne typowanie aby uniknąć "inferred Variant" warnings)
-extends Node3D
-class_name Whiteboard
+extends Area3D
+# Whiteboard Area script with blinking cursor, proper backspace, space, and 20-line limit
 
-@export var InteractionCamera: Camera3D
-@export var PlayerBody: Node3D = null
-@export var InteractionMaxDistance: float = 6.0
+@export var board_camera_path: NodePath = NodePath("")
+@export var board_label_path: NodePath = NodePath("")
+@export var allow_multiline: bool = true
+@export var max_chars: int = 1024
+@export var max_lines: int = 20
+@export var initial_text: String = ""
+@export var open_action: String = "interact"   # action to enter/exit whiteboard (e.g. F)
+@export var exit_action: String = "ui_cancel"  # ESC
 
-@export var LabelDepthOffset: float = 0.01
-@export var LabelScale: Vector3 = Vector3.ONE * 0.08
-@export var LabelColor: Color = Color(0,0,0)
-@export var LabelFont: Font = null
+@export var autodetect_board_camera_name: String = "BoardCamera"
+@export var autodetect_label_name: String = "Label3D"
 
-var _labels: Array = []
-var _popup_dialog: AcceptDialog = null
-var _input_line: LineEdit = null
+# cursor config
+@export var cursor_char: String = "|"
+@export var cursor_blink_interval: float = 0.5
 
-var _last_hit_position: Vector3 = Vector3.ZERO
-var _last_hit_normal: Vector3 = Vector3.UP
+var _player_in_area: bool = false
+var _editing: bool = false
+var _player_node: Node = null
+var _prev_mouse_mode: int = Input.MOUSE_MODE_CAPTURED
+var _prev_camera: Camera3D = null
+var _board_camera: Camera3D = null
+var _board_label: Node = null
+
+# text buffer (actual text without cursor)
+var _text_buffer: String = ""
+# cursor state
+var _cursor_visible: bool = false
+var _cursor_timer: float = 0.0
 
 func _ready() -> void:
-	_create_input_popup()
-	if InteractionCamera == null:
-		push_warning("Whiteboard: przypisz InteractionCamera (player camera) w Inspectorze.")
-	# warn jeśli nie ma colliderów (pomoże debugować)
-	if _find_first_collision_object(self) == null:
-		push_warning("Whiteboard: nie znaleziono obiektów kolizyjnych w potomkach. Dodaj StaticBody3D + CollisionShape3D lub włącz generowanie kolizji przy imporcie .glb.")
-	print("Whiteboard ready. InteractionCamera:", InteractionCamera)
+	# connect area signals
+	if not is_connected("body_entered", Callable(self, "_on_body_entered")):
+		connect("body_entered", Callable(self, "_on_body_entered"))
+	if not is_connected("body_exited", Callable(self, "_on_body_exited")):
+		connect("body_exited", Callable(self, "_on_body_exited"))
 
-func _create_input_popup() -> void:
-	_popup_dialog = AcceptDialog.new()
-	_popup_dialog.window_title = "Napisz na tablicy"
-	_popup_dialog.rect_min_size = Vector2(360,120)
-	var vb: VBoxContainer = VBoxContainer.new()
-	var l: Label = Label.new()
-	l.text = "Napisz na tablicy:"
-	vb.add_child(l)
-	_input_line = LineEdit.new()
-	_input_line.placeholder_text = "Wpisz tekst..."
-	vb.add_child(_input_line)
-	_popup_dialog.add_child(vb)
-	_popup_dialog.connect("confirmed", Callable(self, "_on_popup_confirmed"))
-	_input_line.connect("text_submitted", Callable(self, "_on_line_submitted"))
-	# Dodajemy popup do root, żeby był widoczny niezależnie od hierarchii 3D
-	get_tree().root.add_child(_popup_dialog)
+	# find board camera & label
+	if board_camera_path != NodePath(""):
+		_board_camera = get_node_or_null(board_camera_path) as Camera3D
+	else:
+		_board_camera = _find_node_by_name(get_tree().get_current_scene() if get_tree().get_current_scene() else get_tree().root, autodetect_board_camera_name) as Camera3D
 
-func _input(event) -> void:
-	if Input.is_action_just_pressed("interact"):
-		_try_open_input_at_crosshair()
+	if board_label_path != NodePath(""):
+		_board_label = get_node_or_null(board_label_path)
+	else:
+		_board_label = _find_node_by_name(get_tree().get_current_scene() if get_tree().get_current_scene() else get_tree().root, autodetect_label_name)
 
-func _try_open_input_at_crosshair() -> void:
-	if InteractionCamera == null:
-		return
-	var vp := InteractionCamera.get_viewport()
-	var center := vp.get_visible_rect().size * 0.5
-	var origin := InteractionCamera.project_ray_origin(center)
-	var dir := InteractionCamera.project_ray_normal(center)
-	var end := origin + dir * InteractionMaxDistance
+	# init label text and buffer
+	if _board_label:
+		_text_buffer = initial_text
+		_set_label_text(_text_buffer)
 
-	var space := InteractionCamera.get_world_3d().direct_space_state
-	var q := PhysicsRayQueryParameters3D.create(origin, end)
-	var res := space.intersect_ray(q)
-	if not res:
-		return
-	var collider: Node = res.get("collider")
-	if collider == null:
-		return
-	# zaakceptuj trafienie tylko jeśli collider jest potomkiem tej tablicy (.glb root)
-	if not _is_node_descendant_of(collider, self):
-		return
-	# opcjonalnie: ogranicz odległość względem PlayerBody
-	if PlayerBody and is_instance_valid(PlayerBody):
-		if PlayerBody.global_position.distance_to(res.get("position")) > InteractionMaxDistance:
+	# find player
+	_player_node = _auto_find_player_body()
+	if _player_node:
+		# ensure enabled at startup (safe)
+		if _player_node.has_method("set_controls_enabled"):
+			_player_node.call("set_controls_enabled", true)
+		else:
+			_player_node.set_process(true)
+			_player_node.set_physics_process(true)
+
+	_prev_mouse_mode = Input.mouse_mode
+	_editing = false
+	_cursor_visible = false
+	_cursor_timer = 0.0
+
+	monitoring = true
+	print("Whiteboard: ready. board_camera:", _board_camera, " label:", _board_label, " player:", _player_node)
+
+
+func _process(delta: float) -> void:
+	if _editing:
+		_cursor_timer += delta
+		if _cursor_timer >= cursor_blink_interval:
+			_cursor_timer = 0.0
+			_cursor_visible = not _cursor_visible
+			_update_label_with_cursor()
+
+
+# area enter/exit
+func _on_body_entered(body: Node) -> void:
+	if body and body.is_in_group("player"):
+		_player_in_area = true
+		print("Whiteboard: player entered area")
+
+
+func _on_body_exited(body: Node) -> void:
+	if body and body.is_in_group("player"):
+		_player_in_area = false
+		print("Whiteboard: player exited area")
+		if _editing:
+			_end_editing()
+
+
+# input handling
+func _input(event: InputEvent) -> void:
+	# toggle edit mode only via action press (so letter keys like F still type)
+	if event.is_action_pressed(open_action) and not event.echo:
+		if _player_in_area and not _editing:
+			_start_editing()
+			get_viewport().set_input_as_handled()
 			return
-	_last_hit_position = res.get("position")
-	_last_hit_normal = res.get("normal")
-	_input_line.text = ""
-	_popup_dialog.popup_centered()
-	_input_line.grab_focus()
+	# If not editing, do nothing here (other inputs pass through)
 
-func _on_line_submitted(new_text: String) -> void:
-	_popup_dialog.hide()
-	_on_popup_confirmed()
+	# when editing we capture keys manually
+	if _editing:
+		# ESC => exit (use action because ESC is usually mapped to ui_cancel)
+		if event.is_action_pressed(exit_action) and not event.echo:
+			_end_editing()
+			get_viewport().set_input_as_handled()
+			return
 
-func _on_popup_confirmed() -> void:
-	var txt: String = _input_line.text.strip_edges()
-	if txt == "":
+		# prefer character handling from InputEventKey
+		if event is InputEventKey and event.pressed and not event.echo:
+			# handle backspace: unicode 8 (and sometimes 0), try fallback with scancode check
+			var uni := int(event.unicode)
+			# Backspace (unicode 8)
+			if uni == 8:
+				_backspace()
+				get_viewport().set_input_as_handled()
+				return
+
+			# Enter/newline (unicode 13) -> only here create newline
+			if uni == 13:
+				_try_append_newline()
+				get_viewport().set_input_as_handled()
+				return
+
+			# Printable character (space is 32)
+			if uni >= 32:
+				_append_printable_char(char(uni))
+				get_viewport().set_input_as_handled()
+				return
+
+		# fallback for InputEventText (some platforms / IME)
+		# guard access safely
+		if typeof(event) == TYPE_OBJECT and event.get_class() == "InputEventText":
+			# try to call get_text if available
+			if event.has_method("get_text"):
+				var s := str(event.call("get_text"))
+				# InputEventText gives full text typed; append respecting limits
+				for ch in s:
+					if ch == "\r" or ch == "\n":
+						_try_append_newline()
+					else:
+						_append_printable_char(ch)
+				get_viewport().set_input_as_handled()
+				return
+
+		# block other inputs while editing so game actions don't trigger
+		get_viewport().set_input_as_handled()
 		return
-	_create_label_at_hit(txt)
 
-func _create_label_at_hit(text: String) -> void:
-	var label: Label3D = Label3D.new()
-	label.text = text
-	label.scale = LabelScale
-	label.modulate = LabelColor
-	if LabelFont:
-		var theme: Theme = Theme.new()
-		theme.set_font("font", "Label3D", LabelFont)
-		label.theme = theme
 
-	# umieść label jako child tej tablicy (root .glb), żeby poruszał się razem z nią
-	add_child(label)
-
-	# ustaw globalne położenie lekko nad powierzchnią
-	var place_pos: Vector3 = _last_hit_position + _last_hit_normal * LabelDepthOffset
-	label.global_position = place_pos
-
-	# obróć tak, aby patrzył w stronę kamery tylko po yaw (by był czytelny)
-	if InteractionCamera and is_instance_valid(InteractionCamera):
-		var to_cam: Vector3 = (InteractionCamera.global_position - label.global_position).normalized()
-		var yaw: float = atan2(to_cam.x, to_cam.z)
-		label.global_rotation = Vector3(0.0, yaw, 0.0)
-
-	_labels.append(label)
-	print("Whiteboard: dodano label:", text, " at ", place_pos)
-
-func clear_all_labels() -> void:
-	for l in _labels:
-		if is_instance_valid(l):
-			l.queue_free()
-	_labels.clear()
-
-func undo_last_label() -> void:
-	if _labels.size() == 0:
+# start / end editing
+func _start_editing() -> void:
+	if _editing:
 		return
-	var last: Node = _labels.pop_back()
-	if is_instance_valid(last):
-		last.queue_free()
+	if _board_label == null:
+		push_warning("Whiteboard: brak Label3D; nie mogę edytować.")
+		return
 
-# pomocnicze
-func _is_node_descendant_of(node: Node, ancestor: Node) -> bool:
-	var cur: Node = node
-	while cur:
-		if cur == ancestor:
-			return true
-		cur = cur.get_parent()
-	return false
+	_prev_mouse_mode = Input.mouse_mode
+	_prev_camera = get_viewport().get_camera_3d()
 
-func _find_first_collision_object(node: Node) -> Node:
-	# szuka StaticBody3D/Area3D/MeshInstance3D w potomkach - pomocne dla debugu
-	if node is StaticBody3D or node is Area3D:
+	# camera switch
+	if _board_camera:
+		_board_camera.current = true
+		print("Whiteboard: switched to board camera")
+	else:
+		print("Whiteboard: no BoardCamera detected")
+
+	# disable player controls
+	if _player_node == null:
+		_player_node = _auto_find_player_body()
+
+	if _player_node:
+		if _player_node.has_method("set_controls_enabled"):
+			_player_node.call("set_controls_enabled", false)
+		else:
+			_player_node.set_process(false)
+			_player_node.set_physics_process(false)
+
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	_editing = true
+	_cursor_visible = true
+	_cursor_timer = 0.0
+	# ensure buffer contains current label text (strip any cursor)
+	_text_buffer = _get_label_text()
+	_update_label_with_cursor()
+	print("Whiteboard: editing started")
+
+
+func _end_editing() -> void:
+	if not _editing:
+		return
+
+	# restore camera
+	if _prev_camera:
+		_prev_camera.current = true
+	_prev_camera = null
+
+	# restore player controls
+	if _player_node:
+		if _player_node.has_method("set_controls_enabled"):
+			_player_node.call("set_controls_enabled", true)
+		else:
+			_player_node.set_process(true)
+			_player_node.set_physics_process(true)
+
+	# restore mouse
+	Input.mouse_mode = _prev_mouse_mode
+	_editing = false
+	_cursor_visible = false
+	_set_label_text(_text_buffer) # final text without cursor
+	print("Whiteboard: editing ended")
+
+
+# append/backspace helpers
+func _append_printable_char(ch: String) -> void:
+	if ch == "":
+		return
+	# enforce max chars
+	var newt := _text_buffer + ch
+	if newt.length() > max_chars:
+		return
+	# if ch is newline handled elsewhere, but here we only get printable, so safe
+	_text_buffer = newt
+	_update_label_with_cursor()
+
+
+func _try_append_newline() -> void:
+	if not allow_multiline:
+		return
+	# enforce max lines
+	var lines := _text_buffer.split("\n", false)
+	if lines.size() >= max_lines:
+		# do not append further newlines
+		return
+	_text_buffer += "\n"
+	_update_label_with_cursor()
+
+
+func _backspace() -> void:
+	if _text_buffer == "":
+		return
+	# remove last unicode rune (simple substring is OK for basic ASCII/UTF-8)
+	# to be robust with UTF-8, use rfind of last UTF-8 char:
+	var newt := ""
+	# simple approach: remove last codepoint
+	# GDScript substr indices are in characters, so:
+	newt = _text_buffer.substr(0, _text_buffer.length() - 1)
+	_text_buffer = newt
+	_update_label_with_cursor()
+
+
+# label helpers (safely set/get)
+func _set_label_text(s: String) -> void:
+	if _board_label == null:
+		return
+	if "text" in _board_label:
+		_board_label.text = s
+	elif _board_label.has_method("set_text"):
+		_board_label.call("set_text", s)
+
+
+func _get_label_text() -> String:
+	if _board_label == null:
+		return ""
+	if "text" in _board_label:
+		return str(_board_label.text)
+	elif _board_label.has_method("get_text"):
+		return str(_board_label.call("get_text"))
+	return ""
+
+
+func _update_label_with_cursor() -> void:
+	var display := _text_buffer
+	if _editing and _cursor_visible:
+		display += cursor_char
+	_set_label_text(display)
+
+
+# helpers to find player/cameras/labels
+func _auto_find_player_body() -> Node:
+	var root = get_tree().get_current_scene() if get_tree().get_current_scene() else get_tree().root
+	var p := _find_node_by_name(root, "PlayerBody")
+	if p:
+		return p
+	var by_type := _find_node_by_type(root, "CharacterBody3D")
+	if by_type:
+		return by_type
+	p = _find_node_by_name(root, "Player")
+	if p:
+		return p
+	return null
+
+
+func _find_node_by_name(node: Node, target_name: String) -> Node:
+	if node == null:
+		return null
+	if node.name == target_name:
 		return node
-	for c in node.get_children():
-		var r: Node = _find_first_collision_object(c)
+	for child in node.get_children():
+		var res := _find_node_by_name(child, target_name)
+		if res:
+			return res
+	return null
+
+
+func _find_node_by_type(node: Node, classname: String) -> Node:
+	if node == null:
+		return null
+	if node.get_class() == classname:
+		return node
+	for child in node.get_children():
+		var r := _find_node_by_type(child, classname)
 		if r:
 			return r
 	return null

@@ -1,181 +1,126 @@
-# Whiteboard.gd - poprawiona wersja (typy, set_title(), fallback na kamerę z PlayerBody)
-extends Node3D
-class_name Whiteboard
+extends CharacterBody3D
 
-@export var InteractionCamera: Camera3D
-@export var PlayerBody: Node3D = null
-@export var InteractionMaxDistance: float = 6.0
+@export var CameraContainerNode : Node3D
+@onready var animator : AnimationPlayer = $"../AnimationPlayer"
+@onready var inventory_ui : Control = $InventoryUI
+@onready var raycast = $CameraContainer/Camera3D/interact_raycast
+@onready var camera : Camera3D = $CameraContainer/Camera3D
 
-@export var LabelDepthOffset: float = 0.01
-@export var LabelScale: Vector3 = Vector3.ONE * 0.08
-@export var LabelColor: Color = Color(0,0,0)
-@export var LabelFont: Font = null
+var can_open_door = false
 
-var _labels: Array = []
-var _popup_dialog: AcceptDialog = null
-var _input_line: LineEdit = null
+const SPEED = 5.0
+const JUMP_VELOCITY = 4.5
 
-var _last_hit_position: Vector3 = Vector3.ZERO
-var _last_hit_normal: Vector3 = Vector3.UP
+# nowa zmienna sterująca
+var controls_enabled: bool = true
+
+func set_controls_enabled(enabled: bool) -> void:
+	controls_enabled = enabled
+	# jeśli wyłączamy kontrolę to sensownie pokazać kursor (ale LockPanel też to ustawia)
+	if not controls_enabled:
+		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	else:
+		# przywracamy capture tylko jeśli inventory nie jest otwarte
+		if not inventory_ui.visible:
+			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func _ready() -> void:
-	_create_input_popup()
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	if camera:
+		camera.fov = Global.fov
+	Global.fov_changed.connect(_on_global_fov_changed)
 
-	# jeśli nie przypisano kamery w Inspectorze, spróbuj znaleźć ją w PlayerBody
-	if InteractionCamera == null and is_instance_valid(PlayerBody):
-		# najpierw poszukaj node o nazwie Camera3D bezpośrednio
-		var c: Node = PlayerBody.get_node_or_null("Camera3D")
-		if c and c is Camera3D:
-			InteractionCamera = c as Camera3D
-		else:
-			# znajdź rekurencyjnie pierwszą Camera3D w drzewie PlayerBody
-			InteractionCamera = _find_camera_recursive(PlayerBody)
+func _on_global_fov_changed(new_fov: float) -> void:
+	if camera:
+		camera.fov = new_fov
 
-	if InteractionCamera == null:
-		push_warning("Whiteboard: przypisz InteractionCamera (player camera) w Inspectorze lub podaj PlayerBody zawierający Camera3D.")
-	# warn jeśli nie ma colliderów (pomoże debugować)
-	if _find_first_collision_object(self) == null:
-		push_warning("Whiteboard: nie znaleziono obiektów kolizyjnych w potomkach. Dodaj StaticBody3D + CollisionShape3D lub włącz generowanie kolizji przy imporcie .glb.")
-	print("Whiteboard ready. InteractionCamera:", InteractionCamera, " PlayerBody:", PlayerBody)
-
-func _create_input_popup() -> void:
-	_popup_dialog = AcceptDialog.new()
-	# bezpieczne ustawienie tytułu
-	if _popup_dialog.has_method("set_title"):
-		_popup_dialog.set_title("Napisz na tablicy")
-	elif _popup_dialog.has_property("title"):
-		_popup_dialog.title = "Napisz na tablicy"
-	# minimal size
-	_popup_dialog.rect_min_size = Vector2(360, 120)
-
-	var vb: VBoxContainer = VBoxContainer.new()
-	var l: Label = Label.new()
-	l.text = "Napisz na tablicy:"
-	vb.add_child(l)
-
-	_input_line = LineEdit.new()
-	_input_line.placeholder_text = "Wpisz tekst..."
-	_input_line.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	vb.add_child(_input_line)
-
-	_popup_dialog.add_child(vb)
-	_popup_dialog.connect("confirmed", Callable(self, "_on_popup_confirmed"))
-	_input_line.connect("text_submitted", Callable(self, "_on_line_submitted"))
-
-	# Dodajemy popup do root, żeby był widoczny (RootViewport ma CanvasLayer)
-	var root := get_tree().root
-	if root:
-		root.add_child(_popup_dialog)
-	else:
-		get_tree().get_root().add_child(_popup_dialog)
-
-func _input(event) -> void:
-	if Input.is_action_just_pressed("interact"):
-		_try_open_input_at_crosshair()
-
-func _try_open_input_at_crosshair() -> void:
-	if InteractionCamera == null:
-		return
-	var vp: Viewport = InteractionCamera.get_viewport()
-	var center: Vector2 = vp.get_visible_rect().size * 0.5
-	var origin: Vector3 = InteractionCamera.project_ray_origin(center)
-	var dir: Vector3 = InteractionCamera.project_ray_normal(center)
-	var end: Vector3 = origin + dir * InteractionMaxDistance
-
-	var space := InteractionCamera.get_world_3d().direct_space_state
-	var q := PhysicsRayQueryParameters3D.create(origin, end)
-	var res: Dictionary = space.intersect_ray(q)
-	if res.empty():
-		return
-	var collider: Node = res.get("collider")
-	if collider == null:
-		return
-	# zaakceptuj trafienie tylko jeśli collider jest potomkiem tej tablicy (.glb root)
-	if not _is_node_descendant_of(collider, self):
-		return
-	# opcjonalnie: ogranicz odległość względem PlayerBody
-	if PlayerBody and is_instance_valid(PlayerBody):
-		if PlayerBody.global_position.distance_to(res.get("position")) > InteractionMaxDistance:
+func _input(event: InputEvent) -> void:
+	# pozwól obsługiwać ESC i inventory nawet jeśli controls wyłączone,
+	# bo gracz może chcieć wyjść z pauzy/inventory — jeśli chcesz zablokować też te, usuń ten warunek.
+	if event.is_action_pressed("ui_cancel"):
+		var invh = $InventoryHandler
+		if invh and invh.IsDetailsOpen():
+			invh.CloseItemDetails()
+			get_viewport().set_input_as_handled()
 			return
-
-	_last_hit_position = res.get("position")
-	_last_hit_normal = res.get("normal")
-	_input_line.text = ""
-	_popup_dialog.popup_centered()
-	_input_line.grab_focus()
-
-func _on_line_submitted(new_text: String) -> void:
-	_popup_dialog.hide()
-	_on_popup_confirmed()
-
-func _on_popup_confirmed() -> void:
-	var txt: String = _input_line.text.strip_edges()
-	if txt == "":
+		if inventory_ui.visible:
+			inventory_ui.visible = false
+			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED 
+			get_viewport().set_input_as_handled()
+			return
+		if get_tree().paused:
+			$PauseMenu.unpause()
+		else:
+			$PauseMenu.pause()
+		get_viewport().set_input_as_handled()
 		return
-	_create_label_at_hit(txt)
 
-func _create_label_at_hit(text: String) -> void:
-	var label: Label3D = Label3D.new()
-	label.text = text
-	label.scale = LabelScale
-	label.modulate = LabelColor
-	if LabelFont:
-		var theme: Theme = Theme.new()
-		theme.set_font("font", "Label3D", LabelFont)
-		label.theme = theme
-
-	# umieść label jako child tej tablicy (root .glb), żeby poruszał się razem z nią
-	add_child(label)
-
-	# ustaw globalne położenie lekko nad powierzchnią
-	var place_pos: Vector3 = _last_hit_position + _last_hit_normal * LabelDepthOffset
-	label.global_position = place_pos
-
-	# obróć tak, aby patrzył w stronę kamery tylko po yaw (by był czytelny)
-	if InteractionCamera and is_instance_valid(InteractionCamera):
-		var to_cam: Vector3 = (InteractionCamera.global_position - label.global_position).normalized()
-		var yaw: float = atan2(to_cam.x, to_cam.z)
-		label.global_rotation = Vector3(0.0, yaw, 0.0)
-
-	_labels.append(label)
-	print("Whiteboard: dodano label:", text, " at ", place_pos)
-
-func clear_all_labels() -> void:
-	for l in _labels:
-		if is_instance_valid(l):
-			l.queue_free()
-	_labels.clear()
-
-func undo_last_label() -> void:
-	if _labels.size() == 0:
+	# jeśli kontrola wyłączona, ignoruj ruch kamery i gameplay input
+	if not controls_enabled:
+		# ale pozwól dalej na otwieranie inventory przez action (opcjonalnie)
+		if event.is_action_pressed("inventory"):
+			if get_tree().paused:
+				return
+			inventory_ui.visible = !inventory_ui.visible
+			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE if inventory_ui.visible else Input.MOUSE_MODE_CAPTURED
+			if not inventory_ui.visible:
+				var invh2 = $InventoryHandler
+				if invh2:
+					invh2.CloseItemDetails()
+			get_viewport().set_input_as_handled()
 		return
-	var last: Node = _labels.pop_back()
-	if is_instance_valid(last):
-		last.queue_free()
 
-# pomocnicze
-func _is_node_descendant_of(node: Node, ancestor: Node) -> bool:
-	var cur: Node = node
-	while cur:
-		if cur == ancestor:
-			return true
-		cur = cur.get_parent()
-	return false
+	if (event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED):
+		rotate_y(deg_to_rad(-event.relative.x) * Global.mouse_sensitivity)
+		CameraContainerNode.rotation.x = clamp(CameraContainerNode.rotation.x - event.relative.y * (Global.mouse_sensitivity / 50), deg_to_rad(-45), deg_to_rad(45))
 
-func _find_first_collision_object(node: Node) -> Node:
-	if node is StaticBody3D or node is Area3D:
-		return node
-	for c in node.get_children():
-		var r: Node = _find_first_collision_object(c)
-		if r:
-			return r
-	return null
+	if (event.is_action_pressed("inventory")):
+		if get_tree().paused:
+			return
+		inventory_ui.visible = !inventory_ui.visible
+		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE if inventory_ui.visible else Input.MOUSE_MODE_CAPTURED
+		if not inventory_ui.visible:
+			var invh = $InventoryHandler
+			if invh:
+				invh.CloseItemDetails()
+		get_viewport().set_input_as_handled()
+		return
 
-func _find_camera_recursive(node: Node) -> Camera3D:
-	for c in node.get_children():
-		if c is Camera3D:
-			return c as Camera3D
-		var r := _find_camera_recursive(c)
-		if r:
-			return r
-	return null
+func _physics_process(delta: float) -> void:
+	# jeśli kontrola wyłączona, nie wykonujemy ruchu
+	if not controls_enabled:
+		return
+
+	# Add the gravity.
+	if not is_on_floor():
+		velocity += get_gravity() * delta
+
+	if (Input.mouse_mode == Input.MOUSE_MODE_VISIBLE):
+		move_and_slide()
+		return
+
+	# Handle jump.
+	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
+		velocity.y = JUMP_VELOCITY
+
+	var input_dir := Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
+	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	if direction:
+		velocity.x = direction.x * SPEED
+		velocity.z = direction.z * SPEED
+	else:
+		velocity.x = move_toward(velocity.x, 0, SPEED)
+		velocity.z = move_toward(velocity.z, 0, SPEED)
+
+	move_and_slide()
+
+func open_door():
+	animator.play("open_door1")
+	can_open_door = !can_open_door
+
+func close_door():
+	animator.play("close_door1")
+	can_open_door = !can_open_door
+
+func _on_trigger_zone_body_entered(body: Node3D) -> void:
+	pass
