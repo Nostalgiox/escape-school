@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://du547302hnrxh"
-path="res://.godot/imported/Lamp.fbx-2b15d73f649e8804790d3cc9c8e29d8f.scn"
+uid="uid://blrbyk3b62pl4"
+path="res://.godot/imported/lamp.fbx-8ecff3d580ad6fe86691aa5211a3d4a4.scn"
 
 [deps]
 
-source_file="res://assets/prolog/Lamp.fbx"
-dest_files=["res://.godot/imported/Lamp.fbx-2b15d73f649e8804790d3cc9c8e29d8f.scn"]
+source_file="res://assets/prolog/lamp.fbx"
+dest_files=["res://.godot/imported/lamp.fbx-8ecff3d580ad6fe86691aa5211a3d4a4.scn"]
 
 [params]
 

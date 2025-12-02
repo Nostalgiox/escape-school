@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://cr16qvxkng034"]
+[gd_scene load_steps=36 format=3 uid="uid://cr16qvxkng034"]
 
 [ext_resource type="Script" uid="uid://c4hufc8gty534" path="res://Player/PlayerController.gd" id="1_lqs8g"]
 [ext_resource type="Script" uid="uid://bfbu2ih0dvxc2" path="res://Player/Interaction/PlayerInteractionHandler.gd" id="2_kykvu"]
@@ -18,6 +18,9 @@
 [ext_resource type="Texture2D" uid="uid://b876c5h5r20ks" path="res://Items/Linijka/ruler.png" id="12_8wo0o"]
 [ext_resource type="PackedScene" uid="uid://nmtalb8anxun" path="res://Items/Linijka/ruler.tscn" id="13_6wxwc"]
 [ext_resource type="PackedScene" uid="uid://c1xgbglj66kfw" path="res://Inventory/MeasurementDropUI.tscn" id="15_6wxwc"]
+[ext_resource type="Texture2D" uid="uid://ywd0vcexpp5t" path="res://Items/Klucz_level1/Klucz_level1.png" id="15_k3oe0"]
+[ext_resource type="PackedScene" uid="uid://635f3qscbudr" path="res://Items/Klucz_level1/level1_key.tscn" id="16_2wtmw"]
+[ext_resource type="AudioStream" uid="uid://bimrutgugt3eh" path="res://assets/prolog/sounds/pickup.mp3" id="21_2wtmw"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_jqxt5"]
 
@@ -31,7 +34,7 @@ metadata/_custom_type_script = "uid://dlr5ccd40vty0"
 
 [sub_resource type="Resource" id="Resource_73ll8"]
 script = ExtResource("3_05jue")
-ItemName = "BookQuadratic"
+ItemName = "Czerwona książka"
 Icon = ExtResource("5_46m5n")
 ItemModelPrefab = ExtResource("7_ttj6a")
 DetailsText = "[font_size=14]
@@ -118,6 +121,15 @@ DetailsText = "[b]Może się do czegoś przyda...
 [/b]"
 metadata/_custom_type_script = "uid://dlr5ccd40vty0"
 
+[sub_resource type="Resource" id="Resource_5c26t"]
+script = ExtResource("3_05jue")
+ItemName = "Klucz do drzwi"
+Icon = ExtResource("15_k3oe0")
+ItemModelPrefab = ExtResource("16_2wtmw")
+DetailsText = "[b] Klucz do otworzenia drzwi w pierwszym pokoju [/b]"
+ShortDescription = "Brązowy klucz"
+metadata/_custom_type_script = "uid://dlr5ccd40vty0"
+
 [sub_resource type="SphereShape3D" id="SphereShape3D_kv1ul"]
 radius = 2.25705
 
@@ -173,7 +185,7 @@ _data = {
 &"fade_out": SubResource("Animation_q84h6")
 }
 
-[node name="PlayerBody" type="CharacterBody3D" node_paths=PackedStringArray("CameraContainerNode")]
+[node name="PlayerBody" type="CharacterBody3D" node_paths=PackedStringArray("CameraContainerNode") groups=["player"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 script = ExtResource("1_lqs8g")
 CameraContainerNode = NodePath("CameraContainer")
@@ -197,7 +209,7 @@ cull_mask = 786431
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("2_kykvu")
-ItemTypes = Array[ExtResource("3_05jue")]([SubResource("Resource_b7jcg"), SubResource("Resource_73ll8"), SubResource("Resource_mxh34"), SubResource("Resource_46m5n"), SubResource("Resource_8wo0o"), SubResource("Resource_jn4p5")])
+ItemTypes = Array[ExtResource("3_05jue")]([SubResource("Resource_b7jcg"), SubResource("Resource_73ll8"), SubResource("Resource_mxh34"), SubResource("Resource_46m5n"), SubResource("Resource_8wo0o"), SubResource("Resource_jn4p5"), SubResource("Resource_5c26t")])
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="InteractionArea"]
 shape = SubResource("SphereShape3D_kv1ul")
@@ -223,6 +235,7 @@ PreviewTitle = NodePath("HSplitContainer/RightPane/MarginContainer/VBoxContainer
 PreviewDesc = NodePath("HSplitContainer/RightPane/MarginContainer/VBoxContainer/PreviewDesc")
 MeasurementDropUIPrefab = ExtResource("15_6wxwc")
 RightPane = NodePath("HSplitContainer/RightPane")
+PickupAudioPlayerNode = NodePath("../Pickup")
 
 [node name="Label" type="Label" parent="InventoryUI"]
 layout_mode = 0
@@ -310,6 +323,8 @@ render_target_update_mode = 4
 [node name="PreviewRoot" type="Node3D" parent="InventoryUI/HSplitContainer/RightPane/MarginContainer/VBoxContainer/PreviewContainer/SubViewport"]
 
 [node name="PreviewCamera" type="Camera3D" parent="InventoryUI/HSplitContainer/RightPane/MarginContainer/VBoxContainer/PreviewContainer/SubViewport/PreviewRoot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.377911, 0.9512441, -7.973921)
+keep_aspect = 0
 
 [node name="PreviewDesc" type="RichTextLabel" parent="InventoryUI/HSplitContainer/RightPane/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -360,6 +375,10 @@ offset_right = 228.0
 offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="Pickup" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("21_2wtmw")
+bus = &"SFX"
 
 [connection signal="OnItemPickedUp" from="InteractionArea" to="InventoryUI" method="PickupItem"]
 [connection signal="body_entered" from="InteractionArea" to="InteractionArea" method="OnObjectEnteredArea"]

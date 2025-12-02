@@ -35,7 +35,7 @@ Shortcuts/density_decrement=Object(Shortcut,"resource_local_to_scene":false,"res
 [application]
 
 config/name="Escape School"
-run/main_scene="uid://cg67wectrdec"
+run/main_scene="uid://bk83ojjrx7ee3"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
 

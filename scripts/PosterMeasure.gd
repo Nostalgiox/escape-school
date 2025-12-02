@@ -111,7 +111,7 @@ func _on_player_has_ruler() -> void:
 		$Label3D.visible = true
 	_show_monolog([
 		"Linijka pasuje idealnie do okręgu.",
-		"Średnica wynosi 6 cm — zapamiętaj to."
+		"Średnica wynosi 6 cm — zapamiętam to."
 	])
 
 func _on_player_missing_ruler() -> void:

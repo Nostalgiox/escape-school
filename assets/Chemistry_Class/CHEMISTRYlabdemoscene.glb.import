@@ -15,9 +15,11 @@ dest_files=["res://.godot/imported/CHEMISTRYlabdemoscene.glb-4589af2994539955619
 
 nodes/root_type=""
 nodes/root_name=""
+nodes/root_script=null
 nodes/apply_root_scale=true
 nodes/root_scale=1.0
 nodes/import_as_skeleton_bones=false
+nodes/use_name_suffixes=true
 nodes/use_node_type_suffixes=true
 meshes/ensure_tangents=true
 meshes/generate_lods=true
@@ -32,6 +34,9 @@ animation/trimming=false
 animation/remove_immutable_tracks=true
 animation/import_rest_as_RESET=false
 import_script/path=""
+materials/extract=0
+materials/extract_format=0
+materials/extract_path=""
 _subresources={
 "meshes": {
 "CHEMISTRYlabdemoscene_Cube_097": {
@@ -39,18 +44,36 @@ _subresources={
 "generate/lods": 0,
 "generate/shadow_meshes": 0,
 "lods/normal_merge_angle": 60.0,
-"lods/normal_split_angle": 25.0,
 "save_to_file/enabled": true,
-"save_to_file/path": "res://assets/Classroom_Gadgets/table.res"
+"save_to_file/fallback_path": "res://assets/Classroom_Gadgets/table.res",
+"save_to_file/path": "uid://i1cfwjime6ci"
+},
+"CHEMISTRYlabdemoscene_Cube_098": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 20.0,
+"save_to_file/enabled": true,
+"save_to_file/fallback_path": "res://scenes/Level1/model.res",
+"save_to_file/path": "uid://dqkmdqm0r5ckd"
+},
+"CHEMISTRYlabdemoscene_Cylinder_154": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 20.0,
+"save_to_file/enabled": true,
+"save_to_file/fallback_path": "res://scenes/Level1/chair.res",
+"save_to_file/path": "uid://btbfbh63jtori"
 },
 "CHEMISTRYlabdemoscene_Plane_003": {
 "generate/lightmap_uv": 0,
 "generate/lods": 0,
 "generate/shadow_meshes": 0,
 "lods/normal_merge_angle": 60.0,
-"lods/normal_split_angle": 25.0,
 "save_to_file/enabled": true,
-"save_to_file/path": "res://assets/Classroom_Gadgets/floor_wall.res"
+"save_to_file/fallback_path": "res://assets/Classroom_Gadgets/floor_wall.res",
+"save_to_file/path": "uid://ss26et0823gs"
 }
 }
 }

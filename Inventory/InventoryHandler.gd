@@ -26,9 +26,22 @@ signal MeasurementItemDropped(from_slot_id, item_data) # emitted when player cho
 # Prefab (opcjonalny) mały UI do dropowania w trybie measurement (możesz zostawić null)
 @export var MeasurementDropUIPrefab: PackedScene
 @export var RightPane: Control
-@onready var InventoryRoot: Control = $"."
+@onready var InventoryRoot: Control = $"." 
 var _measurement_ui: Control = null
 var _right_pane_saved_visible: bool = true
+
+# ---------------------
+# DŹWIĘK (Opcja A - przypnij AudioStreamPlayer/AudioStreamPlayer3D w Inspectorze)
+# ---------------------
+# możesz przypiąć tu plik audio (ogg/wav) w Inspectorze
+@export var PickupSound: AudioStream
+# Głośność w decybelach (0 = domyślna), możesz ustawić np. -6.0
+@export var PickupSoundVolumeDb: float = 0.0
+# Ścieżka do AudioStreamPlayer / AudioStreamPlayer3D w scenie (przypnij node, np. Player/pickup)
+@export var PickupAudioPlayerNode: NodePath = NodePath("")
+
+# Referencja runtime (może być AudioStreamPlayer lub AudioStreamPlayer3D)
+var _fixed_audio_player: Node = null
 
 # Stan
 var InventorySlots: Array[InventorySlot] = []
@@ -60,7 +73,44 @@ func _ready() -> void:
 		_preview_pivot = Node3D.new()
 		PreviewRoot.add_child(_preview_pivot)
 
+	# Jeśli użytkownik przypiął AudioStreamPlayer w Inspectorze — pobierz go
+	if PickupAudioPlayerNode != NodePath(""):
+		var node = get_node_or_null(PickupAudioPlayerNode)
+		if node and (node is AudioStreamPlayer or node is AudioStreamPlayer3D):
+			_fixed_audio_player = node
+			print("InventoryHandler: znaleziono audio player przez NodePath:", PickupAudioPlayerNode)
+		else:
+			push_warning("PickupAudioPlayerNode nie wskazuje poprawnego AudioStreamPlayer. Może Player jest instancjonowany dynamicznie lub ścieżka jest niepoprawna.")
+
+	# Jeśli nie znaleziono jeszcze - spróbuj znaleźć audio jako child PlayerBody (runtime)
+	if _fixed_audio_player == null and is_instance_valid(PlayerBody):
+		# 1) bezpośredni child o nazwie "pickup"
+		var candidate := PlayerBody.get_node_or_null("pickup")
+		if candidate and (candidate is AudioStreamPlayer or candidate is AudioStreamPlayer3D):
+			_fixed_audio_player = candidate
+			print("InventoryHandler: znaleziono audio player jako direct child 'pickup' w PlayerBody.")
+		else:
+			# 2) find_node po nazwie 'pickup' w drzewie PlayerBody
+			candidate = PlayerBody.find_node("pickup", true, false)
+			if candidate and (candidate is AudioStreamPlayer or candidate is AudioStreamPlayer3D):
+				_fixed_audio_player = candidate
+				print("InventoryHandler: znaleziono audio player przez find_node('pickup') w PlayerBody.")
+			else:
+				# 3) fallback: znajdź pierwszy AudioStreamPlayer / AudioStreamPlayer3D rekurencyjnie
+				for child in PlayerBody.get_children():
+					var found := _find_audio_recursive(child)
+					if found:
+						_fixed_audio_player = found
+						print("InventoryHandler: znaleziono pierwszy AudioStreamPlayer w drzewie PlayerBody:", found)
+						break
+
 	# Debug
+	if _fixed_audio_player == null:
+		push_warning("InventoryHandler: nie znaleziono AudioStreamPlayer dla pickup. Upewnij się, że node 'pickup' istnieje w PlayerBody lub ustaw PickupAudioPlayerNode w Inspectorze.")
+	else:
+		print("InventoryHandler ready. Audio player:", _fixed_audio_player.get_path())
+
+	# Debug info ogólne
 	print("InventoryHandler ready. Slots:", ItemSlotsCount, " RightPane:", RightPane != null, " MeasurementPrefab:", MeasurementDropUIPrefab != null)
 
 func _fix_layout_flags() -> void:
@@ -109,15 +159,95 @@ func _build_slots() -> void:
 
 	print("Grid children after:", InventoryGrid.get_child_count())
 
+# pomocnicza funkcja rekurencyjna do odnalezienia AudioStreamPlayer(3D)
+func _find_audio_recursive(node: Node) -> Node:
+	if node is AudioStreamPlayer or node is AudioStreamPlayer3D:
+		return node
+	for c in node.get_children():
+		var r = _find_audio_recursive(c)
+		if r:
+			return r
+	return null
+
+# Funkcja odtwarzająca dźwięk pickup (używa przypisanego AudioStreamPlayer lub AudioStreamPlayer3D)
+func _play_pickup_sound_at(pos: Vector3) -> void:
+	# jeśli mamy stały przypisany player (najczęstszy przypadek)
+	if _fixed_audio_player:
+		# AudioStreamPlayer (2D) - pozycja ignorowana
+		if _fixed_audio_player is AudioStreamPlayer:
+			var p2 := _fixed_audio_player as AudioStreamPlayer
+			if PickupSound:
+				p2.stream = PickupSound
+			p2.volume_db = PickupSoundVolumeDb
+			p2.play()
+			return
+		# AudioStreamPlayer3D - ustaw pozycję i stream
+		if _fixed_audio_player is AudioStreamPlayer3D:
+			var p3 := _fixed_audio_player as AudioStreamPlayer3D
+			if PickupSound:
+				p3.stream = PickupSound
+			p3.volume_db = PickupSoundVolumeDb
+			# ustaw globalną pozycję odtwarzacza aby dźwięk był słyszalny w 3D
+			var gt := p3.global_transform
+			gt.origin = pos
+			p3.global_transform = gt
+			p3.play()
+			return
+		# inny typ - warn
+		push_warning("Podpięty pickup player nie jest AudioStreamPlayer ani AudioStreamPlayer3D.")
+		return
+
+	# jeśli nie mamy przypisanego playera, spróbuj stworzyć tymczasowy (3D) - fallback
+	if PickupSound == null:
+		# nic do odtworzenia
+		return
+	var ap := AudioStreamPlayer3D.new()
+	ap.stream = PickupSound
+	ap.volume_db = PickupSoundVolumeDb
+	ap.global_transform = Transform3D(Basis.IDENTITY, pos)
+	add_child(ap)
+	ap.play()
+	# posprzątaj po skończeniu
+	if ap.has_signal("finished"):
+		ap.connect("finished", Callable(ap, "queue_free"))
+	else:
+		var t := Timer.new()
+		t.one_shot = true
+		var wait_time := 1.0
+		if PickupSound.has_method("get_length"):
+			wait_time = float(PickupSound.get_length())
+		t.wait_time = max(0.1, wait_time)
+		ap.add_child(t)
+		t.start()
+		t.timeout.connect(Callable(ap, "queue_free"))
+
 func PickupItem(item: ItemData) -> void:
 	for slot in InventorySlots:
 		if slot and not slot.SlotFilled:
 			slot.FillSlot(item, false)
+
+			# zagraj dźwięk blisko gracza - używamy pozycji PlayerBody jako miejsce źródła
+			var pos := Vector3.ZERO
+			if is_instance_valid(PlayerBody):
+				# CharacterBody3D ma global_position
+				pos = PlayerBody.global_position
+			_play_pickup_sound_at(pos)
+
 			return
 
 	var newItem := item.ItemModelPrefab.instantiate() as Node3D
-	PlayerBody.get_parent().add_child(newItem)
-	newItem.global_position = PlayerBody.global_position + PlayerBody.global_transform.basis.x * 2.0
+	# upewnijmy się, że PlayerBody jest valid przed użyciem
+	if is_instance_valid(PlayerBody) and PlayerBody.get_parent():
+		PlayerBody.get_parent().add_child(newItem)
+		newItem.global_position = PlayerBody.global_position + PlayerBody.global_transform.basis.x * 2.0
+	else:
+		# fallback: dodajemy jako child InventoryHandler (nie idealne ale bezpieczne)
+		add_child(newItem)
+		newItem.position = Vector3.ZERO
+
+	# zagraj dźwięk w miejscu spawn przedmiotu
+	if is_instance_valid(newItem):
+		_play_pickup_sound_at(newItem.global_position)
 
 func ItemEquipped(slotID: int) -> void:
 	if EquippedSlot != -1:
@@ -152,12 +282,18 @@ func _drop_data(at_position: Vector2, data: Variant) -> void:
 
 	var newItem = InventorySlots[data["ID"]].SlotData.ItemModelPrefab.instantiate() as Node3D
 	InventorySlots[data["ID"]].FillSlot(null, false)
-	PlayerBody.get_parent().add_child(newItem)
+	if is_instance_valid(PlayerBody) and PlayerBody.get_parent():
+		PlayerBody.get_parent().add_child(newItem)
+	else:
+		add_child(newItem)
 	newItem.global_position = GetWorldMousePosition()
 
 func GetWorldMousePosition() -> Vector3:
 	var mousePos = get_viewport().get_mouse_position()
 	var cam = get_viewport().get_camera_3d()
+	if cam == null or not is_instance_valid(PlayerBody):
+		# fallback: zwróć (0,0,0) jeżeli nie mamy kamery lub PlayerBody
+		return Vector3.ZERO
 	var ray_start = cam.project_ray_origin(mousePos)
 	var ray_end = ray_start + cam.project_ray_normal(mousePos) * cam.global_position.distance_to(PlayerBody.global_position) * 2.0
 	var world3d: World3D = PlayerBody.get_world_3d()
@@ -186,9 +322,14 @@ func _drop_item_from_slot(slotID: int) -> void:
 		return
 
 	var drop_item := slot.SlotData.ItemModelPrefab.instantiate() as Node3D
-	PlayerBody.get_parent().add_child(drop_item)
-	drop_item.global_position = PlayerBody.global_position + Vector3(0, 1.5, 0)
+	if is_instance_valid(PlayerBody) and PlayerBody.get_parent():
+		PlayerBody.get_parent().add_child(drop_item)
+		drop_item.global_position = PlayerBody.global_position + Vector3(0, 1.5, 0)
+	else:
+		add_child(drop_item)
+		drop_item.global_position = Vector3.ZERO
 
+	# odpowiednio: możesz chcieć odtworzyć inny dźwięk przy rzuceniu — tutaj nie robimy nic
 	slot.FillSlot(null, false)
 
 # ---------------------

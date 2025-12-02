@@ -1,4 +1,4 @@
-[gd_scene load_steps=59 format=3 uid="uid://b6igtk6udn6tg"]
+[gd_scene load_steps=60 format=3 uid="uid://b6igtk6udn6tg"]
 
 [ext_resource type="Script" uid="uid://biyugfgjsrvdo" path="res://scenes/Game_Main_Menu/prolog.gd" id="1_c8v5g"]
 [ext_resource type="PackedScene" uid="uid://cr16qvxkng034" path="res://Player/PlayerPrefab.tscn" id="1_nci5y"]
@@ -10,7 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://c276itbdbj7pg" path="res://assets/gltf/door_A.gltf" id="5_aid7e"]
 [ext_resource type="ArrayMesh" uid="uid://dvoojf45q0028" path="res://assets/prolog/Light_Switch/10121_Light_Switch_v1_L3.obj" id="5_cykxn"]
 [ext_resource type="Script" uid="uid://ccysqi5rk5r2n" path="res://scenes/Game_Main_Menu/trigger_monolog_1.gd" id="5_d5p3w"]
-[ext_resource type="PackedScene" uid="uid://du547302hnrxh" path="res://assets/prolog/Lamp.fbx" id="5_dwslo"]
+[ext_resource type="PackedScene" uid="uid://blrbyk3b62pl4" path="res://assets/prolog/lamp.fbx" id="5_dwslo"]
 [ext_resource type="PackedScene" uid="uid://do6v186wsak2h" path="res://assets/prolog/Shelf/wooden_storage_shelf.fbx" id="5_k0pl4"]
 [ext_resource type="Script" uid="uid://0r5xb475pldw" path="res://scripts/light_switch.gd" id="6_1dm7u"]
 [ext_resource type="Texture2D" uid="uid://blwxd8p33hdgm" path="res://assets/textures/plastered_wall_02_diff_4k.jpg" id="6_7cw4t"]
@@ -20,8 +20,9 @@
 [ext_resource type="Script" uid="uid://cqajshvu3rgs1" path="res://scenes/Game_Main_Menu/Scripts/door_a_trigger_zone.gd" id="8_it2l1"]
 [ext_resource type="PackedScene" uid="uid://dfi7016087rnr" path="res://assets/prolog/shelfs.glb" id="10_7odl1"]
 [ext_resource type="PackedScene" uid="uid://cyexwquywx03s" path="res://scenes/world.tscn" id="11_shpxc"]
+[ext_resource type="PackedScene" uid="uid://dmu6333ciymqo" path="res://Inventory/tablelamp.fbx" id="12_4h18g"]
 [ext_resource type="PackedScene" uid="uid://4r3ccoi7jdkb" path="res://Teacher/Teacher.tscn" id="14_a7eby"]
-[ext_resource type="ArrayMesh" uid="uid://cgyksw13tmd4r" path="res://scenes/Prologue/exclamation_mark.res" id="15_snlgx"]
+[ext_resource type="ArrayMesh" uid="uid://17aabv1ac8k7" path="res://scenes/Prologue/exclamation_mark.res" id="15_snlgx"]
 [ext_resource type="Script" uid="uid://d376wgic4quim" path="res://Teacher/dialogue_trigger_teacher.gd" id="15_sq3a5"]
 [ext_resource type="AudioStream" uid="uid://d0w15nk600a1d" path="res://assets/prolog/Light_Switch/light_switch_on.mp3" id="16_xjcvp"]
 [ext_resource type="PackedScene" uid="uid://bslwxt5om4kqh" path="res://assets/gltf/door_B.gltf" id="17_28ee7"]
@@ -69,13 +70,13 @@ albedo_texture = ExtResource("3_iho6w")
 uv1_scale = Vector3(3, 3, 3)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_f2qpu"]
-size = Vector3(2.3205566, 1.4009705, 1)
+size = Vector3(2.3205566, 1.3518524, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_dwslo"]
+size = Vector3(2.5098267, 3.2087402, 2.0195313)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_xjcvp"]
 radius = 38.004356
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_dwslo"]
-size = Vector3(1, 1.392334, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_shpxc"]
 size = Vector3(2.1602783, 3.294983, 0.78430176)
@@ -118,7 +119,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("../Lamp/Table_lamp:omni_range")
+tracks/1/path = NodePath("../tablelamp/Table_lamp:omni_range")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -179,6 +180,34 @@ tracks/0/keys = {
 "values": [Vector3(0, 1.5707964, 0), Vector3(0, 0, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_4h18g"]
+resource_name = "exclamation"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Light_Switch/Exclamation:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 8.871117, 0.40261078), Vector3(0, 10.063873, 0.40261078), Vector3(0, 8.871117, 0.40261078)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../Light_Switch/Exclamation:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, -8.80838e-15, 0), Vector3(0, 0.7853982, 0), Vector3(0, -8.80838e-15, 0)]
+}
+
 [sub_resource type="Animation" id="Animation_dwslo"]
 resource_name = "lamp_animation"
 length = 4.0
@@ -186,7 +215,7 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("../Lamp/Table_lamp:omni_range")
+tracks/0/path = NodePath("../tablelamp/Table_lamp:omni_range")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -226,34 +255,6 @@ tracks/0/keys = {
 "values": [Vector3(0, 0, 0), Vector3(0, 1.5707964, 0)]
 }
 
-[sub_resource type="Animation" id="Animation_4h18g"]
-resource_name = "exclamation"
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("../Light_Switch/Exclamation:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5, 1),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector3(0, 8.871117, 0.40261078), Vector3(0, 10.063873, 0.40261078), Vector3(0, 8.871117, 0.40261078)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("../Light_Switch/Exclamation:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.5, 1),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector3(0, -8.80838e-15, 0), Vector3(0, 0.7853982, 0), Vector3(0, -8.80838e-15, 0)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_it2l1"]
 _data = {
 &"RESET": SubResource("Animation_gfosc"),
@@ -267,7 +268,7 @@ _data = {
 [node name="Prolog" type="Node3D"]
 script = ExtResource("1_c8v5g")
 
-[node name="PlayerBody" parent="." groups=["player"] instance=ExtResource("1_nci5y")]
+[node name="PlayerBody" parent="." instance=ExtResource("1_nci5y")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.270925, 1.55469, 5.271536)
 
 [node name="CSGCombiner3D" type="CSGCombiner3D" parent="."]
@@ -320,7 +321,6 @@ shape = SubResource("ConcavePolygonShape3D_3pw8j")
 
 [node name="Ceiling" type="CSGBox3D" parent="CSGCombiner3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.09741, 4.9799786, 0)
-visible = false
 size = Vector3(22.512695, 0.1, 20.454834)
 material = SubResource("StandardMaterial3D_kaubh")
 
@@ -338,9 +338,9 @@ size = Vector3(1, 8.495987, 8.915497)
 material = SubResource("StandardMaterial3D_t3gv7")
 
 [node name="CSGBox3D" type="CSGBox3D" parent="CSGCombiner3D/Entry"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.95971674, -0.50995505, 2.883335)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.95971674, -0.50995505, 2.8032875)
 use_collision = true
-size = Vector3(10.130371, 1, 8.54895)
+size = Vector3(10.130371, 1, 8.709045)
 material = SubResource("StandardMaterial3D_lbf86")
 
 [node name="CSGBox3D2" type="CSGBox3D" parent="CSGCombiner3D/Entry"]
@@ -354,7 +354,7 @@ transform = Transform3D(0.3475398, 0, -1.1485713, 0, 1.1999999, 0, 1.1485713, 0,
 [node name="StaticBody3D" type="StaticBody3D" parent="CSGCombiner3D/Entry/wooden_storage_shelf"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CSGCombiner3D/Entry/wooden_storage_shelf/StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.06311023, 0.15057367, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.06311023, 0.12601465, 0)
 shape = SubResource("BoxShape3D_f2qpu")
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="CSGCombiner3D/Entry/wooden_storage_shelf/StaticBody3D"]
@@ -385,38 +385,38 @@ operation = 2
 size = Vector3(1.1625977, 1.6755371, 2.8381348)
 
 [node name="Lamp" parent="CSGCombiner3D/Entry" instance=ExtResource("5_dwslo")]
-transform = Transform3D(0.35, 0, 0, 0, 0.35, 0, 0, 0, 0.35, -3.5981994, 3.642268, 3.9174824)
+transform = Transform3D(0.03, 0, 0, 0, 0.03, 0, 0, 0, 0.03, -3.5981994, 3.642268, 3.9174824)
 
 [node name="EntryLamp" type="SpotLight3D" parent="CSGCombiner3D/Entry/Lamp"]
-transform = Transform3D(2.857143, 0, 0, 0, -1.2488968e-07, 2.857143, 0, -2.857143, -1.2488968e-07, 0.102630615, 0.7351761, 0.11733341)
+transform = Transform3D(33.333336, 0, 0, 0, -1.4570464e-06, 33.333336, 0, -33.333336, -1.4570464e-06, 0.102645874, -13.088707, 0.11734009)
 light_energy = 2.709
 distance_fade_enabled = true
 
 [node name="Lamp2" parent="CSGCombiner3D/Entry" instance=ExtResource("5_dwslo")]
-transform = Transform3D(0.35, 0, 0, 0, 0.35, 0, 0, 0, 0.35, 1.8732914, 3.642268, 0.334301)
+transform = Transform3D(0.03, 0, 0, 0, 0.03, 0, 0, 0, 0.03, 1.8732914, 3.642268, 0.334301)
 
 [node name="EntryLamp" type="SpotLight3D" parent="CSGCombiner3D/Entry/Lamp2"]
-transform = Transform3D(2.857143, 0, 0, 0, -1.2488968e-07, 2.857143, 0, -2.857143, -1.2488968e-07, -0.042475224, 0.40966225, 0.11733341)
+transform = Transform3D(33.333336, 0, 0, 0, -1.4570463e-06, 33.333336, 0, -33.333336, -1.4570463e-06, -0.04247284, -7.751938, 0.11733627)
 light_energy = 3.641
 light_specular = 0.0
 shadow_enabled = true
 distance_fade_enabled = true
 
 [node name="Lamp3" parent="CSGCombiner3D/Entry" instance=ExtResource("5_dwslo")]
-transform = Transform3D(0.35, 0, 0, 0, 0.35, 0, 0, 0, 0.35, 1.8732914, 3.642268, 4.681039)
+transform = Transform3D(0.03, 0, 0, 0, 0.03, 0, 0, 0, 0.03, 1.8732914, 3.642268, 4.681039)
 
 [node name="EntryLamp" type="SpotLight3D" parent="CSGCombiner3D/Entry/Lamp3"]
-transform = Transform3D(2.857143, 0, 0, 0, -1.2488968e-07, 2.857143, 0, -2.857143, -1.2488968e-07, -0.042475224, 0.13538837, -0.021209717)
+transform = Transform3D(33.333336, 0, 0, 0, -1.4570463e-06, 33.333336, 0, -33.333336, -1.4570463e-06, -0.04247284, -9.184479, -0.021209717)
 light_energy = 3.641
 light_specular = 0.0
 shadow_enabled = true
 distance_fade_enabled = true
 
 [node name="Lamp4" parent="CSGCombiner3D/Entry" instance=ExtResource("5_dwslo")]
-transform = Transform3D(0.35, 0, 0, 0, 0.35, 0, 0, 0, 0.35, -3.6719031, 3.642268, 0.72903395)
+transform = Transform3D(0.03, 0, 0, 0, 0.03, 0, 0, 0, 0.03, -3.6719031, 3.642268, 0.72903395)
 
 [node name="EntryLamp" type="SpotLight3D" parent="CSGCombiner3D/Entry/Lamp4"]
-transform = Transform3D(2.857143, 0, 0, 0, -1.2488968e-07, 2.857143, 0, -2.857143, -1.2488968e-07, -0.042475224, 0.13538837, -0.021209717)
+transform = Transform3D(33.333336, 0, 0, 0, -1.4570464e-06, 33.333336, 0, -33.333336, -1.4570464e-06, -0.04248047, -8.2684555, -0.021213531)
 light_energy = 3.641
 light_specular = 0.0
 shadow_enabled = true
@@ -427,6 +427,23 @@ transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -4.265012, 0.81581175, 
 door = NodePath("../Enviroment/door_A2")
 
 [node name="Enviroment" type="Node3D" parent="."]
+
+[node name="tablelamp" parent="Enviroment" instance=ExtResource("12_4h18g")]
+transform = Transform3D(0.22, 0, 0, 0, 0.22, 0, 0, 0, 0.22, -5.322608, 1.1066374, -10.528389)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Enviroment/tablelamp"]
+transform = Transform3D(0.48, 0, 0, 0, 0.48, 0, 0, 0, 0.48, 0.058813095, -0.06393671, -0.42053604)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Enviroment/tablelamp/StaticBody3D"]
+transform = Transform3D(0.9999871, 0, 0, 0, 0.9999871, 0, 0, 0, 0.9999871, -0.1336937, 1.6041241, 0.8320236)
+shape = SubResource("BoxShape3D_dwslo")
+
+[node name="Table_lamp" type="OmniLight3D" parent="Enviroment/tablelamp"]
+transform = Transform3D(4.5454545, 0, 0, 0, 4.5454545, 0, 0, 0, 4.5454545, 0.058813095, 0.6702342, 0.00088882446)
+light_volumetric_fog_energy = 1.155
+shadow_enabled = true
+distance_fade_enabled = true
+omni_attenuation = 1.583
 
 [node name="Light_Switch" type="MeshInstance3D" parent="Enviroment"]
 transform = Transform3D(-2.1855695e-09, 0, -0.05, 0, 0.05, 0, 0.05, 0, -2.1855695e-09, 3.8404765, 2.4279635, -6.778403)
@@ -446,22 +463,6 @@ shape = SubResource("SphereShape3D_xjcvp")
 [node name="Exclamation" type="MeshInstance3D" parent="Enviroment/Light_Switch"]
 transform = Transform3D(0.605, 0, -5.32907e-15, 0, 1.815, 0, 5.32907e-15, 0, 0.605, 0, 8.871117, 0.40261078)
 mesh = ExtResource("15_snlgx")
-
-[node name="Lamp" parent="Enviroment" instance=ExtResource("5_dwslo")]
-transform = Transform3D(0.48, 0, 0, 0, 0.48, 0, 0, 0, 0.48, -5.263795, 1.0427011, -10.358457)
-
-[node name="StaticBody3D" type="StaticBody3D" parent="Enviroment/Lamp"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Enviroment/Lamp/StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.69592285, 0)
-shape = SubResource("BoxShape3D_dwslo")
-
-[node name="Table_lamp" type="OmniLight3D" parent="Enviroment/Lamp"]
-transform = Transform3D(2.0833335, 0, 0, 0, 2.0833335, 0, 0, 0, 2.0833335, 0, 0.7240696, 0)
-light_volumetric_fog_energy = 1.155
-shadow_enabled = true
-distance_fade_enabled = true
-omni_attenuation = 1.583
 
 [node name="wall_doorway2" parent="Enviroment" instance=ExtResource("4_wxm74")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.03533, 0.0500011, -18.2485)
@@ -509,7 +510,7 @@ shape = SubResource("BoxShape3D_7cw4t")
 visible = false
 
 [node name="Lamp2" parent="Enviroment/CeilingLamps" instance=ExtResource("5_dwslo")]
-transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, -13.756762, 4.334735, -6.190255)
+transform = Transform3D(0.06, 0, 0, 0, 0.06, 0, 0, 0, 0.06, -13.756762, 4.334735, -6.190255)
 
 [node name="SpotLight3D" type="SpotLight3D" parent="Enviroment/CeilingLamps/Lamp2"]
 transform = Transform3D(1.6666665, 0, 0, 0, -7.2852316e-08, 1.6666665, 0, -1.6666665, -7.2852316e-08, 0, 0.63558483, 0)
@@ -519,7 +520,7 @@ spot_attenuation = 0.4
 spot_angle = 80.0
 
 [node name="Lamp3" parent="Enviroment/CeilingLamps" instance=ExtResource("5_dwslo")]
-transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, -13.756762, 4.334735, -15.581749)
+transform = Transform3D(0.06, 0, 0, 0, 0.06, 0, 0, 0, 0.06, -13.756762, 4.334735, -15.581749)
 
 [node name="SpotLight3D" type="SpotLight3D" parent="Enviroment/CeilingLamps/Lamp3"]
 transform = Transform3D(1.6666665, 0, 0, 0, -7.2852316e-08, 1.6666665, 0, -1.6666665, -7.2852316e-08, 0, 0.63558483, 0)
@@ -529,7 +530,7 @@ spot_attenuation = 0.4
 spot_angle = 80.0
 
 [node name="Lamp4" parent="Enviroment/CeilingLamps" instance=ExtResource("5_dwslo")]
-transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 1.0173684, 4.334735, -6.190255)
+transform = Transform3D(0.06, 0, 0, 0, 0.06, 0, 0, 0, 0.06, 1.0173684, 4.334735, -6.190255)
 
 [node name="SpotLight3D" type="SpotLight3D" parent="Enviroment/CeilingLamps/Lamp4"]
 transform = Transform3D(1.6666665, 0, 0, 0, -7.2852316e-08, 1.6666665, 0, -1.6666665, -7.2852316e-08, 0, 0.63558483, 0)
@@ -539,7 +540,7 @@ spot_attenuation = 0.4
 spot_angle = 80.0
 
 [node name="Lamp5" parent="Enviroment/CeilingLamps" instance=ExtResource("5_dwslo")]
-transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 1.0173684, 4.334735, -15.581749)
+transform = Transform3D(0.06, 0, 0, 0, 0.06, 0, 0, 0, 0.06, 1.0173684, 4.334735, -15.581749)
 
 [node name="SpotLight3D" type="SpotLight3D" parent="Enviroment/CeilingLamps/Lamp5"]
 transform = Transform3D(1.6666665, 0, 0, 0, -7.2852316e-08, 1.6666665, 0, -1.6666665, -7.2852316e-08, 0, 0.63558483, 0)
@@ -632,7 +633,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.281108, -1.5395432, -28.99
 [node name="MonologUI" parent="." instance=ExtResource("22_f2qpu")]
 
 [node name="Key" parent="." instance=ExtResource("23_a776a")]
-transform = Transform3D(1, 0, 0, 0, -0.0075572445, 0.99997145, 0, -0.99997145, -0.0075572445, 2.6301954, 0.8410835, 0.5656531)
+transform = Transform3D(1, 0, 0, 0, -0.0075572445, 0.99997145, 0, -0.99997145, -0.0075572445, 2.6301954, 0.6960616, 0.5656531)
 
 [connection signal="body_entered" from="Enviroment/Light_Switch/Area3D" to="Enviroment/Light_Switch" method="_on_area_3d_body_entered"]
 [connection signal="body_exited" from="Enviroment/Light_Switch/Area3D" to="Enviroment/Light_Switch" method="_on_area_3d_body_exited"]

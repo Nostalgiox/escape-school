@@ -32,15 +32,15 @@ script = ExtResource("1_vibka")
 ItemHighlightMesh = NodePath("MeshInstance3D/Outline")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 0, 0.18882765)
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0.18882765)
 mesh = ExtResource("2_5x01x")
 
 [node name="Outline" type="MeshInstance3D" parent="MeshInstance3D"]
-transform = Transform3D(0.036097657, 0, 0, 0, 0.30975986, 0, 0, 0, 0.019448917, -0.0021804625, 0.001986146, 0)
+transform = Transform3D(0.05249405, 0, 0, 0, 0.31245136, 0, 0, 0, 0.022058368, -0.0021804625, 0.001986146, 0)
 visible = false
 mesh = SubResource("ArrayMesh_nanba")
 surface_material_override/0 = SubResource("StandardMaterial3D_a8ess")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 0.008072422, 0.0053863525, 0.19001931)
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0.008072422, 0.0053863525, 0.19001931)
 shape = SubResource("BoxShape3D_56xb4")

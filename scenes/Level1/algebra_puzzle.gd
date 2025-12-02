@@ -94,4 +94,3 @@ func _play_unlock_animation() -> void:
 		anim_player.play("locker_puzzle_solved")
 	else:
 		push_error("AnimationPlayer or animation 'locker_puzzle_solved' not found.")
-
