@@ -1341,17 +1341,10 @@ skeleton = NodePath("../..")
 
 [node name="Notes" parent="." instance=ExtResource("57_huc3t")]
 transform = Transform3D(0.38139305, 0, 0.92441297, 0, 1, 0, -0.92441297, 0, 0.38139305, -0.20567107, 1.9866979, -6.6439652)
-canvas_layer_path = NodePath("")
-info_panel_path = NodePath("")
-texture_rect_path = NodePath("")
-left_label_path = NodePath("")
-right_label_path = NodePath("")
-close_button_path = NodePath("")
-anim_player_path = NodePath("")
 
 [node name="Area3D" type="Area3D" parent="Notes"]
 script = ExtResource("58_ic5wy")
-notatka_node_path = NodePath("..")
+notes_path = NodePath("..")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Notes/Area3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.20162821, 0, 0.48870206)

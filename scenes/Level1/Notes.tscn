@@ -12,16 +12,7 @@ bg_color = Color(0.56078434, 0.4, 0.2, 0.41960785)
 
 [node name="Notes" type="Node3D"]
 script = ExtResource("1_j6uyb")
-canvas_layer_path = NodePath("CanvasLayer")
-info_panel_path = NodePath("CanvasLayer/InfoPanel")
-texture_rect_path = NodePath("CanvasLayer/InfoPanel/TextureRect")
-left_label_path = NodePath("CanvasLayer/InfoPanel/InfoLabelLeft")
-right_label_path = NodePath("CanvasLayer/InfoPanel/InfoLabelRight")
-single_label_path = null
-close_button_path = NodePath("CanvasLayer/InfoPanel/CloseButton")
-anim_player_path = NodePath("AnimationPlayer")
-block_actions = null
-close_on_esc = null
+panel_path = NodePath("CanvasLayer/InfoPanel")
 
 [node name="Notes" parent="." instance=ExtResource("1_kqr0t")]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
@@ -71,7 +62,17 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/default_color = Color(0, 0, 0, 1)
 bbcode_enabled = true
-text = "asdasdasdasdasd"
+text = "[center][b]Zadanie 2[/b][/center]
+
+Na ścianie znajduje się plakat z okręgiem.
+Zmierz jego średnicę, a następnie oblicz [b]pole koła[/b] korzystając z wzoru:
+
+[center]P = π · r²[/center]
+
+gdzie r to połowa zmierzonej średnicy, a π ≈ 3.14159.
+
+Wpisz otrzymany wynik jako [b]drugą cyfrę[/b] kodu.
+"
 
 [node name="InfoLabelRight" type="RichTextLabel" parent="CanvasLayer/InfoPanel"]
 z_index = 1
@@ -87,6 +88,15 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/default_color = Color(0, 0, 0, 1)
 bbcode_enabled = true
+text = "[center][b]Zadanie 3[/b][/center]
+
+Ustaw lampę tak, aby cień przedmiotu padał wyraźnie na blat.
+Przyjrzyj się uważnie kształtowi cienia — zauważysz, że tworzy on cyfrę.
+
+Odczytaj tę cyfrę i wpisz ją jako [b]trzecią cyfrę[/b] kodu.
+
+Podpowiedź: poprawne ustawienie daje cyfrę: [b]7[/b].
+"
 
 [node name="CloseButton" type="Button" parent="CanvasLayer/InfoPanel"]
 layout_mode = 0
