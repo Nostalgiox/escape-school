@@ -5,8 +5,10 @@ signal MeasurementItemDropped(from_slot_id, item_data) # emitted when player cho
 
 @export var PlayerBody: CharacterBody3D
 @export_flags_3d_physics var CollisionMask: int
+@export var PreviewImage: TextureRect
 
-@export var ItemSlotsCount: int = 63
+
+@export var ItemSlotsCount: int = 25
 
 @export var InventoryGrid: GridContainer
 @export var InventorySlotPrefab: PackedScene = preload("res://Inventory/InventorySlot.tscn")
@@ -52,6 +54,10 @@ var _preview_pivot: Node3D = null
 var _preview_instance: Node3D = null
 
 func _ready() -> void:
+	# usuń tło panelu (ustawia StyleBoxEmpty jako override)
+	$LeftPane.add_theme_stylebox_override("panel", StyleBoxEmpty.new())
+	$RightPane.add_theme_stylebox_override("panel", StyleBoxEmpty.new())
+
 	# Walidacja referencji
 	if InventoryGrid == null:
 		push_error("InventoryGrid = null (przypnij w Inspectorze: LeftPane/.../InventoryGrid).")
@@ -392,29 +398,77 @@ func _clear_preview() -> void:
 	if is_instance_valid(_preview_instance):
 		_preview_instance.queue_free()
 		_preview_instance = null
+
 	if PreviewTitle:
 		PreviewTitle.text = ""
+
 	if PreviewDesc:
 		PreviewDesc.text = ""
 
+	# --- wyczyść preview image ---
+	if PreviewImage:
+		PreviewImage.texture = null
+		PreviewImage.visible = false
+
+
 func _show_preview_for_item(item: ItemData) -> void:
 	_clear_preview()
+
+	# --- TITLE ---
 	if PreviewTitle:
 		PreviewTitle.text = item.ItemName
 
+	# --- DESCRIPTION ---
 	if PreviewDesc:
 		var txt := item.DetailsText if item.DetailsText != null and item.DetailsText != "" else "[i]Brak opisu[/i]"
-		print("DEBUG: setting PreviewDesc text length:", txt.length())
 		PreviewDesc.bbcode_enabled = true
 		PreviewDesc.bbcode_text = txt
 		PreviewDesc.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		PreviewDesc.size_flags_vertical = Control.SIZE_EXPAND_FILL
 		PreviewDesc.custom_minimum_size = Vector2(200, 80)
 		PreviewDesc.visible = true
+
 		if PreviewDesc.has_method("scroll_to_line"):
 			PreviewDesc.scroll_to_line(0)
 
+	# --- ICON (PreviewImage) ---
+	if PreviewImage:
+		var tex: Texture = null
+
+		# 1) Najpierw znajdź ikonę taką, jaką ma slot
+		for slot in InventorySlots:
+			if slot and slot.SlotData == item:
+				# slot root -> znajdź TextureRect (ikona)
+				for child in slot.get_children():
+					if child is TextureRect:
+						tex = child.texture
+						break
+				break
+
+		# 2) Fallback: ikonka w ItemData (jeśli slot jej nie pokazał)
+		if tex == null:
+			if item.has_method("get_icon"):
+				tex = item.get_icon()
+			elif item.has("Icon"):
+				tex = item.Icon
+			elif item.has("ItemIcon"):
+				tex = item.ItemIcon
+
+		if tex != null:
+			PreviewImage.texture = tex
+			PreviewImage.visible = true
+
+				# maksymalny rozmiar = całe LeftPane
+			PreviewImage.expand = true
+			PreviewImage.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+
+	# (opcjonalnie) minimalny rozmiar, aby obraz był wystarczająco duży
+	# PreviewImage.custom_minimum_size = Vector2(300, 300)
+
+
+	# --- Nie dotykam logiki 3D preview ---
 	call_deferred("_finalize_show_preview_deferred", item)
+
 
 func _finalize_show_preview_deferred(item: ItemData) -> void:
 	if not item:

@@ -1,20 +1,20 @@
-[gd_scene load_steps=39 format=3 uid="uid://cr16qvxkng034"]
+[gd_scene load_steps=42 format=3 uid="uid://cr16qvxkng034"]
 
 [ext_resource type="Script" uid="uid://c4hufc8gty534" path="res://Player/PlayerController.gd" id="1_lqs8g"]
 [ext_resource type="Script" uid="uid://bfbu2ih0dvxc2" path="res://Player/Interaction/PlayerInteractionHandler.gd" id="2_kykvu"]
 [ext_resource type="Script" uid="uid://dlr5ccd40vty0" path="res://Inventory/ItemData.gd" id="3_05jue"]
 [ext_resource type="PackedScene" uid="uid://cuiklvlmyu8n6" path="res://Inventory/TestCube.tscn" id="4_g74hu"]
-[ext_resource type="Texture2D" uid="uid://cde2lfye63set" path="res://Items/Books/RedBookInventory.png" id="5_46m5n"]
-[ext_resource type="Texture2D" uid="uid://0uyckee4igr0" path="res://Items/Books/BlueBookInventory.png" id="7_73ll8"]
+[ext_resource type="Texture2D" uid="uid://dbsrp6eblbaao" path="res://Items/Books/redbook.png" id="5_em7n3"]
 [ext_resource type="PackedScene" uid="uid://c8oest5454tl4" path="res://scenes/pauseMenu.tscn" id="7_a0mcx"]
 [ext_resource type="Texture2D" uid="uid://c0lwuffmm312u" path="res://Items/Klucz/key.png" id="7_jn4p5"]
 [ext_resource type="Script" uid="uid://clulriu3kevem" path="res://Inventory/InventoryHandler.gd" id="7_lpwd7"]
 [ext_resource type="PackedScene" uid="uid://cmx8prd4y05sp" path="res://scenes/Level1/scenes/Book.tscn" id="7_ttj6a"]
 [ext_resource type="Script" uid="uid://colar6wdxgvfi" path="res://Player/fade_layer.gd" id="8_lpwd7"]
 [ext_resource type="PackedScene" uid="uid://7dxic084whck" path="res://Items/Books/blue_book.tscn" id="8_mxh34"]
-[ext_resource type="Texture2D" uid="uid://crruew6hfx881" path="res://Items/Books/GreenBookInventory.png" id="9_46m5n"]
+[ext_resource type="Texture2D" uid="uid://c2i2nly3xyucl" path="res://Items/Books/bluebook.png" id="9_jqaai"]
 [ext_resource type="PackedScene" uid="uid://dwepsd0yovnp3" path="res://Items/Klucz/key.tscn" id="9_mxh34"]
 [ext_resource type="PackedScene" uid="uid://e31k2xr5kk87" path="res://Items/Books/green_book.tscn" id="10_uff31"]
+[ext_resource type="Texture2D" uid="uid://dr8w3qgycae5q" path="res://Items/Books/greenbook.png" id="11_kfnbn"]
 [ext_resource type="Texture2D" uid="uid://b876c5h5r20ks" path="res://Items/Linijka/ruler.png" id="12_8wo0o"]
 [ext_resource type="PackedScene" uid="uid://nmtalb8anxun" path="res://Items/Linijka/ruler.tscn" id="13_6wxwc"]
 [ext_resource type="PackedScene" uid="uid://c1xgbglj66kfw" path="res://Inventory/MeasurementDropUI.tscn" id="15_6wxwc"]
@@ -23,6 +23,9 @@
 [ext_resource type="PackedScene" uid="uid://b3lvc8svdu4pq" path="res://Items/pendrive.tscn" id="17_5c26t"]
 [ext_resource type="Texture2D" uid="uid://eq1xuye2w2r5" path="res://Items/pen.png" id="17_44rfi"]
 [ext_resource type="AudioStream" uid="uid://bimrutgugt3eh" path="res://assets/prolog/sounds/pickup.mp3" id="21_2wtmw"]
+[ext_resource type="Texture2D" uid="uid://dtfxbsdymhmp8" path="res://assets/images/inventory_theme.png" id="21_em7n3"]
+[ext_resource type="FontFile" uid="uid://dhy1wb811s8vq" path="res://fonts/Cinzel-VariableFont_wght.ttf" id="22_jqaai"]
+[ext_resource type="FontFile" uid="uid://foyrjdpuehqk" path="res://fonts/Cinzel-Bold.ttf" id="23_jqaai"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_jqxt5"]
 
@@ -37,7 +40,7 @@ metadata/_custom_type_script = "uid://dlr5ccd40vty0"
 [sub_resource type="Resource" id="Resource_73ll8"]
 script = ExtResource("3_05jue")
 ItemName = "Czerwona książka"
-Icon = ExtResource("5_46m5n")
+Icon = ExtResource("5_em7n3")
 ItemModelPrefab = ExtResource("7_ttj6a")
 DetailsText = "[font_size=14]
 [b]Funkcja kwadratowa[/b]
@@ -73,7 +76,7 @@ metadata/_custom_type_script = "uid://dlr5ccd40vty0"
 [sub_resource type="Resource" id="Resource_46m5n"]
 script = ExtResource("3_05jue")
 ItemName = "Książka"
-Icon = ExtResource("7_73ll8")
+Icon = ExtResource("9_jqaai")
 ItemModelPrefab = ExtResource("8_mxh34")
 DetailsText = "[font_size=14]
 [b]Zadanie z funkcją kwadratową[/b]
@@ -96,7 +99,7 @@ metadata/_custom_type_script = "uid://dlr5ccd40vty0"
 [sub_resource type="Resource" id="Resource_8wo0o"]
 script = ExtResource("3_05jue")
 ItemName = "Zielona książka"
-Icon = ExtResource("9_46m5n")
+Icon = ExtResource("11_kfnbn")
 ItemModelPrefab = ExtResource("10_uff31")
 DetailsText = "[font_size=14]
 [b]Równanie liniowe[/b]
@@ -144,7 +147,8 @@ metadata/_custom_type_script = "uid://dlr5ccd40vty0"
 radius = 2.25705
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q84h6"]
-bg_color = Color(0.223238, 0.24924, 0.26794, 1)
+bg_color = Color(0.22352941, 0.2509804, 0.26666668, 0)
+draw_center = false
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
@@ -224,7 +228,7 @@ ItemTypes = Array[ExtResource("3_05jue")]([SubResource("Resource_b7jcg"), SubRes
 [node name="CollisionShape3D" type="CollisionShape3D" parent="InteractionArea"]
 shape = SubResource("SphereShape3D_kv1ul")
 
-[node name="InventoryUI" type="Control" parent="." node_paths=PackedStringArray("PlayerBody", "InventoryGrid", "DetailsRoot", "PreviewContainer", "PreviewViewport", "PreviewRoot", "PreviewCamera", "PreviewTitle", "PreviewDesc", "RightPane")]
+[node name="InventoryUI" type="Control" parent="." node_paths=PackedStringArray("PlayerBody", "PreviewImage", "InventoryGrid", "DetailsRoot", "PreviewTitle", "PreviewDesc", "RightPane")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -233,27 +237,41 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("7_lpwd7")
 PlayerBody = NodePath("..")
-CollisionMask = 1
-ItemSlotsCount = 49
-InventoryGrid = NodePath("HSplitContainer/LeftPane/MarginContainer/VBoxContainer/InventoryGrid")
+PreviewImage = NodePath("LeftPane/PreviewImage")
+ItemSlotsCount = 24
+InventoryGrid = NodePath("CenterPane/MarginContainer/VBoxContainer/InventoryGrid")
 DetailsRoot = NodePath("DetailsRoot")
-PreviewContainer = NodePath("HSplitContainer/RightPane/MarginContainer/VBoxContainer/PreviewContainer")
-PreviewViewport = NodePath("HSplitContainer/RightPane/MarginContainer/VBoxContainer/PreviewContainer/SubViewport")
-PreviewRoot = NodePath("HSplitContainer/RightPane/MarginContainer/VBoxContainer/PreviewContainer/SubViewport/PreviewRoot")
-PreviewCamera = NodePath("HSplitContainer/RightPane/MarginContainer/VBoxContainer/PreviewContainer/SubViewport/PreviewRoot/PreviewCamera")
-PreviewTitle = NodePath("HSplitContainer/RightPane/MarginContainer/VBoxContainer/PreviewTitle")
-PreviewDesc = NodePath("HSplitContainer/RightPane/MarginContainer/VBoxContainer/PreviewDesc")
+PreviewTitle = NodePath("RightPane/MarginContainer/VBoxContainer/PreviewTitle")
+PreviewDesc = NodePath("RightPane/MarginContainer/VBoxContainer/PreviewDesc")
 MeasurementDropUIPrefab = ExtResource("15_6wxwc")
-RightPane = NodePath("HSplitContainer/RightPane")
+RightPane = NodePath("RightPane")
 PickupAudioPlayerNode = NodePath("../Pickup")
+
+[node name="Panel" type="Panel" parent="InventoryUI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="InventoryUI"]
+layout_mode = 0
+offset_left = -78.0
+offset_top = -28.0
+offset_right = 1228.0
+offset_bottom = 692.0
+texture = ExtResource("21_em7n3")
+expand_mode = 1
 
 [node name="Label" type="Label" parent="InventoryUI"]
 layout_mode = 0
 offset_left = 5.0
-offset_top = 5.0
+offset_top = 60.0
 offset_right = 1152.0
-offset_bottom = 28.0
+offset_bottom = 115.0
 size_flags_vertical = 1
+theme_override_fonts/font = ExtResource("22_jqaai")
 theme_override_font_sizes/font_size = 40
 text = "Plecak"
 horizontal_alignment = 1
@@ -266,21 +284,73 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="HSplitContainer" type="HSplitContainer" parent="InventoryUI"]
+[node name="RightPane" type="Panel" parent="InventoryUI"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 0
+offset_left = 717.0
+offset_top = 169.0
+offset_right = 1037.0
+offset_bottom = 453.0
+
+[node name="MarginContainer" type="MarginContainer" parent="InventoryUI/RightPane"]
 layout_mode = 1
-anchors_preset = 15
+anchors_preset = -1
 anchor_right = 1.0
+anchor_bottom = 0.99100006
+offset_bottom = 0.2919922
+
+[node name="VBoxContainer" type="VBoxContainer" parent="InventoryUI/RightPane/MarginContainer"]
+layout_mode = 2
+
+[node name="PreviewTitle" type="Label" parent="InventoryUI/RightPane/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("22_jqaai")
+theme_override_font_sizes/font_size = 24
+
+[node name="PreviewContainer" type="SubViewportContainer" parent="InventoryUI/RightPane/MarginContainer/VBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(320, 220)
+layout_mode = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="InventoryUI/RightPane/MarginContainer/VBoxContainer/PreviewContainer"]
+handle_input_locally = false
+size = Vector2i(320, 220)
+render_target_update_mode = 0
+
+[node name="PreviewRoot" type="Node3D" parent="InventoryUI/RightPane/MarginContainer/VBoxContainer/PreviewContainer/SubViewport"]
+
+[node name="PreviewCamera" type="Camera3D" parent="InventoryUI/RightPane/MarginContainer/VBoxContainer/PreviewContainer/SubViewport/PreviewRoot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.377911, 0.9512441, -7.973921)
+keep_aspect = 0
+
+[node name="PreviewDesc" type="RichTextLabel" parent="InventoryUI/RightPane/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("22_jqaai")
+theme_override_fonts/bold_font = ExtResource("23_jqaai")
+theme_override_font_sizes/normal_font_size = 16
+theme_override_font_sizes/bold_font_size = 16
+theme_override_font_sizes/bold_italics_font_size = 16
+theme_override_font_sizes/italics_font_size = 16
+theme_override_font_sizes/mono_font_size = 16
+bbcode_enabled = true
+
+[node name="CenterPane" type="Panel" parent="InventoryUI"]
+custom_minimum_size = Vector2(282, 100)
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
 anchor_bottom = 1.0
-offset_top = 60.0
+offset_left = -141.0
+offset_top = 108.0
+offset_right = 141.0
+offset_bottom = -118.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="LeftPane" type="Panel" parent="InventoryUI/HSplitContainer"]
-custom_minimum_size = Vector2(600, 100)
-layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_q84h6")
 
-[node name="MarginContainer" type="MarginContainer" parent="InventoryUI/HSplitContainer/LeftPane"]
+[node name="MarginContainer" type="MarginContainer" parent="InventoryUI/CenterPane"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -292,58 +362,35 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="VBoxContainer" type="VBoxContainer" parent="InventoryUI/HSplitContainer/LeftPane/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="InventoryUI/CenterPane/MarginContainer"]
 layout_mode = 2
 
-[node name="InventoryGrid" type="GridContainer" parent="InventoryUI/HSplitContainer/LeftPane/MarginContainer/VBoxContainer"]
+[node name="InventoryGrid" type="GridContainer" parent="InventoryUI/CenterPane/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/h_separation = 5
 theme_override_constants/v_separation = 5
-columns = 7
+columns = 4
 
-[node name="RightPane" type="Panel" parent="InventoryUI/HSplitContainer"]
-custom_minimum_size = Vector2(360, 0)
-layout_mode = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="InventoryUI/HSplitContainer/RightPane"]
+[node name="LeftPane" type="Panel" parent="InventoryUI"]
 layout_mode = 1
 anchors_preset = -1
+anchor_bottom = 1.0
+offset_left = 158.0
+offset_top = 152.0
+offset_right = 392.0
+offset_bottom = -281.0
+grow_vertical = 2
+
+[node name="PreviewImage" type="TextureRect" parent="InventoryUI/LeftPane"]
+layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
-anchor_bottom = 0.99100006
-offset_bottom = 0.2919922
-
-[node name="VBoxContainer" type="VBoxContainer" parent="InventoryUI/HSplitContainer/RightPane/MarginContainer"]
-layout_mode = 2
-
-[node name="PreviewTitle" type="Label" parent="InventoryUI/HSplitContainer/RightPane/MarginContainer/VBoxContainer"]
-layout_mode = 2
-horizontal_alignment = 1
-
-[node name="PreviewContainer" type="SubViewportContainer" parent="InventoryUI/HSplitContainer/RightPane/MarginContainer/VBoxContainer"]
-custom_minimum_size = Vector2(320, 220)
-layout_mode = 2
-stretch = true
-
-[node name="SubViewport" type="SubViewport" parent="InventoryUI/HSplitContainer/RightPane/MarginContainer/VBoxContainer/PreviewContainer"]
-handle_input_locally = false
-size = Vector2i(540, 220)
-render_target_update_mode = 4
-
-[node name="PreviewRoot" type="Node3D" parent="InventoryUI/HSplitContainer/RightPane/MarginContainer/VBoxContainer/PreviewContainer/SubViewport"]
-
-[node name="PreviewCamera" type="Camera3D" parent="InventoryUI/HSplitContainer/RightPane/MarginContainer/VBoxContainer/PreviewContainer/SubViewport/PreviewRoot"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.377911, 0.9512441, -7.973921)
-keep_aspect = 0
-
-[node name="PreviewDesc" type="RichTextLabel" parent="InventoryUI/HSplitContainer/RightPane/MarginContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/normal_font_size = 16
-theme_override_font_sizes/bold_font_size = 16
-theme_override_font_sizes/bold_italics_font_size = 16
-theme_override_font_sizes/italics_font_size = 16
-theme_override_font_sizes/mono_font_size = 16
-bbcode_enabled = true
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
+stretch_mode = 5
 
 [node name="ContextMenuRoot" type="Control" parent="InventoryUI"]
 visible = false

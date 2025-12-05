@@ -1,8 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://bqal1dmcfv7w2"]
+[gd_scene load_steps=8 format=3 uid="uid://bqal1dmcfv7w2"]
 
 [ext_resource type="Script" uid="uid://dikfdauqb4smo" path="res://scripts/notes.gd" id="1_j6uyb"]
 [ext_resource type="PackedScene" uid="uid://bcx2ffned51gw" path="res://assets/Notes/notebook.glb" id="1_kqr0t"]
 [ext_resource type="Texture2D" uid="uid://dvsyf1v8k8rvj" path="res://assets/Notes/ChatGPT Image 3 gru 2025, 10_41_21.png" id="3_nh4ds"]
+[ext_resource type="FontFile" uid="uid://dhy1wb811s8vq" path="res://fonts/Cinzel-VariableFont_wght.ttf" id="4_2jkfj"]
+[ext_resource type="FontFile" uid="uid://foyrjdpuehqk" path="res://fonts/Cinzel-Bold.ttf" id="5_tt1lr"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_kqr0t"]
 radius = 2.8452113
@@ -61,6 +63,8 @@ offset_bottom = -92.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("4_2jkfj")
+theme_override_fonts/bold_font = ExtResource("5_tt1lr")
 bbcode_enabled = true
 text = "[center][b]Zadanie 2[/b][/center]
 
@@ -87,6 +91,8 @@ offset_bottom = -92.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("4_2jkfj")
+theme_override_fonts/bold_font = ExtResource("5_tt1lr")
 bbcode_enabled = true
 text = "[center][b]Zadanie 3[/b][/center]
 
