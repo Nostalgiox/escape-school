@@ -7,32 +7,35 @@ var _suppress = false # czy ignorować oznaczanie zmian
 
 var applied_settings = {}
 
+@onready var arrow_left: Button = $ArrowLeft
+@onready var arrow_right: Button = $ArrowRight
+
 #Zakładki
-@onready var zapisz_btn = $Zapisz
-@onready var grafika_btn = $VBoxContainer/HBoxContainer/Grafika
-@onready var dzwiek_btn = $VBoxContainer/HBoxContainer/Dzwiek
-@onready var sterowanie_btn = $VBoxContainer/HBoxContainer/Sterowanie
-@onready var inne_btn = $VBoxContainer/HBoxContainer/Inne
-@onready var wstecz_btn = $VBoxContainer/HBoxContainer/Wstecz
+@onready var zapisz_btn = $BottomButtons/Zapisz
+@onready var grafika_btn = $CenterContainer/VBoxContainer/HBoxContainer/Grafika
+@onready var dzwiek_btn = $CenterContainer/VBoxContainer/HBoxContainer/Dzwiek
+@onready var sterowanie_btn = $CenterContainer/VBoxContainer/HBoxContainer/Sterowanie
+@onready var inne_btn = $CenterContainer/VBoxContainer/HBoxContainer/Inne
+@onready var wstecz_btn = $BottomButtons/Wstecz
 
 #Panele
-@onready var grafika_panel = $VBoxContainer/PanelContainer/GrafikaPanel
-@onready var dzwiek_panel = $VBoxContainer/PanelContainer/DzwiekPanel
-@onready var sterowanie_panel = $VBoxContainer/PanelContainer/SterowaniePanel
-@onready var inne_panel = $VBoxContainer/PanelContainer/InnePanel
+@onready var grafika_panel = $CenterContainer/VBoxContainer/PanelContainer/GrafikaPanel
+@onready var dzwiek_panel = $CenterContainer/VBoxContainer/PanelContainer/DzwiekPanel
+@onready var sterowanie_panel = $CenterContainer/VBoxContainer/PanelContainer/SterowaniePanel
+@onready var inne_panel = $CenterContainer/VBoxContainer/PanelContainer/InnePanel
 
 #Elementy panelu graficznego
-@onready var fullscreen_checkbox = grafika_panel.get_node("FullscreenCheck")
-@onready var resolution_dropdown = grafika_panel.get_node("ResolutionOption")
-@onready var vsync_checkbox = grafika_panel.get_node("VSYNCCheck")
-@onready var gamma_slider = grafika_panel.get_node("HBoxContainer/GammaSlider")
-@onready var fov_slider = grafika_panel.get_node("HBoxContainer2/FOVSlider")
-@onready var shadows_option = grafika_panel.get_node("ShadowsOption")
-@onready var textures_option = grafika_panel.get_node("TexturesOption")
+@onready var fullscreen_checkbox = $CenterContainer/VBoxContainer/PanelContainer/GrafikaPanel/OptionsList/Row_Fullscreen/FullscreenCheck
+@onready var resolution_dropdown = $CenterContainer/VBoxContainer/PanelContainer/GrafikaPanel/OptionsList/Row_Resolution/ResolutionOption
+@onready var vsync_checkbox = $CenterContainer/VBoxContainer/PanelContainer/GrafikaPanel/OptionsList/Row_VSYNC/VSYNCCheck
+@onready var gamma_slider = $CenterContainer/VBoxContainer/PanelContainer/GrafikaPanel/OptionsList/Row_Gamma/GammaSlider
+@onready var fov_slider = $CenterContainer/VBoxContainer/PanelContainer/GrafikaPanel/OptionsList/Row_FOV/FOVSlider
+@onready var shadows_option = $CenterContainer/VBoxContainer/PanelContainer/GrafikaPanel/OptionsList/ShadowsOption
+@onready var textures_option = $CenterContainer/VBoxContainer/PanelContainer/GrafikaPanel/OptionsList/TexturesOption
 
 #Elementy panelu sterowania
-@onready var mouse_sensitivity_slider = sterowanie_panel.get_node("MouseSensitivitySlider")
-@onready var bindings_container: VBoxContainer = sterowanie_panel.get_node("Bindings")
+@onready var mouse_sensitivity_slider = $CenterContainer/VBoxContainer/PanelContainer/SterowaniePanel/OptionsList/Row_Sensitivity/MouseSensitivitySlider
+@onready var bindings_container: VBoxContainer = $CenterContainer/VBoxContainer/PanelContainer/SterowaniePanel/OptionsList/Bindings
 
 const REBIND_ACTIONS := [
 	{"action": "ui_up", "label": "Ruch do przodu"},
@@ -51,12 +54,12 @@ var _listen_button: Button = null
 
 #Elementy panelu dzwieku
 # --- Dźwięk ---
-@onready var music_volume_slider = dzwiek_panel.get_node("HBoxContainer4/MusicVolumeSlider")
-@onready var sfx_volume_slider = dzwiek_panel.get_node("HBoxContainer2/SFXVolumeSlider")
-@onready var mute_checkbox = dzwiek_panel.get_node("MuteCheckbox")
+@onready var music_volume_slider = $CenterContainer/VBoxContainer/PanelContainer/DzwiekPanel/OptionsList/Row_Music/MusicVolumeSlider
+@onready var sfx_volume_slider = $CenterContainer/VBoxContainer/PanelContainer/DzwiekPanel/OptionsList/Row_SFX/SFXVolumeSlider
+@onready var mute_checkbox = $CenterContainer/VBoxContainer/PanelContainer/DzwiekPanel/OptionsList/Row_Mute/MuteCheckbox
 
 
-@onready var volume_slider = $VBoxContainer/PanelContainer/DzwiekPanel/HBoxContainer/volume_slider
+@onready var volume_slider = $CenterContainer/VBoxContainer/PanelContainer/DzwiekPanel/OptionsList/Row_Volume/volume_slider
 
 @onready var MASTER_BUS := AudioServer.get_bus_index("Master")
 @onready var MUSIC_BUS := AudioServer.get_bus_index("Music")
@@ -64,22 +67,56 @@ var _listen_button: Button = null
 
 @export var main_menu_container: Control # przeciągnij CenterContainer w edytorze
 
+# kolejność paneli (używana do nawigacji klawiszami)
+const PANEL_ORDER := ["grafika", "dzwiek", "sterowanie"]
+var _current_panel_index := 0
+@onready var section_title_label: Label = $CenterContainer/VBoxContainer/HBoxContainer/SectionTitleContainer/Label
+
+const PANEL_TITLES: Dictionary = {
+	"grafika": "USTAWIENIA GRAFICZNE",
+	"dzwiek": "USTAWIENIA DŹWIĘKU",
+	"sterowanie": "STEROWANIE",
+}
+
+
+
 
 func _ready():
 	print("Poprzednia scena:", Global.previous_scene_path)
+
+	# --- Połączenia zakładek ---
 	grafika_btn.pressed.connect(func(): show_panel("grafika"))
 	dzwiek_btn.pressed.connect(func(): show_panel("dzwiek"))
 	sterowanie_btn.pressed.connect(func(): show_panel("sterowanie"))
-	inne_btn.pressed.connect(func(): show_panel("inne"))
+	#inne_btn.pressed.connect(func(): show_panel("inne"))
 	wstecz_btn.pressed.connect(_on_wstecz_pressed)
-	
+
+	# --- Strzałki paneli ---
+	arrow_left.pressed.connect(func(): _select_previous_panel())
+	arrow_right.pressed.connect(func(): _select_next_panel())
+
+	# Ustaw, żeby strzałki ZAWSZE mogły być kliknięte:
+	arrow_left.disabled = false
+	arrow_right.disabled = false
+
+	arrow_left.mouse_filter = Control.MOUSE_FILTER_STOP
+	arrow_right.mouse_filter = Control.MOUSE_FILTER_STOP
+
+	# Debug — pokaże czy faktycznie są widoczne i gdzie leżą
+	print("ArrowLeft rect:", arrow_left.get_global_rect())
+	print("ArrowRight rect:", arrow_right.get_global_rect())
+
+
+	# --- Zapisz ---
 	zapisz_btn.pressed.connect(_on_zapisz_pressed)
 	zapisz_btn.visible = false
-	
-	#Obsługa zmian ustawień
+
+
+	# --- Obsługa zmian ustawień ---
 	fullscreen_checkbox.toggled.connect(_on_fullscreen_toggled)
 	resolution_dropdown.item_selected.connect(_on_resolution_selected)
 	vsync_checkbox.toggled.connect(_on_vsync_toggled)
+
 	volume_slider.value_changed.connect(_on_volume_changed)
 	music_volume_slider.value_changed.connect(_on_music_volume_changed)
 	sfx_volume_slider.value_changed.connect(_on_sfx_volume_changed)
@@ -92,7 +129,8 @@ func _ready():
 	shadows_option.item_selected.connect(_on_shadows_selected)
 	textures_option.item_selected.connect(_on_textures_selected)
 
-	# Wypełnienie opcji jakości
+
+	# --- Wypełnij opcje ---
 	shadows_option.clear()
 	shadows_option.add_item("Niskie")
 	shadows_option.add_item("Średnie")
@@ -102,29 +140,60 @@ func _ready():
 	textures_option.add_item("Niskie")
 	textures_option.add_item("Średnie")
 	textures_option.add_item("Wysokie")
-	
+
 	_populate_resolutions()
 
+	# Klawiszologia (rebind)
 	_build_binding_rows()
-	
+
+
+	# --- Wczytanie ustawień ---
 	_suppress = true
 	load_settings()
 	apply_settings()
 	applied_settings = get_current_settings()
 	_suppress = false
-
 	_refresh_binding_labels()
-	
-	show_panel("grafika") # domyślnie pokaż grafikę
 
-	#var db = AudioServer.get_bus_volume_db(0)
-	#volume_slider.value = db_to_linear(db)
+	# Domyślny panel
+	show_panel("grafika")
+	_update_section_title_for(PANEL_ORDER[_current_panel_index])
+
+
+func _update_section_title_for(name: String) -> void:
+	if not is_instance_valid(section_title_label):
+		return
+	var t: String = ""
+	if PANEL_TITLES.has(name):
+		t = PANEL_TITLES[name] as String
+	section_title_label.text = t
 
 func _input(event: InputEvent) -> void:
 	if not visible:
 		return
+
+	# Najpierw: obsługa nawigacji panelami, JEŻELI NIE NASŁUCHUJEMY PRZYPISANIA
 	if _listen_action == &"":
+		if event is InputEventKey:
+			var e := event as InputEventKey
+			if not e.is_pressed() or e.is_echo():
+				# ignorujemy zwolnienia i echo
+				pass
+			else:
+				if e.keycode == KEY_LEFT:
+					_select_previous_panel()
+					accept_event()
+					return
+				elif e.keycode == KEY_RIGHT:
+					_select_next_panel()
+					accept_event()
+					return
+	# Jeżeli nasłuch (rebind) — przejdź do istniejącej logiki nasłuchu:
+	if _listen_action == &"":
+		# nie nasłuchujemy — nic więcej do zrobienia
 		return
+
+	# gdy _listen_action != "" — obsługa nasłuchu klawiszy (Twoja oryginalna logika)
 	if not event.is_pressed() or event.is_echo():
 		return
 
@@ -142,7 +211,7 @@ func _input(event: InputEvent) -> void:
 		ne.shift_pressed = e.shift_pressed
 		ne.alt_pressed = e.alt_pressed
 		ne.ctrl_pressed = e.ctrl_pressed
-		ne.meta_pressed = e.meta_pressed   # <- tu zmiana nazwy właściwości
+		ne.meta_pressed = e.meta_pressed
 		ne.pressed = true
 		_apply_event_to_action(_listen_action, ne)
 		accept_event()
@@ -165,6 +234,39 @@ func _input(event: InputEvent) -> void:
 	# na wszelki wypadek zjedz inne eventy w trybie nasłuchu, by UI nie reagowało
 	accept_event()
 
+func _select_panel_by_index(idx: int) -> void:
+	idx = clamp(idx, 0, PANEL_ORDER.size() - 1)
+	_current_panel_index = idx
+	var name = PANEL_ORDER[idx]
+	show_panel(name)
+
+
+func _select_next_panel() -> void:
+	var next_idx := _current_panel_index + 1
+	if next_idx >= PANEL_ORDER.size():
+		next_idx = PANEL_ORDER.size() - 1
+	_select_panel_by_index(next_idx)
+
+func _select_previous_panel() -> void:
+	var prev_idx := _current_panel_index - 1
+	if prev_idx < 0:
+		prev_idx = 0
+	_select_panel_by_index(prev_idx)
+
+
+func _update_tab_buttons() -> void:
+	# jeśli używasz toggle-mode na zakładkach (grafika_btn itd.)
+	grafika_btn.button_pressed = (_current_panel_index == 0)
+	dzwiek_btn.button_pressed = (_current_panel_index == 1)
+	sterowanie_btn.button_pressed = (_current_panel_index == 2)
+	#inne_btn.button_pressed = (_current_panel_index == 3)
+
+	# Strzałki blokowane na końcach
+	if is_instance_valid(arrow_left):
+		arrow_left.disabled = (_current_panel_index == 0)
+
+	if is_instance_valid(arrow_right):
+		arrow_right.disabled = (_current_panel_index == PANEL_ORDER.size() - 1)
 
 func show_panel(name: String):
 	# Ukryj wszystkie
@@ -176,12 +278,17 @@ func show_panel(name: String):
 	match name:
 		"grafika":
 			grafika_panel.visible = true
+			_current_panel_index = 0
 		"dzwiek":
 			dzwiek_panel.visible = true
+			_current_panel_index = 1
 		"sterowanie":
 			sterowanie_panel.visible = true
-		"inne":
-			inne_panel.visible = true
+			_current_panel_index = 2
+	_update_section_title_for(name)
+	_update_tab_buttons()
+	
+
 
 func _on_fullscreen_toggled(pressed: bool):
 	#DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN if pressed else DisplayServer.WINDOW_MODE_WINDOWED)

@@ -59,6 +59,9 @@ class_name LockPanel
 # door SFX (same for open and close)
 @export var door_sfx_path: NodePath = NodePath("")
 
+# typing SFX for monolog (keyboard clicking)
+@export var typing_sfx_player_path: NodePath = NodePath("")
+
 @onready var shaker: Control = $Shaker
 
 signal unlocked
@@ -89,6 +92,8 @@ var _sfx_wrong: Node = null
 var _sfx_open_padlock: Node = null
 var _sfx_open_drawer: Node = null
 var _sfx_door: Node = null
+var _typing_sfx_player: Node = null
+
 
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_STOP
@@ -147,6 +152,12 @@ func _ready() -> void:
 		_sfx_door = get_node_or_null(door_sfx_path)
 		if _sfx_door == null:
 			print("LockPanel: door_sfx_path ustawione ale node nie znaleziono:", door_sfx_path)
+
+	if typing_sfx_player_path != NodePath(""):
+		_typing_sfx_player = get_node_or_null(typing_sfx_player_path)
+		if _typing_sfx_player == null:
+			print("LockPanel: typing_sfx_player_path ustawione ale node nie znaleziono:", typing_sfx_player_path)
+
 
 func _on_wheel_changed(index: int, value: int) -> void:
 	guess[index] = value
@@ -515,6 +526,21 @@ func _set_visible_recursive(node: Node, value: bool) -> void:
 	for child in node.get_children():
 		_set_visible_recursive(child, value)
 
+# ---- nowe helpery do typing SFX ----
+
+func _start_typing_sfx_for_monolog() -> void:
+	if _typing_sfx_player == null:
+		return
+	if not _typing_sfx_player.has_method("play"):
+		return
+	_typing_sfx_player.call("play")
+
+func _stop_typing_sfx() -> void:
+	if _typing_sfx_player and _typing_sfx_player.has_method("stop"):
+		_typing_sfx_player.call("stop")
+
+# ------------------------------------
+
 func _wait_for_monolog_or_timeout(mon_ui: Node, timeout: float = 0.0) -> void:
 	if mon_ui != null:
 		var signals := ["monolog_finished", "finished", "dialog_finished", "done", "completed"]
@@ -533,6 +559,9 @@ func _wait_for_monolog_or_timeout(mon_ui: Node, timeout: float = 0.0) -> void:
 					"completed":
 						await mon_ui.completed
 				print("LockPanel: detected monolog finish signal:", s)
+
+				_stop_typing_sfx()
+
 				return
 	var wait_time: float = timeout if timeout > 0.0 else cutscene_hold_time
 	wait_time += 0.25
@@ -540,6 +569,8 @@ func _wait_for_monolog_or_timeout(mon_ui: Node, timeout: float = 0.0) -> void:
 	tw.tween_interval(wait_time)
 	await tw.finished
 	print("LockPanel: waited fallback timeout:", wait_time)
+
+	_stop_typing_sfx()
 
 func _spawn_key() -> void:
 	if key_scene == null:
@@ -614,6 +645,7 @@ func _start_monolog_direct() -> Node:
 	if mon_ui.has_method("start_monolog"):
 		print("LockPanel: Uruchamiam MonologUI.start_monolog()")
 		mon_ui.call("start_monolog", monolog_lines, monolog_duration)
+		_start_typing_sfx_for_monolog()
 		return mon_ui
 	var text: String = ""
 	for i in range(monolog_lines.size()):
@@ -625,10 +657,12 @@ func _start_monolog_direct() -> Node:
 		if "text" in label_node:
 			label_node.set("text", text)
 			print("LockPanel: fallback - ustawiono Label.text")
+			_start_typing_sfx_for_monolog()
 			return mon_ui
 		if label_node.has_method("set_text"):
 			label_node.call("set_text", text)
 			print("LockPanel: fallback - wywołano Label.set_text")
+			_start_typing_sfx_for_monolog()
 			return mon_ui
 	print("LockPanel: MonologUI znaleziono, ale nie ma metody start_monolog ani Label do fallbacku.")
 	return mon_ui

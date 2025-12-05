@@ -1,4 +1,4 @@
-[gd_scene load_steps=105 format=3 uid="uid://bk83ojjrx7ee3"]
+[gd_scene load_steps=111 format=3 uid="uid://bk83ojjrx7ee3"]
 
 [ext_resource type="PackedScene" uid="uid://cyexwquywx03s" path="res://scenes/world.tscn" id="2_br8qb"]
 [ext_resource type="PackedScene" uid="uid://b5s20kntva38x" path="res://scenes/Level1/assets/whiteboard.glb" id="4_iihbi"]
@@ -50,6 +50,11 @@
 [ext_resource type="PackedScene" uid="uid://bak8ltrhbmlv5" path="res://addons/CSGStairMaker3D.tscn" id="40_elren"]
 [ext_resource type="ArrayMesh" uid="uid://cr56ki72cr0nc" path="res://scenes/Level1/on_window.res" id="41_6dame"]
 [ext_resource type="Script" uid="uid://d1mqvbgqcu507" path="res://scripts/secondroom_entry_door.gd" id="41_su8p0"]
+[ext_resource type="Script" uid="uid://c0nui72jw5t45" path="res://scripts/firstroom_monolog_1.gd" id="43_fmtfn"]
+[ext_resource type="Script" uid="uid://disgg36avce5q" path="res://scripts/firstroom_monolog_2.gd" id="44_7i0et"]
+[ext_resource type="AudioStream" uid="uid://cil4ch4mbhvoo" path="res://assets/prolog/sounds/mixkit-slow-typing-on-a-keyboard-2532.wav" id="44_8gufu"]
+[ext_resource type="Script" uid="uid://4cplx0op0m5" path="res://scripts/firstroom_monolog_3.gd" id="45_4834m"]
+[ext_resource type="Script" uid="uid://c4tnsdcx1suuh" path="res://scripts/firstroom_monolog_4.gd" id="46_bllls"]
 [ext_resource type="ArrayMesh" uid="uid://n2vspkn1ojbp" path="res://scenes/Level1/Secondroom/tables.res" id="50_kp83n"]
 [ext_resource type="ArrayMesh" uid="uid://b6klvik4khoir" path="res://scenes/Level1/Secondroom/flat_pc.res" id="51_kla54"]
 [ext_resource type="ArrayMesh" uid="uid://chq22cjqe87rq" path="res://scenes/Level1/Secondroom/monitor.res" id="52_3tec7"]
@@ -227,6 +232,9 @@ size = Vector3(2.0544434, 0.83745766, 1.4958496)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_7t8h8"]
 size = Vector3(0.67077637, 0.8800659, 0.66677856)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_7i0et"]
+radius = 2.9229465
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_muoiu"]
 size = Vector3(1, 0.0869751, 1)
@@ -409,7 +417,7 @@ radius = 1.1912459
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.74466, 2.06755, -3.812183)
 
 [node name="PlayerBody" parent="." instance=ExtResource("15_v04fw")]
-transform = Transform3D(-4.3711385e-08, 0, 0.99999994, 0, 1, 0, -0.99999994, 0, -4.3711385e-08, 3.4198477, 2.28632, -4.8544836)
+transform = Transform3D(-4.3711385e-08, 0, 0.99999994, 0, 1, 0, -0.99999994, 0, -4.3711385e-08, 3.0034285, 2.28632, -3.6948571)
 
 [node name="World" parent="." instance=ExtResource("2_br8qb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.713779, -1.1960267, -41.27668)
@@ -535,9 +543,9 @@ font = ExtResource("10_56u6k")
 [node name="locker" parent="FirstRoom" instance=ExtResource("11_r87cj")]
 transform = Transform3D(0.43, 0, 0, 0, 0.43, 0, 0, 0, 0.43, 0.7534572, 1.4094591, -12.6206045)
 
-[node name="Dialogue_trigger" type="Area3D" parent="FirstRoom/locker"]
+[node name="Firstroom_monolog" type="Area3D" parent="FirstRoom/locker"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="FirstRoom/locker/Dialogue_trigger"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="FirstRoom/locker/Firstroom_monolog"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2809448, -0.5928633, 1.2995605)
 shape = SubResource("BoxShape3D_ho2gr")
 
@@ -583,6 +591,7 @@ offset_left = 576.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("13_6n4yr")
+close_on_esc = true
 check_button = NodePath("Shaker/HBoxContainer2/CheckButton")
 close_button = NodePath("Shaker/HBoxContainer2/CloseButton")
 anim_player = NodePath("Shaker/AnimationPlayer")
@@ -590,7 +599,7 @@ cutscene_camera_path = NodePath("../../../Cutscene/Teacher_camera")
 cutscene_move_time = 0.6
 cutscene_hold_time = 10.0
 monolog_ui_path = NodePath("../../../../MonologUI")
-monolog_area_path = NodePath("../../Dialogue_trigger")
+monolog_area_path = NodePath("../../Firstroom_monolog")
 teacher_node_path = NodePath("../../../Teacher")
 door_anim_player_path = NodePath("../../../../AnimationPlayer")
 key_scene = ExtResource("16_7t8h8")
@@ -600,6 +609,7 @@ key_camera_transition_delay_line_index = 3
 sfx_wrong_answer_path = NodePath("../../Wrong_answer")
 sfx_open_padlock_path = NodePath("../../Open_padlock")
 door_sfx_path = NodePath("../../Door_open")
+typing_sfx_player_path = NodePath("../../Monolog_keyboard_typing")
 
 [node name="Shaker" type="Control" parent="FirstRoom/locker/LockerPuzzle/Panel"]
 layout_mode = 1
@@ -715,14 +725,18 @@ bus = &"SFX"
 stream = ExtResource("8_1kp80")
 bus = &"SFX"
 
+[node name="Monolog_keyboard_typing" type="AudioStreamPlayer" parent="FirstRoom/locker"]
+stream = ExtResource("44_8gufu")
+bus = &"SFX"
+
 [node name="Books" type="Node3D" parent="FirstRoom"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.211459, 2.4184515, -5.4673414)
 
 [node name="Book" parent="FirstRoom/Books" instance=ExtResource("16_sxjv5")]
-transform = Transform3D(0.6253429, 0.6071009, -0.4902802, -0.69656426, 0.7174944, 0, 0.35177332, 0.34151167, 0.87156487, -1.9564314, 0, 3.5682204)
+transform = Transform3D(0.6253429, 0.6071009, -0.4902802, -0.69656426, 0.7174944, 0, 0.35177332, 0.34151167, 0.87156487, -2.903863, 0.25852203, -0.5764046)
 
 [node name="GreenBook" parent="FirstRoom/Books" instance=ExtResource("16_ysvwm")]
-transform = Transform3D(0.91147506, -0.4113553, 0, 0.4113553, 0.91147506, 0, 0, 0, 1, 0.53752136, 0.049420595, 3.428712)
+transform = Transform3D(0.91147506, -0.4113553, 0, 0.4113553, 0.91147506, 0, 0, 0, 1, -2.52462, 0.049420595, -3.9578238)
 
 [node name="BlueBook" parent="FirstRoom/Books" instance=ExtResource("17_2mqmo")]
 transform = Transform3D(-0.016066, -0.96325606, -0.26810414, 0.99854493, -0.0016531803, -0.053897884, 0.051474366, -0.26857993, 0.9618809, 2.590057, -1.5178552, -5.69186)
@@ -1076,7 +1090,7 @@ transform = Transform3D(-0.5539293, 0.13313995, -0.82184917, 0, 0.9871307, 0.159
 transform = Transform3D(-0.66965204, -0.2720759, 0.6910434, 0.011182322, 0.92667955, 0.37568617, -0.7425908, 0.25930646, -0.6175104, 0.8855471, 3.034498, -6.9995294)
 
 [node name="Teacher" parent="FirstRoom" instance=ExtResource("34_ho2gr")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.130211, 1.8958452, -3.9394188)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.436701, 1.8958452, -3.6647031)
 visible = false
 
 [node name="Key_spawn" type="Node3D" parent="FirstRoom"]
@@ -1147,6 +1161,62 @@ mesh = ExtResource("9_jqq07")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="FirstRoom/Tables/Table5/StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 3.3182346e-12, 0, 1, -1.5887499, 0.7220909, -0.24791622)
 shape = SubResource("BoxShape3D_0fnvg")
+
+[node name="Firstroom_monolog1" type="Area3D" parent="FirstRoom"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.0512524, 1.411613, -5.3907866)
+script = ExtResource("43_fmtfn")
+monolog_ui_path = NodePath("../../MonologUI")
+typing_sfx_player_path = NodePath("Monolog_keyboard_typing")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="FirstRoom/Firstroom_monolog1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.48001)
+shape = SubResource("SphereShape3D_7i0et")
+
+[node name="Monolog_keyboard_typing" type="AudioStreamPlayer" parent="FirstRoom/Firstroom_monolog1"]
+stream = ExtResource("44_8gufu")
+bus = &"SFX"
+
+[node name="Firstroom_monolog2" type="Area3D" parent="FirstRoom"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.90209365, 1.411613, -7.947041)
+script = ExtResource("44_7i0et")
+monolog_ui_path = NodePath("../../MonologUI")
+typing_sfx_player_path = NodePath("Monolog_keyboard_typing")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="FirstRoom/Firstroom_monolog2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6310241, 0, 1.150826)
+shape = SubResource("SphereShape3D_7i0et")
+
+[node name="Monolog_keyboard_typing" type="AudioStreamPlayer" parent="FirstRoom/Firstroom_monolog2"]
+stream = ExtResource("44_8gufu")
+bus = &"SFX"
+
+[node name="Firstroom_monolog3" type="Area3D" parent="FirstRoom"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.68018, 1.411613, -3.481535)
+script = ExtResource("45_4834m")
+monolog_ui_path = NodePath("../../MonologUI")
+typing_sfx_player_path = NodePath("Monolog_keyboard_typing")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="FirstRoom/Firstroom_monolog3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.717865, 0, 1.150826)
+shape = SubResource("SphereShape3D_7i0et")
+
+[node name="Monolog_keyboard_typing" type="AudioStreamPlayer" parent="FirstRoom/Firstroom_monolog3"]
+stream = ExtResource("44_8gufu")
+bus = &"SFX"
+
+[node name="Firstroom_monolog4" type="Area3D" parent="FirstRoom"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.9999003, 1.411613, -9.692227)
+script = ExtResource("46_bllls")
+monolog_ui_path = NodePath("../../MonologUI")
+typing_sfx_player_path = NodePath("../Firstroom_monolog1/Monolog_keyboard_typing")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="FirstRoom/Firstroom_monolog4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.717865, 0, 1.150826)
+shape = SubResource("SphereShape3D_7i0et")
+
+[node name="Monolog_keyboard_typing" type="AudioStreamPlayer" parent="FirstRoom/Firstroom_monolog4"]
+stream = ExtResource("44_8gufu")
+bus = &"SFX"
 
 [node name="Ruler" parent="." instance=ExtResource("21_2mqmo")]
 transform = Transform3D(-4.3711385e-08, -1, 0, -4.3711385e-08, 1.9106855e-15, 0.99999994, -0.99999994, 4.371139e-08, -4.3711385e-08, -8.015694, 2.1207504, -10.3382225)
@@ -1356,3 +1426,7 @@ shape = SubResource("SphereShape3D_huc3t")
 [connection signal="body_exited" from="FirstRoom/locker/ShelfArea" to="FirstRoom/AlgebraPuzzle" method="_on_shelf_area_body_exited"]
 [connection signal="body_entered" from="FirstRoom/Light_Switch/Area3D" to="FirstRoom/Light_Switch" method="_on_area_3d_body_entered"]
 [connection signal="body_exited" from="FirstRoom/Light_Switch/Area3D" to="FirstRoom/Light_Switch" method="_on_area_3d_body_exited"]
+[connection signal="body_entered" from="FirstRoom/Firstroom_monolog1" to="FirstRoom/Firstroom_monolog1" method="_on_body_entered"]
+[connection signal="body_entered" from="FirstRoom/Firstroom_monolog2" to="FirstRoom/Firstroom_monolog2" method="_on_body_entered"]
+[connection signal="body_entered" from="FirstRoom/Firstroom_monolog3" to="FirstRoom/Firstroom_monolog3" method="_on_body_entered"]
+[connection signal="body_entered" from="FirstRoom/Firstroom_monolog4" to="FirstRoom/Firstroom_monolog4" method="_on_body_entered"]

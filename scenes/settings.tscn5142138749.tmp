@@ -1,0 +1,337 @@
+[gd_scene load_steps=4 format=3 uid="uid://yhkjeo8u6sf1"]
+
+[ext_resource type="Script" uid="uid://bj6x3w5uf1mkv" path="res://scripts/settings.gd" id="1_5p8wc"]
+[ext_resource type="FontFile" uid="uid://dhy1wb811s8vq" path="res://fonts/Cinzel-VariableFont_wght.ttf" id="1_r6d6q"]
+
+[sub_resource type="Theme" id="Theme_6wm04"]
+default_font = ExtResource("1_r6d6q")
+
+[node name="SettingsUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_6wm04")
+script = ExtResource("1_5p8wc")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.501961)
+
+[node name="SFX" type="AudioStreamPlayer" parent="."]
+bus = &"SFX"
+
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
+bus = &"Music"
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+custom_minimum_size = Vector2(600, 400)
+layout_mode = 2
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Grafika" type="Button" parent="CenterContainer/VBoxContainer/HBoxContainer"]
+visible = false
+layout_mode = 2
+text = "Ustawienia Graficzne"
+
+[node name="Dzwiek" type="Button" parent="CenterContainer/VBoxContainer/HBoxContainer"]
+visible = false
+layout_mode = 2
+text = "Ustawienia Audio"
+
+[node name="Sterowanie" type="Button" parent="CenterContainer/VBoxContainer/HBoxContainer"]
+visible = false
+layout_mode = 2
+text = "Sterowanie"
+
+[node name="Inne" type="Button" parent="CenterContainer/VBoxContainer/HBoxContainer"]
+visible = false
+layout_mode = 2
+text = "Inne"
+
+[node name="SectionTitleContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="HSeparator" type="HSeparator" parent="CenterContainer/VBoxContainer/HBoxContainer/SectionTitleContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer/HBoxContainer/SectionTitleContainer"]
+layout_mode = 2
+text = "USTAWIENIA GRAFICZNE"
+
+[node name="HSeparator2" type="HSeparator" parent="CenterContainer/VBoxContainer/HBoxContainer/SectionTitleContainer"]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+
+[node name="GrafikaPanel" type="VBoxContainer" parent="CenterContainer/VBoxContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="OptionsList" type="VBoxContainer" parent="CenterContainer/VBoxContainer/PanelContainer/GrafikaPanel"]
+layout_mode = 2
+
+[node name="Row_Fullscreen" type="HBoxContainer" parent="CenterContainer/VBoxContainer/PanelContainer/GrafikaPanel/OptionsList"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer/PanelContainer/GrafikaPanel/OptionsList/Row_Fullscreen"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Fullscreen"
+
+[node name="FullscreenCheck" type="CheckBox" parent="CenterContainer/VBoxContainer/PanelContainer/GrafikaPanel/OptionsList/Row_Fullscreen"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Row_Resolution" type="HBoxContainer" parent="CenterContainer/VBoxContainer/PanelContainer/GrafikaPanel/OptionsList"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer/PanelContainer/GrafikaPanel/OptionsList/Row_Resolution"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Resolution"
+
+[node name="ResolutionOption" type="OptionButton" parent="CenterContainer/VBoxContainer/PanelContainer/GrafikaPanel/OptionsList/Row_Resolution"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Row_VSYNC" type="HBoxContainer" parent="CenterContainer/VBoxContainer/PanelContainer/GrafikaPanel/OptionsList"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer/PanelContainer/GrafikaPanel/OptionsList/Row_VSYNC"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "VSYNC"
+
+[node name="VSYNCCheck" type="CheckBox" parent="CenterContainer/VBoxContainer/PanelContainer/GrafikaPanel/OptionsList/Row_VSYNC"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Row_Gamma" type="HBoxContainer" parent="CenterContainer/VBoxContainer/PanelContainer/GrafikaPanel/OptionsList"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer/PanelContainer/GrafikaPanel/OptionsList/Row_Gamma"]
+layout_mode = 2
+text = "Gamma"
+horizontal_alignment = 2
+
+[node name="GammaSlider" type="HSlider" parent="CenterContainer/VBoxContainer/PanelContainer/GrafikaPanel/OptionsList/Row_Gamma"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+min_value = 0.5
+max_value = 1.5
+step = 0.01
+value = 1.0
+
+[node name="GammaValueLabel" type="Label" parent="CenterContainer/VBoxContainer/PanelContainer/GrafikaPanel/OptionsList/Row_Gamma"]
+layout_mode = 2
+
+[node name="Row_FOV" type="HBoxContainer" parent="CenterContainer/VBoxContainer/PanelContainer/GrafikaPanel/OptionsList"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer/PanelContainer/GrafikaPanel/OptionsList/Row_FOV"]
+layout_mode = 2
+text = "FOV"
+horizontal_alignment = 2
+
+[node name="FOVSlider" type="HSlider" parent="CenterContainer/VBoxContainer/PanelContainer/GrafikaPanel/OptionsList/Row_FOV"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+min_value = 60.0
+value = 75.0
+
+[node name="GammaValueLabel" type="Label" parent="CenterContainer/VBoxContainer/PanelContainer/GrafikaPanel/OptionsList/Row_FOV"]
+layout_mode = 2
+
+[node name="ShadowsOption" type="ItemList" parent="CenterContainer/VBoxContainer/PanelContainer/GrafikaPanel/OptionsList"]
+layout_mode = 2
+
+[node name="TexturesOption" type="ItemList" parent="CenterContainer/VBoxContainer/PanelContainer/GrafikaPanel/OptionsList"]
+layout_mode = 2
+
+[node name="DzwiekPanel" type="VBoxContainer" parent="CenterContainer/VBoxContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="OptionsList" type="VBoxContainer" parent="CenterContainer/VBoxContainer/PanelContainer/DzwiekPanel"]
+layout_mode = 2
+
+[node name="Row_Volume" type="HBoxContainer" parent="CenterContainer/VBoxContainer/PanelContainer/DzwiekPanel/OptionsList"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer/PanelContainer/DzwiekPanel/OptionsList/Row_Volume"]
+layout_mode = 2
+text = "Dźwięk ogólny"
+horizontal_alignment = 2
+
+[node name="volume_slider" type="HSlider" parent="CenterContainer/VBoxContainer/PanelContainer/DzwiekPanel/OptionsList/Row_Volume"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+max_value = 1.0
+step = 0.01
+value = 1.0
+
+[node name="VolumeValueLabel" type="Label" parent="CenterContainer/VBoxContainer/PanelContainer/DzwiekPanel/OptionsList/Row_Volume"]
+layout_mode = 2
+
+[node name="Row_SFX" type="HBoxContainer" parent="CenterContainer/VBoxContainer/PanelContainer/DzwiekPanel/OptionsList"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer/PanelContainer/DzwiekPanel/OptionsList/Row_SFX"]
+layout_mode = 2
+text = "SFX"
+horizontal_alignment = 2
+
+[node name="SFXVolumeSlider" type="HSlider" parent="CenterContainer/VBoxContainer/PanelContainer/DzwiekPanel/OptionsList/Row_SFX"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+max_value = 1.0
+step = 0.01
+value = 1.0
+
+[node name="SFXValueLabel" type="Label" parent="CenterContainer/VBoxContainer/PanelContainer/DzwiekPanel/OptionsList/Row_SFX"]
+layout_mode = 2
+
+[node name="Row_Music" type="HBoxContainer" parent="CenterContainer/VBoxContainer/PanelContainer/DzwiekPanel/OptionsList"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer/PanelContainer/DzwiekPanel/OptionsList/Row_Music"]
+layout_mode = 2
+text = "Muzyka"
+horizontal_alignment = 2
+
+[node name="MusicVolumeSlider" type="HSlider" parent="CenterContainer/VBoxContainer/PanelContainer/DzwiekPanel/OptionsList/Row_Music"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+max_value = 1.0
+step = 0.01
+value = 1.0
+
+[node name="MusicValueLabel" type="Label" parent="CenterContainer/VBoxContainer/PanelContainer/DzwiekPanel/OptionsList/Row_Music"]
+layout_mode = 2
+
+[node name="Row_Mute" type="HBoxContainer" parent="CenterContainer/VBoxContainer/PanelContainer/DzwiekPanel/OptionsList"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer/PanelContainer/DzwiekPanel/OptionsList/Row_Mute"]
+layout_mode = 2
+text = "Wyciszenie"
+horizontal_alignment = 2
+
+[node name="MuteCheckbox" type="CheckBox" parent="CenterContainer/VBoxContainer/PanelContainer/DzwiekPanel/OptionsList/Row_Mute"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SterowaniePanel" type="VBoxContainer" parent="CenterContainer/VBoxContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="OptionsList" type="VBoxContainer" parent="CenterContainer/VBoxContainer/PanelContainer/SterowaniePanel"]
+layout_mode = 2
+
+[node name="Row_Sensitivity" type="HBoxContainer" parent="CenterContainer/VBoxContainer/PanelContainer/SterowaniePanel/OptionsList"]
+layout_mode = 2
+
+[node name="SensitivityLabel" type="Label" parent="CenterContainer/VBoxContainer/PanelContainer/SterowaniePanel/OptionsList/Row_Sensitivity"]
+layout_mode = 2
+text = "Czułość myszy"
+horizontal_alignment = 2
+
+[node name="MouseSensitivitySlider" type="HSlider" parent="CenterContainer/VBoxContainer/PanelContainer/SterowaniePanel/OptionsList/Row_Sensitivity"]
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.01
+
+[node name="SensitivityValueLabel" type="Label" parent="CenterContainer/VBoxContainer/PanelContainer/SterowaniePanel/OptionsList/Row_Sensitivity"]
+layout_mode = 2
+
+[node name="Bindings" type="VBoxContainer" parent="CenterContainer/VBoxContainer/PanelContainer/SterowaniePanel/OptionsList"]
+layout_mode = 2
+
+[node name="InnePanel" type="VBoxContainer" parent="CenterContainer/VBoxContainer/PanelContainer"]
+visible = false
+layout_mode = 2
+
+[node name="BottomButtons" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -119.0
+offset_top = 141.0
+offset_right = 119.0
+offset_bottom = 241.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 15
+
+[node name="Zapisz" type="Button" parent="BottomButtons"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/h_separation = 40
+text = "Zapisz zmiany"
+
+[node name="Wstecz" type="Button" parent="BottomButtons"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/h_separation = 40
+text = "Wstecz"
+
+[node name="ArrowLeft" type="Button" parent="."]
+clip_contents = true
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 200.0
+offset_top = -15.0
+offset_right = 216.00002
+offset_bottom = 15.0
+grow_vertical = 2
+text = "<"
+alignment = 0
+
+[node name="ArrowRight" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -216.0
+offset_top = -15.0
+offset_right = -200.0
+offset_bottom = 15.0
+grow_horizontal = 0
+grow_vertical = 2
+text = ">"
