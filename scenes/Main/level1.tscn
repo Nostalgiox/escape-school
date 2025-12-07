@@ -1,4 +1,4 @@
-[gd_scene load_steps=111 format=3 uid="uid://bk83ojjrx7ee3"]
+[gd_scene load_steps=117 format=3 uid="uid://bk83ojjrx7ee3"]
 
 [ext_resource type="PackedScene" uid="uid://cyexwquywx03s" path="res://scenes/world.tscn" id="2_br8qb"]
 [ext_resource type="PackedScene" uid="uid://b5s20kntva38x" path="res://scenes/Level1/assets/whiteboard.glb" id="4_iihbi"]
@@ -42,10 +42,10 @@
 [ext_resource type="Script" uid="uid://0r5xb475pldw" path="res://scripts/light_switch.gd" id="27_0fnvg"]
 [ext_resource type="AudioStream" uid="uid://d0w15nk600a1d" path="res://assets/prolog/Light_Switch/light_switch_on.mp3" id="28_otveq"]
 [ext_resource type="ArrayMesh" uid="uid://17aabv1ac8k7" path="res://scenes/Prologue/exclamation_mark.res" id="29_bblod"]
-[ext_resource type="ArrayMesh" uid="uid://dqkmdqm0r5ckd" path="res://scenes/Level1/model.res" id="30_0fnvg"]
 [ext_resource type="PackedScene" uid="uid://blrbyk3b62pl4" path="res://assets/prolog/lamp.fbx" id="30_otveq"]
 [ext_resource type="ArrayMesh" uid="uid://cjj2fwike3u6r" path="res://assets/Computer_Class/chair.res" id="32_bblod"]
 [ext_resource type="PackedScene" uid="uid://4r3ccoi7jdkb" path="res://Teacher/Teacher.tscn" id="34_ho2gr"]
+[ext_resource type="Script" uid="uid://cba43ns1rcavw" path="res://scripts/light_rotator.gd" id="39_85vr4"]
 [ext_resource type="ArrayMesh" uid="uid://btbfbh63jtori" path="res://scenes/Level1/chair.res" id="40_3tec7"]
 [ext_resource type="PackedScene" uid="uid://bak8ltrhbmlv5" path="res://addons/CSGStairMaker3D.tscn" id="40_elren"]
 [ext_resource type="ArrayMesh" uid="uid://cr56ki72cr0nc" path="res://scenes/Level1/on_window.res" id="41_6dame"]
@@ -55,6 +55,7 @@
 [ext_resource type="AudioStream" uid="uid://cil4ch4mbhvoo" path="res://assets/prolog/sounds/mixkit-slow-typing-on-a-keyboard-2532.wav" id="44_8gufu"]
 [ext_resource type="Script" uid="uid://4cplx0op0m5" path="res://scripts/firstroom_monolog_3.gd" id="45_4834m"]
 [ext_resource type="Script" uid="uid://c4tnsdcx1suuh" path="res://scripts/firstroom_monolog_4.gd" id="46_bllls"]
+[ext_resource type="Script" uid="uid://bplf306a4dmcb" path="res://scripts/seven_marker.gd" id="48_85vr4"]
 [ext_resource type="ArrayMesh" uid="uid://n2vspkn1ojbp" path="res://scenes/Level1/Secondroom/tables.res" id="50_kp83n"]
 [ext_resource type="ArrayMesh" uid="uid://b6klvik4khoir" path="res://scenes/Level1/Secondroom/flat_pc.res" id="51_kla54"]
 [ext_resource type="ArrayMesh" uid="uid://chq22cjqe87rq" path="res://scenes/Level1/Secondroom/monitor.res" id="52_3tec7"]
@@ -63,6 +64,8 @@
 [ext_resource type="ArrayMesh" uid="uid://bu7vh8rt4amsb" path="res://scenes/Level1/Secondroom/printer.res" id="55_fmtfn"]
 [ext_resource type="PackedScene" uid="uid://bqal1dmcfv7w2" path="res://scenes/Level1/Notes.tscn" id="57_huc3t"]
 [ext_resource type="Script" uid="uid://ooetybip1i0n" path="res://scripts/Notes_trigger.gd" id="58_ic5wy"]
+[ext_resource type="Script" uid="uid://dowf83b646aj7" path="res://scripts/game_timer.gd" id="65_bsomj"]
+[ext_resource type="Script" uid="uid://d37h1ymebmvj6" path="res://scripts/timer_display.gd" id="66_wf8vu"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_y8pcn"]
 size = Vector3(3.951416, 1.8839111, 0.41845703)
@@ -98,7 +101,7 @@ size = Vector3(0.6639404, 2.9990234, 1.8759766)
 size = Vector3(0.7207031, 2.708435, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_4x0vc"]
-size = Vector3(2.7197266, 3.060791, 2.4724426)
+size = Vector3(2.7197266, 3.060791, 3.1882477)
 
 [sub_resource type="Animation" id="Animation_nyu32"]
 length = 0.001
@@ -227,6 +230,9 @@ uv1_scale = Vector3(8, 8, 8)
 [sub_resource type="SphereShape3D" id="SphereShape3D_7t8h8"]
 radius = 38.004356
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_85vr4"]
+radius = 19.540848
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_0fnvg"]
 size = Vector3(2.0544434, 0.83745766, 1.4958496)
 
@@ -283,6 +289,18 @@ tracks/2/keys = {
 "update": 0,
 "values": [Vector3(0, -1.5708, 0)]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("FirstRoom/lamp/SpotLight3D:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-1.4192147, -1.2422836e-08, -0.017453281)]
+}
 
 [sub_resource type="Animation" id="Animation_c2s2p"]
 resource_name = "exit_door_close"
@@ -312,6 +330,36 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(2.297397, 2.3784142),
 "update": 0,
 "values": [Vector3(0, 1.5707964, 0), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_bsomj"]
+resource_name = "lamp_down"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FirstRoom/lamp/SpotLight3D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(2.3784142, 1),
+"update": 0,
+"values": [Vector3(-0.5235988, 0, -0.017453292), Vector3(-1.3962634, 0, -0.017453292)]
+}
+
+[sub_resource type="Animation" id="Animation_85vr4"]
+resource_name = "lamp_up"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FirstRoom/lamp/SpotLight3D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(2.0705302, 1),
+"update": 0,
+"values": [Vector3(-1.3962634, 0, -0.017453292), Vector3(-0.5235988, 0, -0.017453292)]
 }
 
 [sub_resource type="Animation" id="Animation_su8p0"]
@@ -379,6 +427,8 @@ _data = {
 &"RESET": SubResource("Animation_draa1"),
 &"exit_door_close": SubResource("Animation_c2s2p"),
 &"exit_door_open": SubResource("Animation_1kp80"),
+&"lamp_down": SubResource("Animation_bsomj"),
+&"lamp_up": SubResource("Animation_85vr4"),
 &"secondroom_entry_door_close": SubResource("Animation_su8p0"),
 &"secondroom_entry_door_open": SubResource("Animation_bblod"),
 &"teacher_door_close": SubResource("Animation_jjd0s"),
@@ -578,7 +628,7 @@ shape = SubResource("BoxShape3D_su8p0")
 [node name="ShelfArea" type="Area3D" parent="FirstRoom/locker"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="FirstRoom/locker/ShelfArea"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.88067174, 0, 0.34126472)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.88067174, 0, 0.69916725)
 shape = SubResource("BoxShape3D_4x0vc")
 
 [node name="LockerPuzzle" type="CanvasLayer" parent="FirstRoom/locker"]
@@ -596,7 +646,6 @@ check_button = NodePath("Shaker/HBoxContainer2/CheckButton")
 close_button = NodePath("Shaker/HBoxContainer2/CloseButton")
 anim_player = NodePath("Shaker/AnimationPlayer")
 cutscene_camera_path = NodePath("../../../Cutscene/Teacher_camera")
-cutscene_move_time = 0.6
 cutscene_hold_time = 10.0
 monolog_ui_path = NodePath("../../../../MonologUI")
 monolog_area_path = NodePath("../../Firstroom_monolog")
@@ -605,7 +654,6 @@ door_anim_player_path = NodePath("../../../../AnimationPlayer")
 key_scene = ExtResource("16_7t8h8")
 key_spawn_path = NodePath("../../../Key_spawn")
 key_camera_path = NodePath("../../../Cutscene/Key_camera")
-key_camera_transition_delay_line_index = 3
 sfx_wrong_answer_path = NodePath("../../Wrong_answer")
 sfx_open_padlock_path = NodePath("../../Open_padlock")
 door_sfx_path = NodePath("../../Door_open")
@@ -877,12 +925,25 @@ transform = Transform3D(0.605, 0, -5.32907e-15, 0, 1.815, 0, 5.32907e-15, 0, 0.6
 mesh = ExtResource("29_bblod")
 
 [node name="lamp" parent="FirstRoom" instance=ExtResource("30_otveq")]
-transform = Transform3D(0.06, 0, 0, 0, 0.06, 0, 0, 0, 0.06, -6.0769253, 4.091526, -11.021532)
+transform = Transform3D(0.095, 0, 0, 0, 0.095, 0, 0, 0, 0.095, -7.619821, 3.4258459, -10.321208)
+script = ExtResource("39_85vr4")
+interaction_area = NodePath("Area3D")
+animation_player_path = NodePath("../../AnimationPlayer")
 
 [node name="SpotLight3D" type="SpotLight3D" parent="FirstRoom/lamp"]
-transform = Transform3D(-2.777471, -9.050452, 13.71688, -5.5939427e-07, 13.91141, 9.178804, -16.433605, 1.5296326, -2.318312, 2.9240646, -9.708031, 0.05381775)
+transform = Transform3D(10.5247135, 0.18370959, -1.9746004e-08, -0.027740452, 1.5892507, 10.405616, 0.18160307, -10.404033, 1.5894924, 2.9240646, -9.205563, 0.05380249)
 light_energy = 11.408
 shadow_enabled = true
+
+[node name="Camera3D" type="Camera3D" parent="FirstRoom/lamp"]
+transform = Transform3D(9.309334, -0.005087228, 4.9132104, -0.04028574, 10.525879, 0.087230325, -4.913048, -0.0959489, 9.308927, 11.58667, -6.549427, 12.454445)
+
+[node name="Area3D" type="Area3D" parent="FirstRoom/lamp"]
+transform = Transform3D(1.0000001, 0, 0, 0, 1.0000001, 0, 0, 0, 1.0000001, 0, -17.55459, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="FirstRoom/lamp/Area3D"]
+transform = Transform3D(0.9999999, 0, 0, 0, 0.9999999, 0, 0, 0, 0.9999999, 3.572937, 0, 3.7089157)
+shape = SubResource("SphereShape3D_85vr4")
 
 [node name="Table" type="MeshInstance3D" parent="FirstRoom"]
 transform = Transform3D(-7.4746474e-08, 0, -1, 0, 1, 0, 1.71, 0, -4.371139e-08, -3.085281, 0.8901997, -8.373508)
@@ -895,7 +956,7 @@ transform = Transform3D(1, 0, -5.9604645e-08, 0, 1, 0, 0, 0, 0.9999999, -1.58874
 shape = SubResource("BoxShape3D_0fnvg")
 
 [node name="Table2" type="MeshInstance3D" parent="FirstRoom"]
-transform = Transform3D(-7.4746474e-08, 0, -1, 0, 1, 0, 1.71, 0, -4.371139e-08, -8.57325, 0.8901997, -8.465482)
+transform = Transform3D(-7.4746474e-08, 0, -1, 0, 1, 0, 1.71, 0, -4.371139e-08, -10.048021, 0.8901997, -8.465482)
 mesh = ExtResource("9_jqq07")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="FirstRoom/Table2"]
@@ -991,17 +1052,6 @@ spot_range = 25.142
 spot_attenuation = 0.4
 spot_angle = 80.0
 
-[node name="Model" type="Node3D" parent="FirstRoom"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.341849, 2.0511293, -11.056211)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="FirstRoom/Model"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0430336, -0.8585125, -1.4596491)
-mesh = ExtResource("30_0fnvg")
-
-[node name="Label3D" type="Label3D" parent="FirstRoom/Model"]
-transform = Transform3D(0.34, 0, 0, 0, -1.4861872e-08, 0.34, 0, -0.34, -1.4861872e-08, 0.11301899, -0.073476315, 0.12267876)
-text = "15cm"
-
 [node name="Chairs" type="Node3D" parent="FirstRoom"]
 
 [node name="Chair" type="RigidBody3D" parent="FirstRoom/Chairs"]
@@ -1049,7 +1099,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0908283, 1.5411536, -0.5837
 shape = SubResource("BoxShape3D_7t8h8")
 
 [node name="Chair5" type="RigidBody3D" parent="FirstRoom/Chairs"]
-transform = Transform3D(0.99996006, 0, 0.0089534, 0, 1, 0, -0.0089534, 0, 0.99996006, -9.562433, 0.054926276, -9.683298)
+transform = Transform3D(0.99996006, 0, 0.0089534, 0, 1, 0, -0.0089534, 0, 0.99996006, -11.416216, 0.054926276, -9.683298)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="FirstRoom/Chairs/Chair5"]
 transform = Transform3D(1.0000001, 0, 0, 0, 1, 0, 0, 0, 1.0000001, 0.7095926, 0.89281285, -4.580433)
@@ -1060,7 +1110,7 @@ transform = Transform3D(1.0000001, 0, 0, 0, 1, 0, 0, 0, 1.0000001, 0.3032956, 1.
 shape = SubResource("BoxShape3D_7t8h8")
 
 [node name="Chair6" type="RigidBody3D" parent="FirstRoom/Chairs"]
-transform = Transform3D(0.99996006, 0, 0.0089534, 0, 1, 0, -0.0089534, 0, 0.99996006, -9.562433, 0.054926276, -10.532562)
+transform = Transform3D(0.99996006, 0, 0.0089534, 0, 1, 0, -0.0089534, 0, 0.99996006, -10.746706, 0.054926276, -10.532562)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="FirstRoom/Chairs/Chair6"]
 transform = Transform3D(1.0000001, 0, 0, 0, 1, 0, 0, 0, 1.0000001, 0.7095926, 0.89281285, -4.580433)
@@ -1071,7 +1121,7 @@ transform = Transform3D(1.0000001, 0, 0, 0, 1, 0, 0, 0, 1.0000001, 0.3032956, 1.
 shape = SubResource("BoxShape3D_7t8h8")
 
 [node name="Chair7" type="RigidBody3D" parent="FirstRoom/Chairs"]
-transform = Transform3D(0.38575736, -0.75096595, -0.535949, 0.80755013, 0.5557574, -0.19747548, 0.446155, -0.35662797, 0.8208303, -9.562433, 0.53543526, -10.963561)
+transform = Transform3D(0.38575736, -0.75096595, -0.535949, 0.80755013, 0.5557574, -0.19747548, 0.446155, -0.35662797, 0.8208303, -10.759744, 0.53543526, -10.963561)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="FirstRoom/Chairs/Chair7"]
 transform = Transform3D(1.0000001, 0, 0, 0, 1, 0, 0, 0, 1.0000001, 0.7095926, 0.89281285, -4.580433)
@@ -1218,8 +1268,15 @@ shape = SubResource("SphereShape3D_7i0et")
 stream = ExtResource("44_8gufu")
 bus = &"SFX"
 
+[node name="SevenMarker" type="Node3D" parent="FirstRoom"]
+transform = Transform3D(0.9787461, -0.20060322, -0.042596143, 0.19553044, 0.9754695, -0.10112957, 0.061838154, 0.09065133, 0.99396104, -7.6751466, 1.8781695, -12.037181)
+script = ExtResource("48_85vr4")
+total_height = 0.5
+stroke_thickness = 0.1
+depth = 0.1
+
 [node name="Ruler" parent="." instance=ExtResource("21_2mqmo")]
-transform = Transform3D(-4.3711385e-08, -1, 0, -4.3711385e-08, 1.9106855e-15, 0.99999994, -0.99999994, 4.371139e-08, -4.3711385e-08, -8.015694, 2.1207504, -10.3382225)
+transform = Transform3D(-4.3711385e-08, -1, 0, -4.3711385e-08, 1.9106855e-15, 0.99999994, -0.99999994, 4.371139e-08, -4.3711385e-08, -9.453445, 2.1207504, -10.3382225)
 lock_rotation = true
 
 [node name="Poster" type="Node3D" parent="."]
@@ -1419,6 +1476,28 @@ notes_path = NodePath("..")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Notes/Area3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.20162821, 0, 0.48870206)
 shape = SubResource("SphereShape3D_huc3t")
+
+[node name="Node" type="Node" parent="."]
+script = ExtResource("65_bsomj")
+total_time_seconds = 180
+interval_seconds = 20
+teacher_path = NodePath("../FirstRoom/Teacher")
+teacher_camera_path = NodePath("../FirstRoom/Cutscene/Teacher_camera")
+monolog_ui_path = NodePath("../MonologUI")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="Node"]
+
+[node name="Label" type="Label" parent="Node/CanvasLayer"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -0.5
+offset_right = 0.5
+offset_bottom = 23.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+script = ExtResource("66_wf8vu")
+teacher_timer_path = NodePath("../..")
 
 [connection signal="body_entered" from="FirstRoom/AlgebraPuzzle/InteractArea" to="FirstRoom/AlgebraPuzzle" method="_on_interact_area_body_entered"]
 [connection signal="body_exited" from="FirstRoom/AlgebraPuzzle/InteractArea" to="FirstRoom/AlgebraPuzzle" method="_on_interact_area_body_exited"]
