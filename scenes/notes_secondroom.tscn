@@ -1,0 +1,114 @@
+[gd_scene load_steps=8 format=3 uid="uid://dldq4budmfjeo"]
+
+[ext_resource type="Script" uid="uid://dmd6f7dgqyucc" path="res://scripts/notes_secondroom.gd" id="1_700d4"]
+[ext_resource type="PackedScene" uid="uid://bcx2ffned51gw" path="res://assets/Notes/notebook.glb" id="2_1wfqi"]
+[ext_resource type="Texture2D" uid="uid://dvsyf1v8k8rvj" path="res://assets/Notes/ChatGPT Image 3 gru 2025, 10_41_21.png" id="3_jronr"]
+[ext_resource type="FontFile" uid="uid://dhy1wb811s8vq" path="res://fonts/Cinzel-VariableFont_wght.ttf" id="4_ds3h6"]
+[ext_resource type="FontFile" uid="uid://foyrjdpuehqk" path="res://fonts/Cinzel-Bold.ttf" id="5_qrvwk"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_kqr0t"]
+radius = 2.8452113
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nh4ds"]
+bg_color = Color(0.56078434, 0.4, 0.2, 0.41960785)
+
+[node name="Notes_Secondroom" type="Node3D"]
+script = ExtResource("1_700d4")
+panel_path = NodePath("CanvasLayer/InfoPanel")
+left_label_path = NodePath("CanvasLayer/InfoPanel/InfoLabelLeft")
+right_label_path = NodePath("CanvasLayer/InfoPanel/InfoLabelRight")
+
+[node name="Notes" parent="." instance=ExtResource("2_1wfqi")]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_kqr0t")
+
+[node name="Label3D" type="Label3D" parent="."]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="InfoPanel" type="Panel" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_nh4ds")
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/InfoPanel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -568.0
+offset_top = -398.0
+offset_right = 576.0
+offset_bottom = 415.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_jronr")
+expand_mode = 1
+
+[node name="InfoLabelLeft" type="RichTextLabel" parent="CanvasLayer/InfoPanel"]
+z_index = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 137.0
+offset_top = 150.0
+offset_right = -622.0
+offset_bottom = -92.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("4_ds3h6")
+theme_override_fonts/bold_font = ExtResource("5_qrvwk")
+bbcode_enabled = true
+text = "[center][b]Zadanie 2[/b][/center]
+
+Na ścianie znajduje się plakat z okręgiem.
+Zmierz jego średnicę, a następnie oblicz [b]pole koła[/b] korzystając z wzoru:
+
+[center]P = π · r²[/center]
+
+gdzie r to połowa zmierzonej średnicy, a π ≈ 3.14159.
+
+Wpisz otrzymany wynik jako [b]drugą cyfrę[/b] kodu.
+"
+
+[node name="InfoLabelRight" type="RichTextLabel" parent="CanvasLayer/InfoPanel"]
+z_index = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 632.0
+offset_top = 150.0
+offset_right = -127.0
+offset_bottom = -92.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("4_ds3h6")
+theme_override_fonts/bold_font = ExtResource("5_qrvwk")
+bbcode_enabled = true
+text = "[center][b]Zadanie 3[/b][/center]
+
+Ustaw lampę tak, aby cień przedmiotu padał wyraźnie na blat.
+Przyjrzyj się uważnie kształtowi cienia — zauważysz, że tworzy on cyfrę.
+
+Odczytaj tę cyfrę i wpisz ją jako [b]trzecią cyfrę[/b] kodu.
+
+Podpowiedź: poprawne ustawienie daje cyfrę: [b]7[/b].
+"
+
+[node name="CloseButton" type="Button" parent="CanvasLayer/InfoPanel"]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
