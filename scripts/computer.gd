@@ -41,8 +41,10 @@ func _ready():
 
 
 func generate_equation():
-	A = randi_range(10, 20)
-	B = randi_range(2, 6)
+	#A = randi_range(10, 20)
+	#B = randi_range(2, 6)
+	A = 14
+	B = 4
 
 	x = (A - B) / 2.0
 	y = x + B
