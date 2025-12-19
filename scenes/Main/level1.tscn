@@ -1,4 +1,4 @@
-[gd_scene load_steps=144 format=3 uid="uid://bk83ojjrx7ee3"]
+[gd_scene load_steps=152 format=3 uid="uid://bk83ojjrx7ee3"]
 
 [ext_resource type="PackedScene" uid="uid://cyexwquywx03s" path="res://scenes/world.tscn" id="2_br8qb"]
 [ext_resource type="PackedScene" uid="uid://b5s20kntva38x" path="res://scenes/Level1/assets/whiteboard.glb" id="4_iihbi"]
@@ -70,11 +70,14 @@
 [ext_resource type="Script" uid="uid://dli50j63trxxu" path="res://scripts/computer.gd" id="59_siyrl"]
 [ext_resource type="Script" uid="uid://kaj0k28hnx3t" path="res://scripts/paper_note.gd" id="60_3n7b8"]
 [ext_resource type="Texture2D" uid="uid://dc0jqnaom0gj3" path="res://assets/textures/wyrwana_kartka.png" id="60_6n8di"]
-[ext_resource type="ArrayMesh" uid="uid://bfy17igkm4mmh" path="res://assets/paper_secondroom.res" id="61_8vvdv"]
+[ext_resource type="ArrayMesh" uid="uid://ll0bcrott5kd" path="res://assets/paper_secondroom.res" id="61_8vvdv"]
 [ext_resource type="FontFile" uid="uid://dhy1wb811s8vq" path="res://fonts/Cinzel-VariableFont_wght.ttf" id="62_sp7c5"]
 [ext_resource type="FontFile" uid="uid://foyrjdpuehqk" path="res://fonts/Cinzel-Bold.ttf" id="63_i730u"]
 [ext_resource type="Script" uid="uid://dowf83b646aj7" path="res://scripts/game_timer.gd" id="65_bsomj"]
+[ext_resource type="Script" uid="uid://c0lgb1whfjoiu" path="res://scripts/paper_from_printer.gd" id="65_exbst"]
+[ext_resource type="AudioStream" uid="uid://ck6bsqn3x5ma2" path="res://assets/prolog/sounds/printing_sound.mp3" id="66_dyxrp"]
 [ext_resource type="Script" uid="uid://d37h1ymebmvj6" path="res://scripts/timer_display.gd" id="66_wf8vu"]
+[ext_resource type="Script" uid="uid://domiakwij70un" path="res://scripts/secondroom_monolog_1.gd" id="67_5mjr8"]
 [ext_resource type="ArrayMesh" uid="uid://pl4wd3oad8ti" path="res://assets/Computer_Class/monitor.res" id="71_i730u"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_y8pcn"]
@@ -250,7 +253,7 @@ size = Vector3(2.0544434, 0.83745766, 1.4958496)
 size = Vector3(0.67077637, 0.8800659, 0.66677856)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_7i0et"]
-radius = 2.9229465
+radius = 1.9044732
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_muoiu"]
 size = Vector3(1, 0.0869751, 1)
@@ -493,6 +496,48 @@ radius = 1.4992099
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_bpayb"]
 texture = ExtResource("60_6n8di")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5mjr8"]
+size = Vector3(4.073303, 1, 2.4695892)
+
+[sub_resource type="Animation" id="Animation_8vvdv"]
+resource_name = "printing"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MeshInstance3D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 0.35355335),
+"update": 0,
+"values": [Vector3(-0.26257277, -0.09742594, -0.35344315), Vector3(-0.26257277, -0.09742594, 0.1255126)]
+}
+
+[sub_resource type="Animation" id="Animation_exbst"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MeshInstance3D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.26257277, -0.09742594, -0.35344315)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_dyxrp"]
+_data = {
+&"RESET": SubResource("Animation_exbst"),
+&"printing": SubResource("Animation_8vvdv")
+}
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_8vvdv"]
+radius = 1.1369103
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qcibk"]
 albedo_texture = ExtResource("5_eap2h")
@@ -1674,6 +1719,91 @@ spot_range = 6.0
 spot_attenuation = 0.4
 spot_angle = 80.0
 
+[node name="PaperFromPrinter" type="Node3D" parent="SecondRoom/Secondroom_door"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.79520154, 0.8349695, -18.729244)
+script = ExtResource("65_exbst")
+
+[node name="Secondroom_monologue1" type="Area3D" parent="SecondRoom/Secondroom_door/PaperFromPrinter"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8202965, -0.76035833, 4.459919)
+monitoring = false
+script = ExtResource("67_5mjr8")
+monolog_ui_path = NodePath("../../../../MonologUI")
+typing_sfx_player_path = NodePath("Monolog_keyboard_typing")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SecondRoom/Secondroom_door/PaperFromPrinter/Secondroom_monologue1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.493249, 0, -2.3952537)
+shape = SubResource("BoxShape3D_5mjr8")
+
+[node name="Monolog_keyboard_typing" type="AudioStreamPlayer" parent="SecondRoom/Secondroom_door/PaperFromPrinter/Secondroom_monologue1"]
+stream = ExtResource("44_8gufu")
+bus = &"SFX"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="SecondRoom/Secondroom_door/PaperFromPrinter"]
+transform = Transform3D(0.145, 0, 0, 0, 0.14499998, 0, 0, 0, 0.145, -0.26257277, -0.09742594, -0.35344315)
+mesh = ExtResource("61_8vvdv")
+skeleton = NodePath("../../../..")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SecondRoom/Secondroom_door/PaperFromPrinter"]
+libraries = {
+&"": SubResource("AnimationLibrary_dyxrp")
+}
+
+[node name="Area3D" type="Area3D" parent="SecondRoom/Secondroom_door/PaperFromPrinter"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SecondRoom/Secondroom_door/PaperFromPrinter/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.479625)
+shape = SubResource("SphereShape3D_8vvdv")
+
+[node name="PaperUI" type="CanvasLayer" parent="SecondRoom/Secondroom_door/PaperFromPrinter"]
+
+[node name="Panel" type="Panel" parent="SecondRoom/Secondroom_door/PaperFromPrinter/PaperUI"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 6
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxTexture_bpayb")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="SecondRoom/Secondroom_door/PaperFromPrinter/PaperUI/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 195.0
+offset_top = 113.0
+offset_right = 586.7527
+offset_bottom = -92.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.47999918, 1)
+size_flags_horizontal = 4
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("62_sp7c5")
+theme_override_fonts/bold_font = ExtResource("63_i730u")
+theme_override_font_sizes/normal_font_size = 32
+theme_override_font_sizes/bold_font_size = 32
+bbcode_enabled = true
+
+[node name="MarginContainer" type="MarginContainer" parent="SecondRoom/Secondroom_door/PaperFromPrinter/PaperUI/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="Printing" type="AudioStreamPlayer" parent="SecondRoom/Secondroom_door/PaperFromPrinter"]
+stream = ExtResource("66_dyxrp")
+bus = &"SFX"
+
+[node name="Dialogues_secondroom" type="Node3D" parent="SecondRoom/Secondroom_door"]
+
 [node name="CSGBox3D9" type="CSGBox3D" parent="SecondRoom"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.566765, 4.53352, -6.861983)
 size = Vector3(19.68602, 0.4375, 12.655334)
@@ -1791,7 +1921,7 @@ mesh = ExtResource("54_ic5wy")
 [node name="printers" type="Node3D" parent="SecondRoom/PC"]
 
 [node name="printer" type="MeshInstance3D" parent="SecondRoom/PC/printers"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.4106817, 4.7316885, -2.0183477)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.6087947, 4.7316885, -2.0183477)
 mesh = ExtResource("55_fmtfn")
 skeleton = NodePath("../..")
 
@@ -1959,4 +2089,6 @@ teacher_timer_path = NodePath("../..")
 [connection signal="body_entered" from="FirstRoom/Firstroom_monolog2" to="FirstRoom/Firstroom_monolog2" method="_on_body_entered"]
 [connection signal="body_entered" from="FirstRoom/Firstroom_monolog3" to="FirstRoom/Firstroom_monolog3" method="_on_body_entered"]
 [connection signal="body_entered" from="FirstRoom/Firstroom_monolog4" to="FirstRoom/Firstroom_monolog4" method="_on_body_entered"]
+[connection signal="body_entered" from="SecondRoom/Secondroom_door/PaperFromPrinter/Secondroom_monologue1" to="SecondRoom/Secondroom_door/PaperFromPrinter/Secondroom_monologue1" method="_on_body_entered"]
+[connection signal="computer_unlocked" from="SecondRoom/PC/Computer" to="SecondRoom/Secondroom_door/PaperFromPrinter" method="_on_computer_unlocked"]
 [connection signal="pressed" from="SecondRoom/PC/Computer/ComputerUI/Panel/MarginContainer/VBoxContainer/HBoxButtons/ButtonSubmit" to="SecondRoom/PC/Computer" method="_on_button_submit_pressed"]
