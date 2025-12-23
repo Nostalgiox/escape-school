@@ -1,7 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://c8oest5454tl4"]
+[gd_scene load_steps=17 format=3 uid="uid://c8oest5454tl4"]
 
 [ext_resource type="Shader" uid="uid://d0audamh51h5p" path="res://shaders/blur.gdshader" id="1_r5qvj"]
 [ext_resource type="Script" uid="uid://drrih5mn321g8" path="res://scripts/pause_menu.gd" id="2_bcaeg"]
+[ext_resource type="FontFile" uid="uid://dhy1wb811s8vq" path="res://fonts/Cinzel-VariableFont_wght.ttf" id="3_8x1jc"]
 [ext_resource type="PackedScene" uid="uid://yhkjeo8u6sf1" path="res://scenes/settings.tscn" id="3_bcaeg"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8x1jc"]
@@ -9,12 +10,27 @@ shader = ExtResource("1_r5qvj")
 shader_parameter/blur = 2.5
 shader_parameter/brightness = 0.0
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bcaeg"]
+bg_color = Color(0, 0, 0, 0)
+
+[sub_resource type="FontVariation" id="FontVariation_3lcxj"]
+base_font = ExtResource("3_8x1jc")
+
+[sub_resource type="FontVariation" id="FontVariation_8x1jc"]
+base_font = ExtResource("3_8x1jc")
+
 [sub_resource type="InputEventAction" id="InputEventAction_r5qvj"]
 action = &"ui_cancel"
 pressed = true
 
 [sub_resource type="Shortcut" id="Shortcut_bcaeg"]
 events = [SubResource("InputEventAction_r5qvj")]
+
+[sub_resource type="FontVariation" id="FontVariation_bohxc"]
+base_font = ExtResource("3_8x1jc")
+
+[sub_resource type="FontVariation" id="FontVariation_8uhw8"]
+base_font = ExtResource("3_8x1jc")
 
 [sub_resource type="Animation" id="Animation_bohxc"]
 length = 0.001
@@ -187,6 +203,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+color = Color(0, 0, 0, 0.58431375)
 script = ExtResource("2_bcaeg")
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
@@ -201,6 +218,7 @@ grow_vertical = 2
 [node name="PanelContainer" type="PanelContainer" parent="CenterContainer"]
 custom_minimum_size = Vector2(512, 256)
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_bcaeg")
 
 [node name="MarginContainer" type="MarginContainer" parent="CenterContainer/PanelContainer"]
 layout_mode = 2
@@ -210,10 +228,13 @@ theme_override_constants/margin_bottom = 16
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer/MarginContainer"]
 layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 4
 
 [node name="Label" type="Label" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 16
+theme_override_fonts/font = SubResource("FontVariation_3lcxj")
+theme_override_font_sizes/font_size = 36
 text = "Pause"
 horizontal_alignment = 1
 
@@ -222,18 +243,27 @@ layout_mode = 2
 
 [node name="ResumeButton" type="Button" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
-size_flags_vertical = 3
+size_flags_horizontal = 4
+size_flags_vertical = 6
+theme_override_fonts/font = SubResource("FontVariation_8x1jc")
+theme_override_font_sizes/font_size = 20
 shortcut = SubResource("Shortcut_bcaeg")
 text = "Resume"
 
 [node name="SettingsButton" type="Button" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
-size_flags_vertical = 3
+size_flags_horizontal = 4
+size_flags_vertical = 6
+theme_override_fonts/font = SubResource("FontVariation_bohxc")
+theme_override_font_sizes/font_size = 20
 text = "Settings"
 
 [node name="QuitButton" type="Button" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
-size_flags_vertical = 3
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_fonts/font = SubResource("FontVariation_8uhw8")
+theme_override_font_sizes/font_size = 20
 text = "Quit"
 
 [node name="SettingsUI" parent="." instance=ExtResource("3_bcaeg")]

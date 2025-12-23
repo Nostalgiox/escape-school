@@ -1,4 +1,4 @@
-[gd_scene load_steps=152 format=3 uid="uid://bk83ojjrx7ee3"]
+[gd_scene load_steps=161 format=3 uid="uid://bk83ojjrx7ee3"]
 
 [ext_resource type="PackedScene" uid="uid://cyexwquywx03s" path="res://scenes/world.tscn" id="2_br8qb"]
 [ext_resource type="PackedScene" uid="uid://b5s20kntva38x" path="res://scenes/Level1/assets/whiteboard.glb" id="4_iihbi"]
@@ -63,7 +63,9 @@
 [ext_resource type="ArrayMesh" uid="uid://dhah4u42ns5sb" path="res://scenes/Level1/Secondroom/keyboard.res" id="54_ic5wy"]
 [ext_resource type="ArrayMesh" uid="uid://bu7vh8rt4amsb" path="res://scenes/Level1/Secondroom/printer.res" id="55_fmtfn"]
 [ext_resource type="Texture2D" uid="uid://c168eluk5inul" path="res://assets/textures/granite_tile_diff_2k.jpg" id="56_7udgw"]
+[ext_resource type="Script" uid="uid://dxe8bl23agdak" path="res://scripts/secondroom_exit_door.gd" id="57_anbw0"]
 [ext_resource type="PackedScene" uid="uid://bqal1dmcfv7w2" path="res://scenes/Level1/Notes.tscn" id="57_huc3t"]
+[ext_resource type="PackedScene" uid="uid://86pp1l63ns7e" path="res://assets/Numeric_Panel/security_key_pad.glb" id="57_l8uqt"]
 [ext_resource type="PackedScene" uid="uid://6o2qvkrw20qf" path="res://scenes/ChemistryClass/table.tscn" id="58_ah63k"]
 [ext_resource type="Script" uid="uid://ooetybip1i0n" path="res://scripts/Notes_trigger.gd" id="58_ic5wy"]
 [ext_resource type="PackedScene" uid="uid://dldq4budmfjeo" path="res://scenes/notes_secondroom.tscn" id="59_n5kjv"]
@@ -76,9 +78,12 @@
 [ext_resource type="Script" uid="uid://dowf83b646aj7" path="res://scripts/game_timer.gd" id="65_bsomj"]
 [ext_resource type="Script" uid="uid://c0lgb1whfjoiu" path="res://scripts/paper_from_printer.gd" id="65_exbst"]
 [ext_resource type="AudioStream" uid="uid://ck6bsqn3x5ma2" path="res://assets/prolog/sounds/printing_sound.mp3" id="66_dyxrp"]
+[ext_resource type="Script" uid="uid://bfc8q57h7014f" path="res://scripts/secondroom_monologue_2.gd" id="66_sng18"]
 [ext_resource type="Script" uid="uid://d37h1ymebmvj6" path="res://scripts/timer_display.gd" id="66_wf8vu"]
-[ext_resource type="Script" uid="uid://domiakwij70un" path="res://scripts/secondroom_monolog_1.gd" id="67_5mjr8"]
+[ext_resource type="Script" uid="uid://yg07qv5uxpcp" path="res://scripts/secondroom_dialogue_3.gd" id="68_5lyna"]
+[ext_resource type="Script" uid="uid://cs2hpyqk1c82t" path="res://scripts/secondroom_dialogue_4.gd" id="70_xtqcd"]
 [ext_resource type="ArrayMesh" uid="uid://pl4wd3oad8ti" path="res://assets/Computer_Class/monitor.res" id="71_i730u"]
+[ext_resource type="Script" uid="uid://bptruai3nfsnm" path="res://scripts/keypad.gd" id="77_sng18"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_y8pcn"]
 size = Vector3(3.951416, 1.8839111, 0.41845703)
@@ -314,6 +319,42 @@ tracks/3/keys = {
 "update": 0,
 "values": [Vector3(-1.4192147, -1.2422836e-08, -0.017453281)]
 }
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("SecondRoom/Secondroom_door/door_A2/StaticBody3D/CollisionShape3D:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("SecondRoom/CSGCombiner3D/Secondroom_ExitDoor:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 4.774865, 0)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("SecondRoom/CSGCombiner3D/Secondroom_ExitDoor:rotation")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_c2s2p"]
 resource_name = "exit_door_close"
@@ -404,6 +445,18 @@ tracks/0/keys = {
 "update": 0,
 "values": [Vector3(0, 0, 0), Vector3(0, 1.5707964, 0)]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = false
+tracks/1/path = NodePath("SecondRoom/Secondroom_door/door_A2/StaticBody3D/CollisionShape3D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_jjd0s"]
 resource_name = "teacher_door_close"
@@ -435,9 +488,37 @@ tracks/0/keys = {
 "values": [Vector3(0, -1.5708, 0), Vector3(0, -3.1415927, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_5lyna"]
+resource_name = "Secondroom_exit_open"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SecondRoom/CSGCombiner3D/Secondroom_ExitDoor:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 4.774865, 0), Vector3(0, 4.774865, -0.9123107)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SecondRoom/CSGCombiner3D/Secondroom_ExitDoor:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, -1.5707964, 0)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_hf4ar"]
 _data = {
 &"RESET": SubResource("Animation_draa1"),
+&"Secondroom_exit_open": SubResource("Animation_5lyna"),
 &"exit_door_close": SubResource("Animation_c2s2p"),
 &"exit_door_open": SubResource("Animation_1kp80"),
 &"lamp_down": SubResource("Animation_bsomj"),
@@ -482,8 +563,14 @@ uv1_scale = Vector3(8, 8, 8)
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bpayb"]
 albedo_texture = ExtResource("56_7udgw")
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_l8uqt"]
+size = Vector3(1.671814, 3.2485352, 1.2805176)
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_elren"]
 size = Vector3(2.9699707, 0.840271, 3.2192383)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5lyna"]
+size = Vector3(1.5775452, 2.914734, 0.89489746)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ah63k"]
 size = Vector3(2.5278015, 0.8748779, 0.97558594)
@@ -500,21 +587,6 @@ texture = ExtResource("60_6n8di")
 [sub_resource type="BoxShape3D" id="BoxShape3D_5mjr8"]
 size = Vector3(4.073303, 1, 2.4695892)
 
-[sub_resource type="Animation" id="Animation_8vvdv"]
-resource_name = "printing"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("MeshInstance3D:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 0.35355335),
-"update": 0,
-"values": [Vector3(-0.26257277, -0.09742594, -0.35344315), Vector3(-0.26257277, -0.09742594, 0.1255126)]
-}
-
 [sub_resource type="Animation" id="Animation_exbst"]
 length = 0.001
 tracks/0/type = "value"
@@ -528,6 +600,21 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector3(-0.26257277, -0.09742594, -0.35344315)]
+}
+
+[sub_resource type="Animation" id="Animation_8vvdv"]
+resource_name = "printing"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MeshInstance3D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 0.35355335),
+"update": 0,
+"values": [Vector3(-0.26257277, -0.09742594, -0.35344315), Vector3(-0.26257277, -0.09742594, 0.1255126)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_dyxrp"]
@@ -563,6 +650,9 @@ bg_color = Color(0.7689779, 0.77472776, 0.7482603, 1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_8vvdv"]
 size = Vector3(2.635315, 1.8995361, 1.715332)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_sng18"]
+size = Vector3(0.42785645, 1, 1)
+
 [sub_resource type="SphereShape3D" id="SphereShape3D_huc3t"]
 radius = 1.1912459
 
@@ -572,7 +662,7 @@ radius = 1.1912459
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.74466, 2.06755, -3.812183)
 
 [node name="PlayerBody" parent="." instance=ExtResource("15_v04fw")]
-transform = Transform3D(-4.3711385e-08, 0, 0.99999994, 0, 1, 0, -0.99999994, 0, -4.3711385e-08, 1.6335814, 6.135106, -3.790526)
+transform = Transform3D(-4.3711385e-08, 0, 0.99999994, 0, 1, 0, -0.99999994, 0, -4.3711385e-08, 1.6335814, 6.1235967, -3.790526)
 
 [node name="World" parent="." instance=ExtResource("2_br8qb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.713779, -1.1960267, -41.27668)
@@ -1492,6 +1582,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.3937683, 7.0557947, -0.331
 size = Vector3(20.209534, 5.350281, 0.54797363)
 material = SubResource("StandardMaterial3D_ho2gr")
 
+[node name="CSGBox3D" type="CSGBox3D" parent="SecondRoom/CSGCombiner3D/CSGBox3D6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.7496743, -0.9248967, 0)
+operation = 2
+size = Vector3(2.0565186, 2.741455, 1)
+
 [node name="CSGBox3D7" type="CSGBox3D" parent="SecondRoom/CSGCombiner3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.639483, 7.3062325, -6.7488785)
 size = Vector3(1, 5.246216, 13.358826)
@@ -1522,6 +1617,27 @@ transform = Transform3D(6.380333, 0, 0, 0, 1, 0, 0, 0, 1, -17.886845, 9.941327, 
 size = Vector3(1.1863708, 0.48171997, 12.804916)
 material = SubResource("StandardMaterial3D_snkc6")
 
+[node name="wall_doorway2" parent="SecondRoom/CSGCombiner3D" instance=ExtResource("8_otveq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.62423396, 4.7162676, -0.6289878)
+
+[node name="wall_doorway3" parent="SecondRoom/CSGCombiner3D" instance=ExtResource("8_otveq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5390316, 4.803904, 0)
+
+[node name="Secondroom_ExitDoor" type="StaticBody3D" parent="SecondRoom/CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.774865, 0)
+script = ExtResource("57_anbw0")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SecondRoom/CSGCombiner3D/Secondroom_ExitDoor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5815606, 1.0447941, -0.3611899)
+shape = SubResource("BoxShape3D_l8uqt")
+
+[node name="door_B2" parent="SecondRoom/CSGCombiner3D/Secondroom_ExitDoor" instance=ExtResource("16_52res")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.4203362, -0.079473495, -0.3669272)
+
+[node name="Door_open" type="AudioStreamPlayer" parent="SecondRoom/CSGCombiner3D/Secondroom_ExitDoor"]
+stream = ExtResource("8_1kp80")
+bus = &"SFX"
+
 [node name="Secondroom_door" type="Node3D" parent="SecondRoom"]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -14.433605, 5.1127663, -4.095899)
 
@@ -1539,6 +1655,13 @@ shape = SubResource("BoxShape3D_elren")
 [node name="Door_open" type="AudioStreamPlayer" parent="SecondRoom/Secondroom_door/door_A2"]
 stream = ExtResource("8_1kp80")
 bus = &"SFX"
+
+[node name="StaticBody3D" type="StaticBody3D" parent="SecondRoom/Secondroom_door/door_A2"]
+transform = Transform3D(0.99954265, 0, -0.03024343, 0, 1, 0, 0.03024343, 0, 0.99954265, -0.00752306, 0.38927794, 0.24864388)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SecondRoom/Secondroom_door/door_A2/StaticBody3D"]
+transform = Transform3D(0.9999999, 0, 0, 0, 1, 0, 0, 0, 0.9999999, 0.78245616, 0.95736694, -0.21921349)
+shape = SubResource("BoxShape3D_5lyna")
 
 [node name="wall_doorway2" parent="SecondRoom/Secondroom_door" instance=ExtResource("8_otveq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.76877356, -0.3839717, -0.03985119)
@@ -1726,9 +1849,9 @@ script = ExtResource("65_exbst")
 [node name="Secondroom_monologue1" type="Area3D" parent="SecondRoom/Secondroom_door/PaperFromPrinter"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8202965, -0.76035833, 4.459919)
 monitoring = false
-script = ExtResource("67_5mjr8")
+script = ExtResource("66_sng18")
 monolog_ui_path = NodePath("../../../../MonologUI")
-typing_sfx_player_path = NodePath("Monolog_keyboard_typing")
+typing_sfx_player_path = NodePath("../../Dialogues/Secondroom_dialogue3/Monolog_keyboard_typing")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="SecondRoom/Secondroom_door/PaperFromPrinter/Secondroom_monologue1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.493249, 0, -2.3952537)
@@ -1803,6 +1926,36 @@ stream = ExtResource("66_dyxrp")
 bus = &"SFX"
 
 [node name="Dialogues_secondroom" type="Node3D" parent="SecondRoom/Secondroom_door"]
+
+[node name="Dialogues" type="Node3D" parent="SecondRoom/Secondroom_door"]
+
+[node name="Secondroom_dialogue3" type="Area3D" parent="SecondRoom/Secondroom_door/Dialogues"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8400655, 0.4079051, -13.672568)
+script = ExtResource("68_5lyna")
+monolog_ui_path = NodePath("../../../../MonologUI")
+typing_sfx_player_path = NodePath("Monolog_keyboard_typing")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SecondRoom/Secondroom_door/Dialogues/Secondroom_dialogue3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.48001)
+shape = SubResource("SphereShape3D_7i0et")
+
+[node name="Monolog_keyboard_typing" type="AudioStreamPlayer" parent="SecondRoom/Secondroom_door/Dialogues/Secondroom_dialogue3"]
+stream = ExtResource("44_8gufu")
+bus = &"SFX"
+
+[node name="Secondroom_dialogue4" type="Area3D" parent="SecondRoom/Secondroom_door/Dialogues"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1452324, 0.4079051, -6.6982865)
+script = ExtResource("70_xtqcd")
+monolog_ui_path = NodePath("../../../../MonologUI")
+typing_sfx_player_path = NodePath("Monolog_keyboard_typing")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SecondRoom/Secondroom_door/Dialogues/Secondroom_dialogue4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.48001)
+shape = SubResource("SphereShape3D_7i0et")
+
+[node name="Monolog_keyboard_typing" type="AudioStreamPlayer" parent="SecondRoom/Secondroom_door/Dialogues/Secondroom_dialogue4"]
+stream = ExtResource("44_8gufu")
+bus = &"SFX"
 
 [node name="CSGBox3D9" type="CSGBox3D" parent="SecondRoom"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.566765, 4.53352, -6.861983)
@@ -2046,6 +2199,108 @@ spot_range = 57.475
 transform = Transform3D(1, 0, 0, 0, 0.057895057, 0.9983227, 0, -0.9983227, 0.057895057, -18.29602, 9.548469, -8.75754)
 spot_range = 57.475
 
+[node name="KeyPad" parent="SecondRoom" instance=ExtResource("57_l8uqt")]
+transform = Transform3D(-2.17, -3.276609e-07, 1.4322512e-14, 0, -9.485372e-08, -2.17, 3.276609e-07, -2.17, 9.485372e-08, -2.098348, 6.296073, -0.8657861)
+script = ExtResource("77_sng18")
+
+[node name="Area3D" type="Area3D" parent="SecondRoom/KeyPad"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SecondRoom/KeyPad/Area3D"]
+transform = Transform3D(1, -4.2632564e-14, 0, 4.2632564e-14, 1, 0, 0, 0, 1, -0.009216607, -5.9604645e-08, 0)
+shape = SubResource("BoxShape3D_sng18")
+
+[node name="KeypadUI" type="CanvasLayer" parent="SecondRoom/KeyPad"]
+
+[node name="Panel" type="Panel" parent="SecondRoom/KeyPad/KeypadUI"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SecondRoom/KeyPad/KeypadUI/Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -38.0
+offset_top = -108.5
+offset_right = 38.0
+offset_bottom = 108.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PromptLabel" type="Label" parent="SecondRoom/KeyPad/KeypadUI/Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="DisplayLabel" type="Label" parent="SecondRoom/KeyPad/KeypadUI/Panel/VBoxContainer"]
+custom_minimum_size = Vector2(48, 0)
+layout_mode = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GridContainer" type="GridContainer" parent="SecondRoom/KeyPad/KeypadUI/Panel/VBoxContainer"]
+layout_mode = 2
+columns = 3
+
+[node name="Button" type="Button" parent="SecondRoom/KeyPad/KeypadUI/Panel/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "1"
+
+[node name="Button2" type="Button" parent="SecondRoom/KeyPad/KeypadUI/Panel/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "2"
+
+[node name="Button3" type="Button" parent="SecondRoom/KeyPad/KeypadUI/Panel/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "3"
+
+[node name="Button4" type="Button" parent="SecondRoom/KeyPad/KeypadUI/Panel/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "4"
+
+[node name="Button5" type="Button" parent="SecondRoom/KeyPad/KeypadUI/Panel/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "5"
+
+[node name="Button6" type="Button" parent="SecondRoom/KeyPad/KeypadUI/Panel/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "6"
+
+[node name="Button7" type="Button" parent="SecondRoom/KeyPad/KeypadUI/Panel/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "7"
+
+[node name="Button8" type="Button" parent="SecondRoom/KeyPad/KeypadUI/Panel/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "8"
+
+[node name="Button9" type="Button" parent="SecondRoom/KeyPad/KeypadUI/Panel/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "9"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="SecondRoom/KeyPad/KeypadUI/Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="ButtonClear" type="Button" parent="SecondRoom/KeyPad/KeypadUI/Panel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "C"
+
+[node name="ButtonZero" type="Button" parent="SecondRoom/KeyPad/KeypadUI/Panel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "0"
+
+[node name="ButtonOK" type="Button" parent="SecondRoom/KeyPad/KeypadUI/Panel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "OK"
+
+[node name="MessageLabel" type="Label" parent="SecondRoom/KeyPad/KeypadUI/Panel/VBoxContainer"]
+layout_mode = 2
+
 [node name="Notes" parent="." instance=ExtResource("57_huc3t")]
 transform = Transform3D(0.38139305, 0, 0.92441297, 0, 1, 0, -0.92441297, 0, 0.38139305, -0.20567107, 1.9866979, -6.6439652)
 
@@ -2090,5 +2345,8 @@ teacher_timer_path = NodePath("../..")
 [connection signal="body_entered" from="FirstRoom/Firstroom_monolog3" to="FirstRoom/Firstroom_monolog3" method="_on_body_entered"]
 [connection signal="body_entered" from="FirstRoom/Firstroom_monolog4" to="FirstRoom/Firstroom_monolog4" method="_on_body_entered"]
 [connection signal="body_entered" from="SecondRoom/Secondroom_door/PaperFromPrinter/Secondroom_monologue1" to="SecondRoom/Secondroom_door/PaperFromPrinter/Secondroom_monologue1" method="_on_body_entered"]
+[connection signal="body_entered" from="SecondRoom/Secondroom_door/Dialogues/Secondroom_dialogue3" to="SecondRoom/Secondroom_door/Dialogues/Secondroom_dialogue3" method="_on_body_entered"]
+[connection signal="body_entered" from="SecondRoom/Secondroom_door/Dialogues/Secondroom_dialogue4" to="SecondRoom/Secondroom_door/Dialogues/Secondroom_dialogue4" method="_on_body_entered"]
 [connection signal="computer_unlocked" from="SecondRoom/PC/Computer" to="SecondRoom/Secondroom_door/PaperFromPrinter" method="_on_computer_unlocked"]
 [connection signal="pressed" from="SecondRoom/PC/Computer/ComputerUI/Panel/MarginContainer/VBoxContainer/HBoxButtons/ButtonSubmit" to="SecondRoom/PC/Computer" method="_on_button_submit_pressed"]
+[connection signal="keypad_unlocked" from="SecondRoom/KeyPad" to="SecondRoom/CSGCombiner3D/Secondroom_ExitDoor" method="_on_keypad_unlocked"]
