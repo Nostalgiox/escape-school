@@ -42,13 +42,13 @@
 [ext_resource type="Script" uid="uid://0r5xb475pldw" path="res://scripts/light_switch.gd" id="27_0fnvg"]
 [ext_resource type="AudioStream" uid="uid://d0w15nk600a1d" path="res://assets/prolog/Light_Switch/light_switch_on.mp3" id="28_otveq"]
 [ext_resource type="ArrayMesh" uid="uid://17aabv1ac8k7" path="res://scenes/Prologue/exclamation_mark.res" id="29_bblod"]
-[ext_resource type="PackedScene" uid="uid://blrbyk3b62pl4" path="res://assets/prolog/lamp.fbx" id="30_otveq"]
+[ext_resource type="PackedScene" uid="uid://blrbyk3b62pl4" path="res://assets/prolog/Lamp.fbx" id="30_otveq"]
 [ext_resource type="ArrayMesh" uid="uid://cjj2fwike3u6r" path="res://assets/Computer_Class/chair.res" id="32_bblod"]
 [ext_resource type="PackedScene" uid="uid://4r3ccoi7jdkb" path="res://Teacher/Teacher.tscn" id="34_ho2gr"]
 [ext_resource type="Script" uid="uid://cba43ns1rcavw" path="res://scripts/light_rotator.gd" id="39_85vr4"]
 [ext_resource type="ArrayMesh" uid="uid://btbfbh63jtori" path="res://scenes/Level1/chair.res" id="40_3tec7"]
 [ext_resource type="PackedScene" uid="uid://bak8ltrhbmlv5" path="res://addons/CSGStairMaker3D.tscn" id="40_elren"]
-[ext_resource type="ArrayMesh" uid="uid://cr56ki72cr0nc" path="res://scenes/Level1/on_window.res" id="41_6dame"]
+[ext_resource type="ArrayMesh" uid="uid://dvss5asgbtq2w" path="res://scenes/Level1/on_window.res" id="41_6dame"]
 [ext_resource type="Script" uid="uid://d1mqvbgqcu507" path="res://scripts/secondroom_entry_door.gd" id="41_su8p0"]
 [ext_resource type="Script" uid="uid://c0nui72jw5t45" path="res://scripts/firstroom_monolog_1.gd" id="43_fmtfn"]
 [ext_resource type="Script" uid="uid://disgg36avce5q" path="res://scripts/firstroom_monolog_2.gd" id="44_7i0et"]
@@ -56,12 +56,12 @@
 [ext_resource type="Script" uid="uid://4cplx0op0m5" path="res://scripts/firstroom_monolog_3.gd" id="45_4834m"]
 [ext_resource type="Script" uid="uid://c4tnsdcx1suuh" path="res://scripts/firstroom_monolog_4.gd" id="46_bllls"]
 [ext_resource type="Script" uid="uid://bplf306a4dmcb" path="res://scripts/seven_marker.gd" id="48_85vr4"]
-[ext_resource type="ArrayMesh" uid="uid://n2vspkn1ojbp" path="res://scenes/Level1/Secondroom/tables.res" id="50_kp83n"]
-[ext_resource type="ArrayMesh" uid="uid://b6klvik4khoir" path="res://scenes/Level1/Secondroom/flat_pc.res" id="51_kla54"]
+[ext_resource type="ArrayMesh" uid="uid://tjr28oncy11b" path="res://scenes/Level1/Secondroom/tables.res" id="50_kp83n"]
+[ext_resource type="ArrayMesh" uid="uid://dmswuwdiehbey" path="res://scenes/Level1/Secondroom/flat_pc.res" id="51_kla54"]
 [ext_resource type="ArrayMesh" uid="uid://chq22cjqe87rq" path="res://scenes/Level1/Secondroom/monitor.res" id="52_3tec7"]
-[ext_resource type="ArrayMesh" uid="uid://blj7yeib41053" path="res://scenes/Level1/Secondroom/mouse.res" id="53_huc3t"]
-[ext_resource type="ArrayMesh" uid="uid://dhah4u42ns5sb" path="res://scenes/Level1/Secondroom/keyboard.res" id="54_ic5wy"]
-[ext_resource type="ArrayMesh" uid="uid://bu7vh8rt4amsb" path="res://scenes/Level1/Secondroom/printer.res" id="55_fmtfn"]
+[ext_resource type="ArrayMesh" uid="uid://conptsxmuju70" path="res://scenes/Level1/Secondroom/mouse.res" id="53_huc3t"]
+[ext_resource type="ArrayMesh" uid="uid://dxojin8tftqid" path="res://scenes/Level1/Secondroom/keyboard.res" id="54_ic5wy"]
+[ext_resource type="ArrayMesh" uid="uid://bfhdmmns6px8e" path="res://scenes/Level1/Secondroom/printer.res" id="55_fmtfn"]
 [ext_resource type="Texture2D" uid="uid://c168eluk5inul" path="res://assets/textures/granite_tile_diff_2k.jpg" id="56_7udgw"]
 [ext_resource type="Script" uid="uid://dxe8bl23agdak" path="res://scripts/secondroom_exit_door.gd" id="57_anbw0"]
 [ext_resource type="PackedScene" uid="uid://bqal1dmcfv7w2" path="res://scenes/Level1/Notes.tscn" id="57_huc3t"]
@@ -356,6 +356,33 @@ tracks/6/keys = {
 "values": [Vector3(0, 0, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_5lyna"]
+resource_name = "Secondroom_exit_open"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SecondRoom/CSGCombiner3D/Secondroom_ExitDoor:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 4.774865, 0), Vector3(0, 4.774865, -0.9123107)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SecondRoom/CSGCombiner3D/Secondroom_ExitDoor:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, -1.5707964, 0)]
+}
+
 [sub_resource type="Animation" id="Animation_c2s2p"]
 resource_name = "exit_door_close"
 tracks/0/type = "value"
@@ -486,33 +513,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1.5157167, 1.9318728),
 "update": 0,
 "values": [Vector3(0, -1.5708, 0), Vector3(0, -3.1415927, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_5lyna"]
-resource_name = "Secondroom_exit_open"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("SecondRoom/CSGCombiner3D/Secondroom_ExitDoor:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0, 4.774865, 0), Vector3(0, 4.774865, -0.9123107)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("SecondRoom/CSGCombiner3D/Secondroom_ExitDoor:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(0, -1.5707964, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_hf4ar"]
