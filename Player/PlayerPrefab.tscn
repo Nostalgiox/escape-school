@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://cr16qvxkng034"]
+[gd_scene load_steps=48 format=3 uid="uid://cr16qvxkng034"]
 
 [ext_resource type="Script" uid="uid://c4hufc8gty534" path="res://Player/PlayerController.gd" id="1_lqs8g"]
 [ext_resource type="Script" uid="uid://bfbu2ih0dvxc2" path="res://Player/Interaction/PlayerInteractionHandler.gd" id="2_kykvu"]
@@ -22,8 +22,11 @@
 [ext_resource type="PackedScene" uid="uid://635f3qscbudr" path="res://Items/Klucz_level1/level1_key.tscn" id="16_2wtmw"]
 [ext_resource type="PackedScene" uid="uid://b3lvc8svdu4pq" path="res://Items/pendrive.tscn" id="17_5c26t"]
 [ext_resource type="Texture2D" uid="uid://eq1xuye2w2r5" path="res://Items/pen.png" id="17_44rfi"]
+[ext_resource type="PackedScene" uid="uid://dqmmsgoow4wu4" path="res://Items/Books/blue_book_linear.tscn" id="19_kfnbn"]
+[ext_resource type="PackedScene" uid="uid://dfm53ryad28qn" path="res://Items/Books/green_book_text.tscn" id="20_xloie"]
 [ext_resource type="AudioStream" uid="uid://bimrutgugt3eh" path="res://assets/prolog/sounds/pickup.mp3" id="21_2wtmw"]
 [ext_resource type="Texture2D" uid="uid://dtfxbsdymhmp8" path="res://assets/images/inventory_theme.png" id="21_em7n3"]
+[ext_resource type="PackedScene" uid="uid://de72cfvkadyty" path="res://Items/Books/red_book_percent.tscn" id="21_rhxug"]
 [ext_resource type="FontFile" uid="uid://dhy1wb811s8vq" path="res://fonts/Cinzel-VariableFont_wght.ttf" id="22_jqaai"]
 [ext_resource type="FontFile" uid="uid://foyrjdpuehqk" path="res://fonts/Cinzel-Bold.ttf" id="23_jqaai"]
 
@@ -143,6 +146,95 @@ ItemModelPrefab = ExtResource("17_5c26t")
 DetailsText = "[b]Pnedrive... pewnie trzeba go gdzieś podpiąć...[/b]"
 metadata/_custom_type_script = "uid://dlr5ccd40vty0"
 
+[sub_resource type="Resource" id="Resource_xloie"]
+script = ExtResource("3_05jue")
+ItemName = "Układ równań liniowych"
+Icon = ExtResource("9_jqaai")
+ItemModelPrefab = ExtResource("19_kfnbn")
+DetailsText = "Układ równań liniowych z dwiema niewiadomymi
+polega na znalezieniu takich liczb, które
+spełniają jednocześnie dwa warunki.
+
+Najczęściej spotykana postać to:
+x + y = a
+y = x + b
+
+Aby rozwiązać taki układ:
+1. Jedno równanie przekształcamy tak, aby
+   jedna zmienna była wyrażona przez drugą.
+2. Otrzymany wzór podstawiamy do drugiego
+   równania.
+3. Obliczamy wartości obu niewiadomych.
+
+Przykład:
+x + y = 10
+y = x + 2
+
+Podstawiamy:
+x + (x + 2) = 10
+2x + 2 = 10
+x = 4
+y = 6
+
+Często po znalezieniu liczb należy wykonać
+dodatkowe działanie, np. obliczyć ich iloczyn."
+metadata/_custom_type_script = "uid://dlr5ccd40vty0"
+
+[sub_resource type="Resource" id="Resource_rhxug"]
+script = ExtResource("3_05jue")
+ItemName = "Zadania tekstowe"
+Icon = ExtResource("11_kfnbn")
+ItemModelPrefab = ExtResource("20_xloie")
+DetailsText = "W wielu zadaniach matematycznych nie wystarczy
+odnaleźć same liczby.
+
+Często wymagane jest wykonanie dodatkowej
+operacji, np.:
+– obliczenie iloczynu,
+– obliczenie sumy,
+– porównanie wartości.
+
+Iloczyn dwóch liczb to wynik ich mnożenia:
+x · y
+
+Przykład:
+Jeśli x = 3 oraz y = 5,
+to ich iloczyn wynosi:
+3 · 5 = 15
+
+Zawsze warto dokładnie przeczytać treść zadania
+i sprawdzić, co dokładnie jest wymagane jako
+ostateczna odpowiedź.
+"
+metadata/_custom_type_script = "uid://dlr5ccd40vty0"
+
+[sub_resource type="Resource" id="Resource_psheb"]
+script = ExtResource("3_05jue")
+ItemName = "Procenty w praktyce"
+Icon = ExtResource("5_em7n3")
+ItemModelPrefab = ExtResource("21_rhxug")
+DetailsText = "Procent oznacza jedną setną całości.
+100% to cała wartość.
+
+Aby obliczyć p% danej liczby:
+1. Zamień procent na ułamek dziesiętny:
+   p% = p / 100
+2. Pomnóż otrzymany ułamek przez daną liczbę.
+
+Wzór:
+p% z liczby A = (p / 100) · A
+
+Przykład:
+20% z 50:
+20 / 100 = 0,2
+0,2 · 50 = 10
+
+Procenty bardzo często pojawiają się jako
+drugi etap zadania, po wcześniejszych
+obliczeniach.
+"
+metadata/_custom_type_script = "uid://dlr5ccd40vty0"
+
 [sub_resource type="SphereShape3D" id="SphereShape3D_kv1ul"]
 radius = 2.25705
 
@@ -223,7 +315,7 @@ cull_mask = 786431
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("2_kykvu")
-ItemTypes = Array[ExtResource("3_05jue")]([SubResource("Resource_b7jcg"), SubResource("Resource_73ll8"), SubResource("Resource_mxh34"), SubResource("Resource_46m5n"), SubResource("Resource_8wo0o"), SubResource("Resource_jn4p5"), SubResource("Resource_5c26t"), SubResource("Resource_2wtmw")])
+ItemTypes = Array[ExtResource("3_05jue")]([SubResource("Resource_b7jcg"), SubResource("Resource_73ll8"), SubResource("Resource_mxh34"), SubResource("Resource_46m5n"), SubResource("Resource_8wo0o"), SubResource("Resource_jn4p5"), SubResource("Resource_5c26t"), SubResource("Resource_2wtmw"), SubResource("Resource_xloie"), SubResource("Resource_rhxug"), SubResource("Resource_psheb")])
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="InteractionArea"]
 shape = SubResource("SphereShape3D_kv1ul")

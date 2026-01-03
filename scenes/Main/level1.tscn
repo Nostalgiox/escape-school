@@ -1,4 +1,4 @@
-[gd_scene load_steps=161 format=3 uid="uid://bk83ojjrx7ee3"]
+[gd_scene load_steps=166 format=3 uid="uid://bk83ojjrx7ee3"]
 
 [ext_resource type="PackedScene" uid="uid://cyexwquywx03s" path="res://scenes/world.tscn" id="2_br8qb"]
 [ext_resource type="PackedScene" uid="uid://b5s20kntva38x" path="res://scenes/Level1/assets/whiteboard.glb" id="4_iihbi"]
@@ -32,9 +32,9 @@
 [ext_resource type="Texture2D" uid="uid://qyqjj4j2lnbf" path="res://assets/textures/Poliigon_PlasterPainted_7664_Roughness.jpg" id="21_1sajy"]
 [ext_resource type="PackedScene" uid="uid://nmtalb8anxun" path="res://Items/Linijka/ruler.tscn" id="21_2mqmo"]
 [ext_resource type="AudioStream" uid="uid://ddpkloeiaohdy" path="res://assets/prolog/sounds/wrong-answer.mp3" id="21_rbsyn"]
-[ext_resource type="ArrayMesh" uid="uid://ofiqlbgyuu6l" path="res://Items/Poster/poster.res" id="22_3lx2j"]
+[ext_resource type="ArrayMesh" uid="uid://bqjjluyni6wsc" path="res://Items/Poster/poster.res" id="22_3lx2j"]
 [ext_resource type="Script" uid="uid://bg8bcebknchjw" path="res://scripts/PosterMeasure.gd" id="23_snkc6"]
-[ext_resource type="ArrayMesh" uid="uid://mf1fbr0cy3j8" path="res://Items/Linijka/ruler.res" id="24_47evs"]
+[ext_resource type="ArrayMesh" uid="uid://ctxpimivg0tiy" path="res://Items/Linijka/ruler.res" id="24_47evs"]
 [ext_resource type="FontFile" uid="uid://r4nhmnce54jw" path="res://fonts/BACK TO SCHOOL.otf" id="25_eap2h"]
 [ext_resource type="Texture2D" uid="uid://bf827uja5s0x" path="res://Textures/concrete_wall_003_rough_2k.jpg" id="25_otveq"]
 [ext_resource type="PackedScene" uid="uid://cglmnlj4xfco8" path="res://scenes/monolog_ui.tscn" id="26_snkc6"]
@@ -58,7 +58,7 @@
 [ext_resource type="Script" uid="uid://bplf306a4dmcb" path="res://scripts/seven_marker.gd" id="48_85vr4"]
 [ext_resource type="ArrayMesh" uid="uid://tjr28oncy11b" path="res://scenes/Level1/Secondroom/tables.res" id="50_kp83n"]
 [ext_resource type="ArrayMesh" uid="uid://dmswuwdiehbey" path="res://scenes/Level1/Secondroom/flat_pc.res" id="51_kla54"]
-[ext_resource type="ArrayMesh" uid="uid://chq22cjqe87rq" path="res://scenes/Level1/Secondroom/monitor.res" id="52_3tec7"]
+[ext_resource type="ArrayMesh" uid="uid://f4ywpukbkb0c" path="res://scenes/Level1/Secondroom/monitor.res" id="52_3tec7"]
 [ext_resource type="ArrayMesh" uid="uid://conptsxmuju70" path="res://scenes/Level1/Secondroom/mouse.res" id="53_huc3t"]
 [ext_resource type="ArrayMesh" uid="uid://dxojin8tftqid" path="res://scenes/Level1/Secondroom/keyboard.res" id="54_ic5wy"]
 [ext_resource type="ArrayMesh" uid="uid://bfhdmmns6px8e" path="res://scenes/Level1/Secondroom/printer.res" id="55_fmtfn"]
@@ -84,6 +84,10 @@
 [ext_resource type="Script" uid="uid://cs2hpyqk1c82t" path="res://scripts/secondroom_dialogue_4.gd" id="70_xtqcd"]
 [ext_resource type="ArrayMesh" uid="uid://pl4wd3oad8ti" path="res://assets/Computer_Class/monitor.res" id="71_i730u"]
 [ext_resource type="Script" uid="uid://bptruai3nfsnm" path="res://scripts/keypad.gd" id="77_sng18"]
+[ext_resource type="PackedScene" uid="uid://dqmmsgoow4wu4" path="res://Items/Books/blue_book_linear.tscn" id="81_6e2v5"]
+[ext_resource type="PackedScene" uid="uid://dfm53ryad28qn" path="res://Items/Books/green_book_text.tscn" id="82_5twnt"]
+[ext_resource type="PackedScene" uid="uid://de72cfvkadyty" path="res://Items/Books/red_book_percent.tscn" id="83_4jsgw"]
+[ext_resource type="Script" uid="uid://b2epn1el6kjdg" path="res://scripts/whiteboard_thirdroom.gd" id="88_ysfeh"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_y8pcn"]
 size = Vector3(3.951416, 1.8839111, 0.41845703)
@@ -655,6 +659,10 @@ size = Vector3(0.42785645, 1, 1)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_huc3t"]
 radius = 1.1912459
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4jsgw"]
+albedo_texture = ExtResource("5_eap2h")
+uv1_scale = Vector3(10, 6, 1)
 
 [node name="Main" type="Node3D"]
 
@@ -1621,7 +1629,7 @@ material = SubResource("StandardMaterial3D_snkc6")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.62423396, 4.7162676, -0.6289878)
 
 [node name="wall_doorway3" parent="SecondRoom/CSGCombiner3D" instance=ExtResource("8_otveq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5390316, 4.803904, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6356736, 4.803904, 0)
 
 [node name="Secondroom_ExitDoor" type="StaticBody3D" parent="SecondRoom/CSGCombiner3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.774865, 0)
@@ -1678,6 +1686,8 @@ shape = SubResource("BoxShape3D_ah63k")
 
 [node name="Notes_Secondroom" parent="SecondRoom/Secondroom_door" instance=ExtResource("59_n5kjv")]
 transform = Transform3D(0.8225909, 0, -0.5686336, 0, 1, 0, 0.5686336, 0, 0.8225909, -5.1535854, 0.85212755, -1.2807026)
+zadanie2_text = "[center]Jeśli coś tu ma sens, to na pewno liczby. Zawsze warto zacząć od rzeczy, które wydają się oczywiste – równań, zależnościi zapisanych warunków. Czasem rozwiązanie nie leży w samym pomieszczeniu, ale w urządzeniu, które potrafi sprawdzić poprawność obliczeń."
+zadanie3_text = "[center]Rozwiązanie rzadko jest końcem drogi. Często to tylko wartość pośrednia,która prowadzi do kolejnego kroku.Jeśli coś zaczyna działać lub wydaje dźwięki, może właśnie próbuje przekazać coś więcej niż tylko wynik."
 
 [node name="Area3D" type="Area3D" parent="SecondRoom/Secondroom_door/Notes_Secondroom"]
 
@@ -2301,6 +2311,18 @@ text = "OK"
 [node name="MessageLabel" type="Label" parent="SecondRoom/KeyPad/KeypadUI/Panel/VBoxContainer"]
 layout_mode = 2
 
+[node name="Interactable_items" type="Node3D" parent="SecondRoom"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.342325, 5.2697744, -4.060068)
+
+[node name="BlueBookLinear" parent="SecondRoom/Interactable_items" instance=ExtResource("81_6e2v5")]
+transform = Transform3D(0.009965628, -0.9746349, 0.22357926, 0.9999504, 0.00971335, -0.002228246, -6.290873e-09, 0.22359034, 0.97468317, -0.3354807, -0.21204042, 2.103829)
+
+[node name="GreenBookText" parent="SecondRoom/Interactable_items" instance=ExtResource("82_5twnt")]
+transform = Transform3D(-3.9661312e-08, -0.90734506, 0.42038664, 1, -4.371139e-08, 0, 1.8375683e-08, 0.42038664, 0.90734506, 0, -0.7491894, -6.698271)
+
+[node name="RedBookPercent" parent="SecondRoom/Interactable_items" instance=ExtResource("83_4jsgw")]
+transform = Transform3D(-0.0065802652, 0.57911575, -0.8152188, -0.99993545, -0.011361875, 0, -0.009262414, 0.8151662, 0.5791531, 5.4612045, -0.5313611, -6.0053463)
+
 [node name="Notes" parent="." instance=ExtResource("57_huc3t")]
 transform = Transform3D(0.38139305, 0, 0.92441297, 0, 1, 0, -0.92441297, 0, 0.38139305, -0.20567107, 1.9866979, -6.6439652)
 
@@ -2333,6 +2355,56 @@ grow_horizontal = 2
 size_flags_horizontal = 4
 script = ExtResource("66_wf8vu")
 teacher_timer_path = NodePath("../..")
+
+[node name="ThirdRoom" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.9868345, 0)
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="ThirdRoom"]
+use_collision = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="ThirdRoom/CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.839599, 1.3393936, 8.940094)
+size = Vector3(0.60546875, 5.204468, 18.880188)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="ThirdRoom/CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.612233, 1.2613907, 9.081207)
+size = Vector3(0.60546875, 5.048462, 19.162415)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="ThirdRoom/CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4082489, 1.3326263, 18.624084)
+size = Vector3(13.044891, 5.186554, 1)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="ThirdRoom/CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.31051636, -1.370831, 9.012558)
+size = Vector3(12.613342, 0.30371094, 19.025116)
+material = SubResource("StandardMaterial3D_4jsgw")
+
+[node name="Whiteboard" parent="ThirdRoom" instance=ExtResource("4_iihbi")]
+transform = Transform3D(-4.3711385e-08, 0, -0.99999994, 0, 1, 0, 0.99999994, 0, -4.3711385e-08, -6.323081, -1.3295016, 4.9656563)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="ThirdRoom/Whiteboard"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ThirdRoom/Whiteboard/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.015991211, 1.8568106, -0.29077148)
+shape = SubResource("BoxShape3D_y8pcn")
+
+[node name="InteractionAreaPath" type="Area3D" parent="ThirdRoom/Whiteboard"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5231762, 0.06387198, -1.145448)
+script = ExtResource("88_ysfeh")
+board_camera_path = NodePath("../BoardCamera")
+board_label_path = NodePath("../Label3D")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ThirdRoom/Whiteboard/InteractionAreaPath"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.51086426, 0.14349365, -0.33422852)
+shape = SubResource("BoxShape3D_ckwgf")
+
+[node name="BoardCamera" type="Camera3D" parent="ThirdRoom/Whiteboard"]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 1.9138033, -1.7321775)
+
+[node name="Label3D" type="Label3D" parent="ThirdRoom/Whiteboard"]
+transform = Transform3D(-0.35, 0, -3.059797e-08, 0, 0.35, 0, 3.059797e-08, 0, -0.35, 0, 1.9489684, -0.05738759)
+text = "asdczxczcawd"
+font = ExtResource("6_ckwgf")
 
 [connection signal="body_entered" from="FirstRoom/AlgebraPuzzle/InteractArea" to="FirstRoom/AlgebraPuzzle" method="_on_interact_area_body_entered"]
 [connection signal="body_exited" from="FirstRoom/AlgebraPuzzle/InteractArea" to="FirstRoom/AlgebraPuzzle" method="_on_interact_area_body_exited"]
