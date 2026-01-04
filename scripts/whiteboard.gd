@@ -17,6 +17,18 @@ extends Area3D
 @export var autodetect_label_name: String = "Label3D"
 @export var cursor_name: String = "Whiteboard_Cursor"        # created Label3D name for cursor
 
+@export var max_chars_per_line: int = 40
+
+@onready var chalk_sfx: AudioStreamPlayer = $"../ChalkSound"
+
+var chalk_sounds := [
+	preload("res://audio/chalk1.wav"),
+	preload("res://audio/chalk2.wav"),
+	preload("res://audio/chalk3.wav")
+]
+
+
+
 # runtime state (typed where helpful)
 var _player_in_area: bool = false
 var _editing: bool = false
@@ -229,13 +241,39 @@ func _end_editing() -> void:
 func _append_printable_char(ch: String) -> void:
 	if ch == "":
 		return
-	# enforce max chars
-	var newt: String = _text_buffer + ch
-	if newt.length() > max_chars:
+
+	# limit całkowitej liczby znaków
+	if _text_buffer.length() >= max_chars:
 		return
-	_text_buffer = newt
-	_set_label_text(_text_buffer) # update immediately
+
+	var lines := _text_buffer.split("\n", false)
+	var last_line := ""
+	if lines.size() > 0:
+		last_line = lines[lines.size() - 1]
+
+	# jeśli linia pełna → auto newline (jeśli można)
+	if last_line.length() >= max_chars_per_line:
+		if not allow_multiline:
+			return
+		if lines.size() >= max_lines:
+			return
+		_text_buffer += "\n"
+
+	# dodaj znak
+	_text_buffer += ch
+	_set_label_text(_text_buffer)
 	_update_cursor_position()
+	_play_chalk_sound()
+
+
+func _play_chalk_sound() -> void:
+	if chalk_sfx == null:
+		return
+
+	chalk_sfx.stream = chalk_sounds.pick_random()
+	chalk_sfx.pitch_scale = randf_range(0.95, 1.05)
+	chalk_sfx.volume_db = 6.0
+	chalk_sfx.play()
 
 
 func _try_append_newline() -> void:

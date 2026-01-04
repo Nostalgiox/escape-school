@@ -14,9 +14,6 @@ bg_color = Color(0.56078434, 0.4, 0.2, 0.41960785)
 
 [node name="Notes_Secondroom" type="Node3D"]
 script = ExtResource("1_700d4")
-panel_path = NodePath("CanvasLayer/InfoPanel")
-left_label_path = NodePath("CanvasLayer/InfoPanel/InfoLabelLeft")
-right_label_path = NodePath("CanvasLayer/InfoPanel/InfoLabelRight")
 
 [node name="Notes" parent="." instance=ExtResource("2_1wfqi")]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
@@ -27,6 +24,7 @@ shape = SubResource("SphereShape3D_kqr0t")
 [node name="Label3D" type="Label3D" parent="."]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="InfoPanel" type="Panel" parent="CanvasLayer"]
 anchors_preset = 15

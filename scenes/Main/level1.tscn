@@ -1,4 +1,4 @@
-[gd_scene load_steps=166 format=3 uid="uid://bk83ojjrx7ee3"]
+[gd_scene load_steps=205 format=3 uid="uid://bk83ojjrx7ee3"]
 
 [ext_resource type="PackedScene" uid="uid://cyexwquywx03s" path="res://scenes/world.tscn" id="2_br8qb"]
 [ext_resource type="PackedScene" uid="uid://b5s20kntva38x" path="res://scenes/Level1/assets/whiteboard.glb" id="4_iihbi"]
@@ -73,7 +73,9 @@
 [ext_resource type="Script" uid="uid://kaj0k28hnx3t" path="res://scripts/paper_note.gd" id="60_3n7b8"]
 [ext_resource type="Texture2D" uid="uid://dc0jqnaom0gj3" path="res://assets/textures/wyrwana_kartka.png" id="60_6n8di"]
 [ext_resource type="ArrayMesh" uid="uid://ll0bcrott5kd" path="res://assets/paper_secondroom.res" id="61_8vvdv"]
+[ext_resource type="Script" uid="uid://dikfdauqb4smo" path="res://scripts/notes.gd" id="62_6lh66"]
 [ext_resource type="FontFile" uid="uid://dhy1wb811s8vq" path="res://fonts/Cinzel-VariableFont_wght.ttf" id="62_sp7c5"]
+[ext_resource type="Texture2D" uid="uid://dvsyf1v8k8rvj" path="res://assets/Notes/ChatGPT Image 3 gru 2025, 10_41_21.png" id="63_77vkt"]
 [ext_resource type="FontFile" uid="uid://foyrjdpuehqk" path="res://fonts/Cinzel-Bold.ttf" id="63_i730u"]
 [ext_resource type="Script" uid="uid://dowf83b646aj7" path="res://scripts/game_timer.gd" id="65_bsomj"]
 [ext_resource type="Script" uid="uid://c0lgb1whfjoiu" path="res://scripts/paper_from_printer.gd" id="65_exbst"]
@@ -83,11 +85,20 @@
 [ext_resource type="Script" uid="uid://yg07qv5uxpcp" path="res://scripts/secondroom_dialogue_3.gd" id="68_5lyna"]
 [ext_resource type="Script" uid="uid://cs2hpyqk1c82t" path="res://scripts/secondroom_dialogue_4.gd" id="70_xtqcd"]
 [ext_resource type="ArrayMesh" uid="uid://pl4wd3oad8ti" path="res://assets/Computer_Class/monitor.res" id="71_i730u"]
+[ext_resource type="Script" uid="uid://dmtulykksvvhf" path="res://scripts/secondroom_dialogue_5.gd" id="72_v1bmx"]
 [ext_resource type="Script" uid="uid://bptruai3nfsnm" path="res://scripts/keypad.gd" id="77_sng18"]
 [ext_resource type="PackedScene" uid="uid://dqmmsgoow4wu4" path="res://Items/Books/blue_book_linear.tscn" id="81_6e2v5"]
 [ext_resource type="PackedScene" uid="uid://dfm53ryad28qn" path="res://Items/Books/green_book_text.tscn" id="82_5twnt"]
 [ext_resource type="PackedScene" uid="uid://de72cfvkadyty" path="res://Items/Books/red_book_percent.tscn" id="83_4jsgw"]
 [ext_resource type="Script" uid="uid://b2epn1el6kjdg" path="res://scripts/whiteboard_thirdroom.gd" id="88_ysfeh"]
+[ext_resource type="AudioStream" uid="uid://mrf7yvm2543i" path="res://audio/chalk1.wav" id="89_66rxp"]
+[ext_resource type="PackedScene" uid="uid://c666sj4wbtjci" path="res://Items/Books/red_book_arithmetic.tscn" id="93_g0raj"]
+[ext_resource type="PackedScene" uid="uid://04o7p2qe20fl" path="res://assets/gltf/table_round_A_decorated.gltf" id="94_j06cd"]
+[ext_resource type="Script" uid="uid://dhynlwlhcapuy" path="res://scripts/thirdroom_dialogue_1.gd" id="95_ew7mq"]
+[ext_resource type="PackedScene" uid="uid://c1qokvpbk7u23" path="res://assets/gltf/table_round_A.gltf" id="95_l4l1q"]
+[ext_resource type="PackedScene" uid="uid://solwl2yj5cwv" path="res://Items/Computer/computer_lowpoly.gltf" id="96_8ds7j"]
+[ext_resource type="PackedScene" uid="uid://buagwitws33vn" path="res://Items/Books/green_book_estimating.tscn" id="96_imsit"]
+[ext_resource type="Script" uid="uid://dw5fumb8231o8" path="res://scripts/food_computer.gd" id="97_6y4gv"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_y8pcn"]
 size = Vector3(3.951416, 1.8839111, 0.41845703)
@@ -582,6 +593,9 @@ size = Vector3(2.5278015, 0.8748779, 0.97558594)
 [sub_resource type="SphereShape3D" id="SphereShape3D_6n8di"]
 radius = 1.2482656
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6lh66"]
+bg_color = Color(0.56078434, 0.4, 0.2, 0.41960785)
+
 [sub_resource type="SphereShape3D" id="SphereShape3D_n5kjv"]
 radius = 1.4992099
 
@@ -657,12 +671,175 @@ size = Vector3(2.635315, 1.8995361, 1.715332)
 [sub_resource type="BoxShape3D" id="BoxShape3D_sng18"]
 size = Vector3(0.42785645, 1, 1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ob6w7"]
+bg_color = Color(0.12156863, 0.12156863, 0.12156863, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.17254902, 0.17254902, 0.17254902, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8mhho"]
+bg_color = Color(0.16470589, 0.16470589, 0.16470589, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.22745098, 0.22745098, 0.22745098, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q26qx"]
+bg_color = Color(0.16862746, 0.16862746, 0.16862746, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hrxsu"]
+bg_color = Color(0.101960786, 0.101960786, 0.101960786, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_05fsw"]
+bg_color = Color(0.22745098, 0.22745098, 0.22745098, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ie37o"]
+bg_color = Color(0.2901961, 0.16470589, 0.16470589, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y0inr"]
+bg_color = Color(0.16470589, 0.101960786, 0.101960786, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uji6j"]
+bg_color = Color(0.36078432, 0.20392157, 0.20392157, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_11h1j"]
+bg_color = Color(0.16470589, 0.2901961, 0.2901961, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_svag3"]
+bg_color = Color(0.101960786, 0.16470589, 0.101960786, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_omcwe"]
+bg_color = Color(0.22745098, 0.36078432, 0.22745098, 1)
+
 [sub_resource type="SphereShape3D" id="SphereShape3D_huc3t"]
 radius = 1.1912459
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_77vkt"]
+bg_color = Color(0.56078434, 0.4, 0.2, 0.41960785)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6lh66"]
+albedo_texture = ExtResource("25_otveq")
+uv1_scale = Vector3(6, 6, 6)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g0raj"]
+albedo_texture = ExtResource("25_otveq")
+uv1_scale = Vector3(6, 6, 6)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j06cd"]
+albedo_texture = ExtResource("25_otveq")
+uv1_scale = Vector3(6, 6, 6)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4jsgw"]
 albedo_texture = ExtResource("5_eap2h")
 uv1_scale = Vector3(10, 6, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6lh66"]
+size = Vector3(1.4550781, 2.6697083, 1.0922852)
+
+[sub_resource type="Animation" id="Animation_6lh66"]
+resource_name = "thirdroom_exit_door_open"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("StaticBody3D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, -1.5707964, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("StaticBody3D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(-0.772233, 0, 0.97333527)]
+}
+
+[sub_resource type="Animation" id="Animation_g0raj"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("StaticBody3D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("StaticBody3D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_j06cd"]
+_data = {
+&"RESET": SubResource("Animation_g0raj"),
+&"thirdroom_exit_door_open": SubResource("Animation_6lh66")
+}
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ew7mq"]
+size = Vector3(1.9714966, 1.1025391, 1.954071)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_8ds7j"]
+height = 0.9867554
+radius = 1.734375
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_8ds7j"]
+radius = 4.6223016
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6y4gv"]
+bg_color = Color(0.07058824, 0.07058824, 0.07058824, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.41960785, 0.41960785, 0.41960785, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ar46k"]
+bg_color = Color(0.12156863, 0.12156863, 0.12156863, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_flrjl"]
+bg_color = Color(0.06666667, 0.06666667, 0.06666667, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vahyy"]
+bg_color = Color(0.16470589, 0.16470589, 0.16470589, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8ds7j"]
+size = Vector3(1.1645508, 1.1297607, 1.0054932)
 
 [node name="Main" type="Node3D"]
 
@@ -670,7 +847,7 @@ uv1_scale = Vector3(10, 6, 1)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.74466, 2.06755, -3.812183)
 
 [node name="PlayerBody" parent="." instance=ExtResource("15_v04fw")]
-transform = Transform3D(-4.3711385e-08, 0, 0.99999994, 0, 1, 0, -0.99999994, 0, -4.3711385e-08, 1.6335814, 6.1235967, -3.790526)
+transform = Transform3D(-4.3711385e-08, 0, 0.99999994, 0, 1, 0, -0.99999994, 0, -4.3711385e-08, -0.9769964, 6.1235967, 2.929759)
 
 [node name="World" parent="." instance=ExtResource("2_br8qb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.713779, -1.1960267, -41.27668)
@@ -691,6 +868,8 @@ shape = SubResource("BoxShape3D_y8pcn")
 [node name="InteractionAreaPath" type="Area3D" parent="FirstRoom/Whiteboard"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5231762, 0.06387198, -1.145448)
 script = ExtResource("5_y8pcn")
+board_camera_path = NodePath("../BoardCamera")
+board_label_path = NodePath("../Label3D")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="FirstRoom/Whiteboard/InteractionAreaPath"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.51086426, 0.14349365, -0.33422852)
@@ -703,6 +882,10 @@ transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 1
 transform = Transform3D(-0.35, 0, -3.059797e-08, 0, 0.35, 0, 3.059797e-08, 0, -0.35, 0, 1.9489684, -0.05738759)
 text = "asdczxczcawd"
 font = ExtResource("6_ckwgf")
+
+[node name="ChalkSound" type="AudioStreamPlayer" parent="FirstRoom/Whiteboard"]
+stream = ExtResource("89_66rxp")
+bus = &"SFX"
 
 [node name="wall_doorway2" parent="FirstRoom" instance=ExtResource("8_otveq")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -14.358305, 0.895845, -10.749844)
@@ -1686,14 +1869,119 @@ shape = SubResource("BoxShape3D_ah63k")
 
 [node name="Notes_Secondroom" parent="SecondRoom/Secondroom_door" instance=ExtResource("59_n5kjv")]
 transform = Transform3D(0.8225909, 0, -0.5686336, 0, 1, 0, 0.5686336, 0, 0.8225909, -5.1535854, 0.85212755, -1.2807026)
-zadanie2_text = "[center]Jeśli coś tu ma sens, to na pewno liczby. Zawsze warto zacząć od rzeczy, które wydają się oczywiste – równań, zależnościi zapisanych warunków. Czasem rozwiązanie nie leży w samym pomieszczeniu, ale w urządzeniu, które potrafi sprawdzić poprawność obliczeń."
-zadanie3_text = "[center]Rozwiązanie rzadko jest końcem drogi. Często to tylko wartość pośrednia,która prowadzi do kolejnego kroku.Jeśli coś zaczyna działać lub wydaje dźwięki, może właśnie próbuje przekazać coś więcej niż tylko wynik."
+script = ExtResource("62_6lh66")
+panel_path = NodePath("CanvasLayer2/InfoPanel")
+left_label_path = NodePath("CanvasLayer2/InfoPanel/InfoLabelLeft")
+right_label_path = NodePath("CanvasLayer2/InfoPanel/InfoLabelRight")
+left_text = "[center]Jeśli coś tu ma sens, to na pewno liczby. Zawsze warto zacząć od rzeczy, \\które wydają się oczywiste – równań, zależności i zapisanych warunków."
+right_text = "[center]Rozwiązanie rzadko jest końcem drogi. Często to tylko wartość pośrednia, \\która prowadzi do kolejnego kroku."
 
 [node name="Area3D" type="Area3D" parent="SecondRoom/Secondroom_door/Notes_Secondroom"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="SecondRoom/Secondroom_door/Notes_Secondroom/Area3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.09536028, -0.10400963, -0.7423496)
 shape = SubResource("SphereShape3D_6n8di")
+
+[node name="Secondroom_dialogue5" type="Area3D" parent="SecondRoom/Secondroom_door/Notes_Secondroom"]
+transform = Transform3D(0.8225909, 0, 0.5686336, 0, 1, 0, -0.5686336, 0, 0.8225909, -0.6738782, -0.44422245, -1.1343784)
+monitoring = false
+monitorable = false
+script = ExtResource("72_v1bmx")
+monolog_ui_path = NodePath("../../../../MonologUI")
+typing_sfx_player_path = NodePath("Monolog_keyboard_typing")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SecondRoom/Secondroom_door/Notes_Secondroom/Secondroom_dialogue5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.48001)
+shape = SubResource("SphereShape3D_7i0et")
+
+[node name="Monolog_keyboard_typing" type="AudioStreamPlayer" parent="SecondRoom/Secondroom_door/Notes_Secondroom/Secondroom_dialogue5"]
+stream = ExtResource("44_8gufu")
+bus = &"SFX"
+
+[node name="CanvasLayer2" type="CanvasLayer" parent="SecondRoom/Secondroom_door/Notes_Secondroom"]
+
+[node name="InfoPanel" type="Panel" parent="SecondRoom/Secondroom_door/Notes_Secondroom/CanvasLayer2"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_6lh66")
+
+[node name="TextureRect" type="TextureRect" parent="SecondRoom/Secondroom_door/Notes_Secondroom/CanvasLayer2/InfoPanel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -568.0
+offset_top = -398.0
+offset_right = 576.0
+offset_bottom = 415.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("63_77vkt")
+expand_mode = 1
+
+[node name="InfoLabelLeft" type="RichTextLabel" parent="SecondRoom/Secondroom_door/Notes_Secondroom/CanvasLayer2/InfoPanel"]
+z_index = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 137.0
+offset_top = 150.0
+offset_right = -622.0
+offset_bottom = -92.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("62_sp7c5")
+theme_override_fonts/bold_font = ExtResource("63_i730u")
+bbcode_enabled = true
+text = "[center][b]Zadanie 2[/b][/center]
+
+Na ścianie znajduje się plakat z okręgiem.
+Zmierz jego średnicę, a następnie oblicz [b]pole koła[/b] korzystając z wzoru:
+
+[center]P = π · r²[/center]
+
+gdzie r to połowa zmierzonej średnicy, a π ≈ 3.14159.
+
+Wpisz otrzymany wynik jako [b]drugą cyfrę[/b] kodu.
+"
+
+[node name="InfoLabelRight" type="RichTextLabel" parent="SecondRoom/Secondroom_door/Notes_Secondroom/CanvasLayer2/InfoPanel"]
+z_index = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 632.0
+offset_top = 150.0
+offset_right = -127.0
+offset_bottom = -92.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("62_sp7c5")
+theme_override_fonts/bold_font = ExtResource("63_i730u")
+bbcode_enabled = true
+text = "[center][b]Zadanie 3[/b][/center]
+
+Ustaw lampę tak, aby cień przedmiotu padał wyraźnie na blat.
+Przyjrzyj się uważnie kształtowi cienia — zauważysz, że tworzy on cyfrę.
+
+Odczytaj tę cyfrę i wpisz ją jako [b]trzecią cyfrę[/b] kodu.
+
+Podpowiedź: poprawne ustawienie daje cyfrę: [b]7[/b].
+"
+
+[node name="CloseButton" type="Button" parent="SecondRoom/Secondroom_door/Notes_Secondroom/CanvasLayer2/InfoPanel"]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
 
 [node name="PaperNote" type="Node3D" parent="SecondRoom/Secondroom_door"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5965071, 0.78940916, -18.508966)
@@ -2229,6 +2517,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_ob6w7")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="SecondRoom/KeyPad/KeypadUI/Panel"]
 layout_mode = 1
@@ -2250,6 +2539,9 @@ layout_mode = 2
 [node name="DisplayLabel" type="Label" parent="SecondRoom/KeyPad/KeypadUI/Panel/VBoxContainer"]
 custom_minimum_size = Vector2(48, 0)
 layout_mode = 2
+theme_override_colors/font_color = Color(0.9019608, 0.9019608, 0.9019608, 1)
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_8mhho")
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -2258,58 +2550,119 @@ layout_mode = 2
 columns = 3
 
 [node name="Button" type="Button" parent="SecondRoom/KeyPad/KeypadUI/Panel/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
+theme_override_colors/font_color = Color(0.9411765, 0.9411765, 0.9411765, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_q26qx")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_hrxsu")
+theme_override_styles/hover = SubResource("StyleBoxFlat_05fsw")
 text = "1"
 
 [node name="Button2" type="Button" parent="SecondRoom/KeyPad/KeypadUI/Panel/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
+theme_override_colors/font_color = Color(0.9411765, 0.9411765, 0.9411765, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_q26qx")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_hrxsu")
+theme_override_styles/hover = SubResource("StyleBoxFlat_05fsw")
 text = "2"
 
 [node name="Button3" type="Button" parent="SecondRoom/KeyPad/KeypadUI/Panel/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
+theme_override_colors/font_color = Color(0.9411765, 0.9411765, 0.9411765, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_q26qx")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_hrxsu")
+theme_override_styles/hover = SubResource("StyleBoxFlat_05fsw")
 text = "3"
 
 [node name="Button4" type="Button" parent="SecondRoom/KeyPad/KeypadUI/Panel/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
+theme_override_colors/font_color = Color(0.9411765, 0.9411765, 0.9411765, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_q26qx")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_hrxsu")
+theme_override_styles/hover = SubResource("StyleBoxFlat_05fsw")
 text = "4"
 
 [node name="Button5" type="Button" parent="SecondRoom/KeyPad/KeypadUI/Panel/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
+theme_override_colors/font_color = Color(0.9411765, 0.9411765, 0.9411765, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_q26qx")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_hrxsu")
+theme_override_styles/hover = SubResource("StyleBoxFlat_05fsw")
 text = "5"
 
 [node name="Button6" type="Button" parent="SecondRoom/KeyPad/KeypadUI/Panel/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
+theme_override_colors/font_color = Color(0.9411765, 0.9411765, 0.9411765, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_q26qx")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_hrxsu")
+theme_override_styles/hover = SubResource("StyleBoxFlat_05fsw")
 text = "6"
 
 [node name="Button7" type="Button" parent="SecondRoom/KeyPad/KeypadUI/Panel/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
+theme_override_colors/font_color = Color(0.9411765, 0.9411765, 0.9411765, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_q26qx")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_hrxsu")
+theme_override_styles/hover = SubResource("StyleBoxFlat_05fsw")
 text = "7"
 
 [node name="Button8" type="Button" parent="SecondRoom/KeyPad/KeypadUI/Panel/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
+theme_override_colors/font_color = Color(0.9411765, 0.9411765, 0.9411765, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_q26qx")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_hrxsu")
+theme_override_styles/hover = SubResource("StyleBoxFlat_05fsw")
 text = "8"
 
 [node name="Button9" type="Button" parent="SecondRoom/KeyPad/KeypadUI/Panel/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
+theme_override_colors/font_color = Color(0.9411765, 0.9411765, 0.9411765, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_q26qx")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_hrxsu")
+theme_override_styles/hover = SubResource("StyleBoxFlat_05fsw")
 text = "9"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="SecondRoom/KeyPad/KeypadUI/Panel/VBoxContainer"]
 layout_mode = 2
 
 [node name="ButtonClear" type="Button" parent="SecondRoom/KeyPad/KeypadUI/Panel/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_ie37o")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_y0inr")
+theme_override_styles/hover = SubResource("StyleBoxFlat_uji6j")
 text = "C"
 
 [node name="ButtonZero" type="Button" parent="SecondRoom/KeyPad/KeypadUI/Panel/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
+theme_override_colors/font_color = Color(0.9411765, 0.9411765, 0.9411765, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_q26qx")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_hrxsu")
+theme_override_styles/hover = SubResource("StyleBoxFlat_05fsw")
 text = "0"
 
 [node name="ButtonOK" type="Button" parent="SecondRoom/KeyPad/KeypadUI/Panel/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_11h1j")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_svag3")
+theme_override_styles/hover = SubResource("StyleBoxFlat_omcwe")
 text = "OK"
 
 [node name="MessageLabel" type="Label" parent="SecondRoom/KeyPad/KeypadUI/Panel/VBoxContainer"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.8117647, 0.8117647, 0.8117647, 1)
 
 [node name="Interactable_items" type="Node3D" parent="SecondRoom"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.342325, 5.2697744, -4.060068)
@@ -2325,6 +2678,11 @@ transform = Transform3D(-0.0065802652, 0.57911575, -0.8152188, -0.99993545, -0.0
 
 [node name="Notes" parent="." instance=ExtResource("57_huc3t")]
 transform = Transform3D(0.38139305, 0, 0.92441297, 0, 1, 0, -0.92441297, 0, 0.38139305, -0.20567107, 1.9866979, -6.6439652)
+panel_path = NodePath("CanvasLayer2/InfoPanel")
+left_label_path = NodePath("CanvasLayer2/InfoPanel/InfoLabelLeft")
+right_label_path = NodePath("CanvasLayer2/InfoPanel/InfoLabelRight")
+left_text = "111"
+right_text = "222"
 
 [node name="Area3D" type="Area3D" parent="Notes"]
 script = ExtResource("58_ic5wy")
@@ -2333,6 +2691,92 @@ notes_path = NodePath("..")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Notes/Area3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.20162821, 0, 0.48870206)
 shape = SubResource("SphereShape3D_huc3t")
+
+[node name="CanvasLayer2" type="CanvasLayer" parent="Notes"]
+visible = false
+
+[node name="InfoPanel" type="Panel" parent="Notes/CanvasLayer2"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_77vkt")
+
+[node name="TextureRect" type="TextureRect" parent="Notes/CanvasLayer2/InfoPanel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -568.0
+offset_top = -398.0
+offset_right = 576.0
+offset_bottom = 415.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("63_77vkt")
+expand_mode = 1
+
+[node name="InfoLabelLeft" type="RichTextLabel" parent="Notes/CanvasLayer2/InfoPanel"]
+z_index = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 137.0
+offset_top = 150.0
+offset_right = -622.0
+offset_bottom = -92.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("62_sp7c5")
+theme_override_fonts/bold_font = ExtResource("63_i730u")
+bbcode_enabled = true
+text = "[center][b]Zadanie 2[/b][/center]
+
+Na ścianie znajduje się plakat z okręgiem.
+Zmierz jego średnicę, a następnie oblicz [b]pole koła[/b] korzystając z wzoru:
+
+[center]P = π · r²[/center]
+
+gdzie r to połowa zmierzonej średnicy, a π ≈ 3.14159.
+
+Wpisz otrzymany wynik jako [b]drugą cyfrę[/b] kodu.
+"
+
+[node name="InfoLabelRight" type="RichTextLabel" parent="Notes/CanvasLayer2/InfoPanel"]
+z_index = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 632.0
+offset_top = 150.0
+offset_right = -127.0
+offset_bottom = -92.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("62_sp7c5")
+theme_override_fonts/bold_font = ExtResource("63_i730u")
+bbcode_enabled = true
+text = "[center][b]Zadanie 3[/b][/center]
+
+Ustaw lampę tak, aby cień przedmiotu padał wyraźnie na blat.
+Przyjrzyj się uważnie kształtowi cienia — zauważysz, że tworzy on cyfrę.
+
+Odczytaj tę cyfrę i wpisz ją jako [b]trzecią cyfrę[/b] kodu.
+
+Podpowiedź: poprawne ustawienie daje cyfrę: [b]7[/b].
+"
+
+[node name="CloseButton" type="Button" parent="Notes/CanvasLayer2/InfoPanel"]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
 
 [node name="Node" type="Node" parent="."]
 script = ExtResource("65_bsomj")
@@ -2363,20 +2807,28 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.9868345, 0)
 use_collision = true
 
 [node name="CSGBox3D" type="CSGBox3D" parent="ThirdRoom/CSGCombiner3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.839599, 1.3393936, 8.940094)
-size = Vector3(0.60546875, 5.204468, 18.880188)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.839599, 1.3393936, 9.166397)
+size = Vector3(0.60546875, 5.204468, 19.332794)
+material = SubResource("StandardMaterial3D_6lh66")
 
 [node name="CSGBox3D2" type="CSGBox3D" parent="ThirdRoom/CSGCombiner3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.612233, 1.2613907, 9.081207)
-size = Vector3(0.60546875, 5.048462, 19.162415)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.612233, 1.2613907, 9.225723)
+size = Vector3(0.60546875, 5.048462, 19.451447)
+material = SubResource("StandardMaterial3D_g0raj")
 
 [node name="CSGBox3D3" type="CSGBox3D" parent="ThirdRoom/CSGCombiner3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4082489, 1.3326263, 18.624084)
-size = Vector3(13.044891, 5.186554, 1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4082489, 1.3326263, 18.989105)
+size = Vector3(13.044891, 5.186554, 0.2699585)
+material = SubResource("StandardMaterial3D_j06cd")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="ThirdRoom/CSGCombiner3D/CSGBox3D3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.22875977, -1.140686, -0.011291504)
+operation = 2
+size = Vector3(1.6308594, 2.8319092, 1.1405029)
 
 [node name="CSGBox3D4" type="CSGBox3D" parent="ThirdRoom/CSGCombiner3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.31051636, -1.370831, 9.012558)
-size = Vector3(12.613342, 0.30371094, 19.025116)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.31051636, -1.370831, 9.306023)
+size = Vector3(12.613342, 0.30371094, 19.612045)
 material = SubResource("StandardMaterial3D_4jsgw")
 
 [node name="Whiteboard" parent="ThirdRoom" instance=ExtResource("4_iihbi")]
@@ -2406,6 +2858,267 @@ transform = Transform3D(-0.35, 0, -3.059797e-08, 0, 0.35, 0, 3.059797e-08, 0, -0
 text = "asdczxczcawd"
 font = ExtResource("6_ckwgf")
 
+[node name="ChalkSound" type="AudioStreamPlayer" parent="ThirdRoom/Whiteboard"]
+stream = ExtResource("89_66rxp")
+bus = &"SFX"
+
+[node name="Exit_door_thirdroom" type="Node3D" parent="ThirdRoom"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 18.926897)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="ThirdRoom/Exit_door_thirdroom"]
+
+[node name="door_A2" parent="ThirdRoom/Exit_door_thirdroom/StaticBody3D" instance=ExtResource("18_0sc1r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.98211, -1.3487744, 0.083589554)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ThirdRoom/Exit_door_thirdroom/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.22753906, 0.09397888, 0.095947266)
+shape = SubResource("BoxShape3D_6lh66")
+
+[node name="wall_doorway2" parent="ThirdRoom/Exit_door_thirdroom" instance=ExtResource("8_otveq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1967845, -1.3626165, 0.06433487)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="ThirdRoom/Exit_door_thirdroom"]
+libraries = {
+&"": SubResource("AnimationLibrary_j06cd")
+}
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="ThirdRoom/Exit_door_thirdroom"]
+stream = ExtResource("8_1kp80")
+bus = &"SFX"
+
+[node name="Books_ThirdRoom" type="Node3D" parent="ThirdRoom"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5.7414165)
+
+[node name="RedBookArithmetic" parent="ThirdRoom/Books_ThirdRoom" instance=ExtResource("93_g0raj")]
+transform = Transform3D(-2.0980528e-08, -0.4799785, 0.87728024, 1, -4.371139e-08, 0, 3.8347135e-08, 0.87728024, 0.4799785, 0, -0.28423548, 1.493886)
+
+[node name="Tables" type="Node3D" parent="ThirdRoom"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4.529794)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="ThirdRoom/Tables"]
+
+[node name="table_round_A_decorated2" parent="ThirdRoom/Tables/StaticBody3D" instance=ExtResource("94_j06cd")]
+transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, -3.5292187, -1.2316885, 5.135507)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ThirdRoom/Tables/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5353642, -0.22994757, 5.1443076)
+shape = SubResource("BoxShape3D_ew7mq")
+
+[node name="StaticBody3D2" type="StaticBody3D" parent="ThirdRoom/Tables"]
+transform = Transform3D(0.865, 0, 0, 0, 0.865, 0, 0, 0, 0.865, -4.2879, -0.16988087, 1.6881256)
+
+[node name="table_round_A2" parent="ThirdRoom/Tables/StaticBody3D2" instance=ExtResource("95_l4l1q")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.7804868, -1.2189751, 8.091068)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ThirdRoom/Tables/StaticBody3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8291049, -0.70367336, 7.996801)
+shape = SubResource("CylinderShape3D_8ds7j")
+
+[node name="Computer" parent="ThirdRoom/Tables/StaticBody3D2" instance=ExtResource("96_8ds7j")]
+transform = Transform3D(0.30966312, 0, 0.34016028, 0, 0.46000013, 0, -0.34016028, 0, 0.30966312, -0.31173706, -0.21635342, 7.627329)
+script = ExtResource("97_6y4gv")
+
+[node name="Area3D" type="Area3D" parent="ThirdRoom/Tables/StaticBody3D2/Computer"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ThirdRoom/Tables/StaticBody3D2/Computer/Area3D"]
+shape = SubResource("SphereShape3D_8ds7j")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="ThirdRoom/Tables/StaticBody3D2/Computer"]
+
+[node name="Panel" type="Panel" parent="ThirdRoom/Tables/StaticBody3D2/Computer/CanvasLayer"]
+custom_minimum_size = Vector2(420, 520)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_6y4gv")
+
+[node name="MarginContainer" type="MarginContainer" parent="ThirdRoom/Tables/StaticBody3D2/Computer/CanvasLayer/Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -34.0
+offset_top = -54.5
+offset_right = 34.0
+offset_bottom = 54.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ThirdRoom/Tables/StaticBody3D2/Computer/CanvasLayer/Panel/MarginContainer"]
+layout_mode = 2
+
+[node name="LabelTitle" type="Label" parent="ThirdRoom/Tables/StaticBody3D2/Computer/CanvasLayer/Panel/MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.84705883, 0.827451, 0.65882355, 1)
+theme_override_font_sizes/font_size = 22
+text = "SYSTEM ROZLICZENIOWY STOŁÓWKI
+
+Na stole znajdują się produkty z dwóch różnych zamówień.
+Z menu wiadomo, że:
+
+• burger + sos kosztują razem 12 zł
+• dwa burgery i jeden sos kosztują 20 zł
+
+Oblicz rzeczywistą cenę każdego produktu, a następnie
+wpisz łączną kwotę za wszystkie produkty znajdujące się na stole.
+
+Uwaga: nie licz zestawów – policz produkty osobno."
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ThirdRoom/Tables/StaticBody3D2/Computer/CanvasLayer/Panel/MarginContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="HSeparator" type="HSeparator" parent="ThirdRoom/Tables/StaticBody3D2/Computer/CanvasLayer/Panel/MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="LineEdit" type="LineEdit" parent="ThirdRoom/Tables/StaticBody3D2/Computer/CanvasLayer/Panel/MarginContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "- -"
+alignment = 1
+editable = false
+
+[node name="GridContainer" type="GridContainer" parent="ThirdRoom/Tables/StaticBody3D2/Computer/CanvasLayer/Panel/MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/h_separation = 8
+theme_override_constants/v_separation = 8
+columns = 3
+
+[node name="Button1" type="Button" parent="ThirdRoom/Tables/StaticBody3D2/Computer/CanvasLayer/Panel/MarginContainer/HBoxContainer/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(80, 50)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_ar46k")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_flrjl")
+theme_override_styles/hover = SubResource("StyleBoxFlat_vahyy")
+text = "1"
+
+[node name="Button2" type="Button" parent="ThirdRoom/Tables/StaticBody3D2/Computer/CanvasLayer/Panel/MarginContainer/HBoxContainer/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(80, 50)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_ar46k")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_flrjl")
+theme_override_styles/hover = SubResource("StyleBoxFlat_vahyy")
+text = "2"
+
+[node name="Button3" type="Button" parent="ThirdRoom/Tables/StaticBody3D2/Computer/CanvasLayer/Panel/MarginContainer/HBoxContainer/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(80, 50)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_ar46k")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_flrjl")
+theme_override_styles/hover = SubResource("StyleBoxFlat_vahyy")
+text = "3"
+
+[node name="Button4" type="Button" parent="ThirdRoom/Tables/StaticBody3D2/Computer/CanvasLayer/Panel/MarginContainer/HBoxContainer/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(80, 50)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_ar46k")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_flrjl")
+theme_override_styles/hover = SubResource("StyleBoxFlat_vahyy")
+text = "4"
+
+[node name="Button5" type="Button" parent="ThirdRoom/Tables/StaticBody3D2/Computer/CanvasLayer/Panel/MarginContainer/HBoxContainer/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(80, 50)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_ar46k")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_flrjl")
+theme_override_styles/hover = SubResource("StyleBoxFlat_vahyy")
+text = "5"
+
+[node name="Button6" type="Button" parent="ThirdRoom/Tables/StaticBody3D2/Computer/CanvasLayer/Panel/MarginContainer/HBoxContainer/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(80, 50)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_ar46k")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_flrjl")
+theme_override_styles/hover = SubResource("StyleBoxFlat_vahyy")
+text = "6"
+
+[node name="Button7" type="Button" parent="ThirdRoom/Tables/StaticBody3D2/Computer/CanvasLayer/Panel/MarginContainer/HBoxContainer/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(80, 50)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_ar46k")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_flrjl")
+theme_override_styles/hover = SubResource("StyleBoxFlat_vahyy")
+text = "7"
+
+[node name="Button8" type="Button" parent="ThirdRoom/Tables/StaticBody3D2/Computer/CanvasLayer/Panel/MarginContainer/HBoxContainer/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(80, 50)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_ar46k")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_flrjl")
+theme_override_styles/hover = SubResource("StyleBoxFlat_vahyy")
+text = "8"
+
+[node name="Button9" type="Button" parent="ThirdRoom/Tables/StaticBody3D2/Computer/CanvasLayer/Panel/MarginContainer/HBoxContainer/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(80, 50)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_ar46k")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_flrjl")
+theme_override_styles/hover = SubResource("StyleBoxFlat_vahyy")
+text = "9"
+
+[node name="C" type="Button" parent="ThirdRoom/Tables/StaticBody3D2/Computer/CanvasLayer/Panel/MarginContainer/HBoxContainer/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(80, 50)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_ar46k")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_flrjl")
+theme_override_styles/hover = SubResource("StyleBoxFlat_vahyy")
+text = "C"
+
+[node name="0" type="Button" parent="ThirdRoom/Tables/StaticBody3D2/Computer/CanvasLayer/Panel/MarginContainer/HBoxContainer/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(80, 50)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_ar46k")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_flrjl")
+theme_override_styles/hover = SubResource("StyleBoxFlat_vahyy")
+text = "0"
+
+[node name="OK" type="Button" parent="ThirdRoom/Tables/StaticBody3D2/Computer/CanvasLayer/Panel/MarginContainer/HBoxContainer/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(80, 50)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_ar46k")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_flrjl")
+theme_override_styles/hover = SubResource("StyleBoxFlat_vahyy")
+text = "OK"
+
+[node name="LabelMessage" type="Label" parent="ThirdRoom/Tables/StaticBody3D2/Computer/CanvasLayer/Panel/MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="ThirdRoom/Tables/StaticBody3D2"]
+transform = Transform3D(0.67381245, 0, 0.73890245, 0, 1, 0, -0.73890245, 0, 0.67381245, -0.33695793, 0.06488037, 7.649581)
+shape = SubResource("BoxShape3D_8ds7j")
+
+[node name="Dialogues_thirdroom" type="Node3D" parent="ThirdRoom"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 8.021631)
+
+[node name="Thirdroom_dialogue1" type="Area3D" parent="ThirdRoom/Dialogues_thirdroom"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.699553, -0.20860672, -2.1852942)
+script = ExtResource("95_ew7mq")
+monolog_ui_path = NodePath("../../../MonologUI")
+typing_sfx_player_path = NodePath("Monolog_keyboard_typing")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ThirdRoom/Dialogues_thirdroom/Thirdroom_dialogue1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.48001)
+shape = SubResource("SphereShape3D_7i0et")
+
+[node name="Monolog_keyboard_typing" type="AudioStreamPlayer" parent="ThirdRoom/Dialogues_thirdroom/Thirdroom_dialogue1"]
+stream = ExtResource("44_8gufu")
+bus = &"SFX"
+
+[node name="GreenBookEstimating" parent="ThirdRoom" instance=ExtResource("96_imsit")]
+transform = Transform3D(-2.9655634e-08, -0.6784418, 0.7346541, 1, -4.371139e-08, 0, 3.211275e-08, 0.7346541, 0.6784418, -4.938251, -1.3710232, 2.0885289)
+
 [connection signal="body_entered" from="FirstRoom/AlgebraPuzzle/InteractArea" to="FirstRoom/AlgebraPuzzle" method="_on_interact_area_body_entered"]
 [connection signal="body_exited" from="FirstRoom/AlgebraPuzzle/InteractArea" to="FirstRoom/AlgebraPuzzle" method="_on_interact_area_body_exited"]
 [connection signal="body_entered" from="FirstRoom/locker/ShelfArea" to="FirstRoom/AlgebraPuzzle" method="_on_shelf_area_body_entered"]
@@ -2416,9 +3129,11 @@ font = ExtResource("6_ckwgf")
 [connection signal="body_entered" from="FirstRoom/Firstroom_monolog2" to="FirstRoom/Firstroom_monolog2" method="_on_body_entered"]
 [connection signal="body_entered" from="FirstRoom/Firstroom_monolog3" to="FirstRoom/Firstroom_monolog3" method="_on_body_entered"]
 [connection signal="body_entered" from="FirstRoom/Firstroom_monolog4" to="FirstRoom/Firstroom_monolog4" method="_on_body_entered"]
+[connection signal="body_entered" from="SecondRoom/Secondroom_door/Notes_Secondroom/Secondroom_dialogue5" to="SecondRoom/Secondroom_door/Notes_Secondroom/Secondroom_dialogue5" method="_on_body_entered"]
 [connection signal="body_entered" from="SecondRoom/Secondroom_door/PaperFromPrinter/Secondroom_monologue1" to="SecondRoom/Secondroom_door/PaperFromPrinter/Secondroom_monologue1" method="_on_body_entered"]
 [connection signal="body_entered" from="SecondRoom/Secondroom_door/Dialogues/Secondroom_dialogue3" to="SecondRoom/Secondroom_door/Dialogues/Secondroom_dialogue3" method="_on_body_entered"]
 [connection signal="body_entered" from="SecondRoom/Secondroom_door/Dialogues/Secondroom_dialogue4" to="SecondRoom/Secondroom_door/Dialogues/Secondroom_dialogue4" method="_on_body_entered"]
 [connection signal="computer_unlocked" from="SecondRoom/PC/Computer" to="SecondRoom/Secondroom_door/PaperFromPrinter" method="_on_computer_unlocked"]
 [connection signal="pressed" from="SecondRoom/PC/Computer/ComputerUI/Panel/MarginContainer/VBoxContainer/HBoxButtons/ButtonSubmit" to="SecondRoom/PC/Computer" method="_on_button_submit_pressed"]
 [connection signal="keypad_unlocked" from="SecondRoom/KeyPad" to="SecondRoom/CSGCombiner3D/Secondroom_ExitDoor" method="_on_keypad_unlocked"]
+[connection signal="body_entered" from="ThirdRoom/Dialogues_thirdroom/Thirdroom_dialogue1" to="ThirdRoom/Dialogues_thirdroom/Thirdroom_dialogue1" method="_on_body_entered"]

@@ -19,6 +19,15 @@ extends Area3D
 
 @export var max_chars_per_line: int = 40
 
+@onready var chalk_sfx: AudioStreamPlayer = $"../ChalkSound"
+
+var chalk_sounds := [
+	preload("res://audio/chalk1.wav"),
+	preload("res://audio/chalk2.wav"),
+	preload("res://audio/chalk3.wav")
+]
+
+
 
 # runtime state (typed where helpful)
 var _player_in_area: bool = false
@@ -254,7 +263,17 @@ func _append_printable_char(ch: String) -> void:
 	_text_buffer += ch
 	_set_label_text(_text_buffer)
 	_update_cursor_position()
+	_play_chalk_sound()
 
+
+func _play_chalk_sound() -> void:
+	if chalk_sfx == null:
+		return
+
+	chalk_sfx.stream = chalk_sounds.pick_random()
+	chalk_sfx.pitch_scale = randf_range(0.95, 1.05)
+	chalk_sfx.volume_db = 6.0
+	chalk_sfx.play()
 
 
 func _try_append_newline() -> void:

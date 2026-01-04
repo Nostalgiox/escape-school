@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=3 uid="uid://cr16qvxkng034"]
+[gd_scene load_steps=52 format=3 uid="uid://cr16qvxkng034"]
 
 [ext_resource type="Script" uid="uid://c4hufc8gty534" path="res://Player/PlayerController.gd" id="1_lqs8g"]
 [ext_resource type="Script" uid="uid://bfbu2ih0dvxc2" path="res://Player/Interaction/PlayerInteractionHandler.gd" id="2_kykvu"]
@@ -28,6 +28,8 @@
 [ext_resource type="Texture2D" uid="uid://dtfxbsdymhmp8" path="res://assets/images/inventory_theme.png" id="21_em7n3"]
 [ext_resource type="PackedScene" uid="uid://de72cfvkadyty" path="res://Items/Books/red_book_percent.tscn" id="21_rhxug"]
 [ext_resource type="FontFile" uid="uid://dhy1wb811s8vq" path="res://fonts/Cinzel-VariableFont_wght.ttf" id="22_jqaai"]
+[ext_resource type="PackedScene" uid="uid://c666sj4wbtjci" path="res://Items/Books/red_book_arithmetic.tscn" id="22_psheb"]
+[ext_resource type="PackedScene" uid="uid://buagwitws33vn" path="res://Items/Books/green_book_estimating.tscn" id="23_2lp6d"]
 [ext_resource type="FontFile" uid="uid://foyrjdpuehqk" path="res://fonts/Cinzel-Bold.ttf" id="23_jqaai"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_jqxt5"]
@@ -235,6 +237,48 @@ obliczeniach.
 "
 metadata/_custom_type_script = "uid://dlr5ccd40vty0"
 
+[sub_resource type="Resource" id="Resource_2lp6d"]
+script = ExtResource("3_05jue")
+ItemName = "Analiza zależności"
+Icon = ExtResource("5_em7n3")
+ItemModelPrefab = ExtResource("22_psheb")
+DetailsText = "[b]Analiza cen produktów[/b]
+
+W zadaniach opartych na cenach często podawane są informacje o zestawach, a nie o pojedynczych elementach.
+W takim przypadku kluczowe jest rozbicie zestawu na jego składowe i potraktowanie każdej ceny jako zależności między niewiadomymi.
+
+Jeżeli znamy cenę zestawu zawierającego kilka produktów, możemy zapisać ją jako sumę cen poszczególnych elementów.
+Porównując ze sobą różne zestawy, w których występują te same produkty w innych ilościach, możliwe jest wyznaczenie rzeczywistej ceny pojedynczego produktu.
+
+Najważniejsze jest zauważenie, że:
+
+ten sam produkt może występować w różnych konfiguracjach,
+
+różnice między zestawami często prowadzą bezpośrednio do rozwiązania,
+
+liczenie „zestawami” bywa mylące — liczą się elementy składowe."
+metadata/_custom_type_script = "uid://dlr5ccd40vty0"
+
+[sub_resource type="Resource" id="Resource_2d1al"]
+script = ExtResource("3_05jue")
+ItemName = "Sumowanie"
+Icon = ExtResource("11_kfnbn")
+ItemModelPrefab = ExtResource("23_2lp6d")
+DetailsText = "Obliczanie wartości końcowej
+
+Po wyznaczeniu cen pojedynczych produktów kolejnym krokiem jest prawidłowe zliczenie ich ilości.
+W praktycznych zadaniach istotne jest, aby brać pod uwagę stan faktyczny, a nie założenia wynikające z nazw zestawów czy promocji.
+
+Ostateczna wartość obliczana jest jako suma iloczynów:
+
+liczba sztuk × cena jednostkowa
+
+Taki sposób liczenia pozwala uniknąć błędów wynikających z automatycznego myślenia kategoriami „zestawów”.
+Metoda ta znajduje zastosowanie m.in. w rozliczeniach, analizie kosztów oraz kontroli poprawności rachunków.
+
+Warto pamiętać, że wynik pośredni (np. cena jednego produktu) często nie jest celem samym w sobie, lecz służy do uzyskania ostatecznej wartości, wymaganej w kolejnym etapie zadania."
+metadata/_custom_type_script = "uid://dlr5ccd40vty0"
+
 [sub_resource type="SphereShape3D" id="SphereShape3D_kv1ul"]
 radius = 2.25705
 
@@ -315,7 +359,7 @@ cull_mask = 786431
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("2_kykvu")
-ItemTypes = Array[ExtResource("3_05jue")]([SubResource("Resource_b7jcg"), SubResource("Resource_73ll8"), SubResource("Resource_mxh34"), SubResource("Resource_46m5n"), SubResource("Resource_8wo0o"), SubResource("Resource_jn4p5"), SubResource("Resource_5c26t"), SubResource("Resource_2wtmw"), SubResource("Resource_xloie"), SubResource("Resource_rhxug"), SubResource("Resource_psheb")])
+ItemTypes = Array[ExtResource("3_05jue")]([SubResource("Resource_b7jcg"), SubResource("Resource_73ll8"), SubResource("Resource_mxh34"), SubResource("Resource_46m5n"), SubResource("Resource_8wo0o"), SubResource("Resource_jn4p5"), SubResource("Resource_5c26t"), SubResource("Resource_2wtmw"), SubResource("Resource_xloie"), SubResource("Resource_rhxug"), SubResource("Resource_psheb"), SubResource("Resource_2lp6d"), SubResource("Resource_2d1al")])
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="InteractionArea"]
 shape = SubResource("SphereShape3D_kv1ul")
