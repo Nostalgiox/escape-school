@@ -25,12 +25,12 @@
 [ext_resource type="PackedScene" uid="uid://dqmmsgoow4wu4" path="res://Items/Books/blue_book_linear.tscn" id="19_kfnbn"]
 [ext_resource type="PackedScene" uid="uid://dfm53ryad28qn" path="res://Items/Books/green_book_text.tscn" id="20_xloie"]
 [ext_resource type="AudioStream" uid="uid://bimrutgugt3eh" path="res://assets/prolog/sounds/pickup.mp3" id="21_2wtmw"]
-[ext_resource type="Texture2D" uid="uid://dtfxbsdymhmp8" path="res://assets/images/inventory_theme.png" id="21_em7n3"]
 [ext_resource type="PackedScene" uid="uid://de72cfvkadyty" path="res://Items/Books/red_book_percent.tscn" id="21_rhxug"]
 [ext_resource type="FontFile" uid="uid://dhy1wb811s8vq" path="res://fonts/Cinzel-VariableFont_wght.ttf" id="22_jqaai"]
 [ext_resource type="PackedScene" uid="uid://c666sj4wbtjci" path="res://Items/Books/red_book_arithmetic.tscn" id="22_psheb"]
 [ext_resource type="PackedScene" uid="uid://buagwitws33vn" path="res://Items/Books/green_book_estimating.tscn" id="23_2lp6d"]
 [ext_resource type="FontFile" uid="uid://foyrjdpuehqk" path="res://fonts/Cinzel-Bold.ttf" id="23_jqaai"]
+[ext_resource type="Texture2D" uid="uid://ddee3kyx6lymp" path="res://assets/images/inventory.png" id="26_2lp6d"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_jqxt5"]
 
@@ -396,8 +396,8 @@ layout_mode = 0
 offset_left = -78.0
 offset_top = -28.0
 offset_right = 1228.0
-offset_bottom = 692.0
-texture = ExtResource("21_em7n3")
+offset_bottom = 702.0
+texture = ExtResource("26_2lp6d")
 expand_mode = 1
 
 [node name="Label" type="Label" parent="InventoryUI"]

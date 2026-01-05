@@ -1,13 +1,19 @@
 extends Node3D
 
 signal keypad_unlocked
+signal keypad_locked
 
 @export var correct_code: String = "27"
 @export var max_digits: int = 3
+@export var max_attempts: int = 3
+@export var lockout_time: float = 120.0 # 2 minuty
 
 var player_in_range := false
 var ui_open := false
 var current_input := ""
+var failed_attempts := 0
+var locked := false
+var lock_timer := 0.0
 
 @onready var area: Area3D = $Area3D
 @onready var ui: CanvasLayer = $KeypadUI
@@ -18,6 +24,8 @@ var current_input := ""
 @onready var zero_button: Button = $KeypadUI/Panel/VBoxContainer/HBoxContainer/ButtonZero
 @onready var ok_button: Button = $KeypadUI/Panel/VBoxContainer/HBoxContainer/ButtonOK
 @onready var anim_player: AnimationPlayer = $"../../AnimationPlayer"
+@onready var wrong_answer: AudioStreamPlayer = $Wrong_answer
+@onready var cooldown_label: Label3D = $CooldownLabel3D
 
 func _ready():
 	ui.visible = false
@@ -27,24 +35,33 @@ func _ready():
 	display.text = ""
 	message.text = ""
 
+	cooldown_label.visible = false
+
 	area.body_entered.connect(_on_body_entered)
 	area.body_exited.connect(_on_body_exited)
 
-	# przyciski 1–9
 	for button in buttons_grid.get_children():
 		if button is Button:
 			button.pressed.connect(_on_digit_pressed.bind(button.text))
 
-	# 0, C, OK
 	zero_button.pressed.connect(_on_digit_pressed.bind("0"))
 	clear_button.pressed.connect(_on_clear_pressed)
 	ok_button.pressed.connect(_on_ok_pressed)
 
-func _process(_delta):
+func _process(delta):
+	if locked:
+		lock_timer -= delta
+		_update_cooldown_label()
+		if lock_timer <= 0.0:
+			_unlock_keypad()
+		return
+
 	if player_in_range and not ui_open and Input.is_action_just_pressed("interact"):
 		open_ui()
 
 func open_ui():
+	if locked:
+		return
 	ui.visible = true
 	ui_open = true
 	current_input = ""
@@ -60,7 +77,6 @@ func close_ui():
 func _input(event):
 	if not ui_open:
 		return
-
 	if event.is_action_pressed("ui_cancel"):
 		close_ui()
 		get_viewport().set_input_as_handled()
@@ -70,9 +86,10 @@ func _input(event):
 # =========================
 
 func _on_digit_pressed(digit: String):
+	if locked:
+		return
 	if current_input.length() >= max_digits:
 		return
-
 	current_input += digit
 	display.text = current_input
 
@@ -82,6 +99,9 @@ func _on_clear_pressed():
 	message.text = ""
 
 func _on_ok_pressed():
+	if locked:
+		return
+
 	if current_input == "":
 		message.text = "Wpisz kod."
 		return
@@ -92,8 +112,40 @@ func _on_ok_pressed():
 		await get_tree().create_timer(0.6).timeout
 		close_ui()
 	else:
+		failed_attempts += 1
+		wrong_answer.play()
 		message.text = "✘ Błędny kod."
 		_on_clear_pressed()
+
+		if failed_attempts >= max_attempts:
+			_activate_lockout()
+
+# =========================
+# BLOKADA
+# =========================
+
+func _activate_lockout():
+	locked = true
+	lock_timer = lockout_time
+	failed_attempts = 0
+	close_ui()
+
+	area.monitoring = false
+	cooldown_label.visible = true
+	_update_cooldown_label()
+	emit_signal("keypad_locked")
+
+func _unlock_keypad():
+	locked = false
+	area.monitoring = true
+	cooldown_label.visible = false
+	message.text = ""
+
+func _update_cooldown_label():
+	var seconds := int(max(lock_timer, 0))
+	var minutes := seconds / 60
+	var secs := seconds % 60
+	cooldown_label.text = "%02d:%02d" % [minutes, secs]
 
 # =========================
 # AREA

@@ -1,5 +1,7 @@
 extends Node3D
 
+signal cash_register_solved
+
 @export var correct_code: int = 24
 @export var door_anim_player_path: NodePath
 @export var open_anim_name: String = "Secondroom_exit_open"
@@ -120,6 +122,7 @@ func _check_code() -> void:
 		await get_tree().create_timer(0.6).timeout
 		_open_door()
 		_close_ui()
+		emit_signal("cash_register_solved")
 	else:
 		message.text = "✘ BŁĘDNY KOD"
 		message.modulate = Color.RED
