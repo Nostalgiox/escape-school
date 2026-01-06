@@ -1,4 +1,4 @@
-[gd_scene load_steps=217 format=3 uid="uid://bk83ojjrx7ee3"]
+[gd_scene load_steps=234 format=3 uid="uid://bk83ojjrx7ee3"]
 
 [ext_resource type="PackedScene" uid="uid://cyexwquywx03s" path="res://scenes/world.tscn" id="2_br8qb"]
 [ext_resource type="PackedScene" uid="uid://b5s20kntva38x" path="res://scenes/Level1/assets/whiteboard.glb" id="4_iihbi"]
@@ -105,6 +105,17 @@
 [ext_resource type="Script" uid="uid://i2vgkqhrvm3f" path="res://scripts/kitchen_bench.gd" id="102_8mhho"]
 [ext_resource type="PackedScene" uid="uid://c4bkhodt6cnmx" path="res://assets/Third_Room/kitchen_window.glb" id="102_flrjl"]
 [ext_resource type="AudioStream" uid="uid://cnqbrwk35ik66" path="res://assets/Third_Room/wooden_crate_smash-4-387903.mp3" id="102_ob6w7"]
+[ext_resource type="PackedScene" uid="uid://bx8y43og1nhfq" path="res://assets/gltf/kitchencabinet_corner_half.gltf" id="106_05fsw"]
+[ext_resource type="PackedScene" uid="uid://b5dfg1etq8x0e" path="res://assets/gltf/kitchencabinet.gltf" id="106_ie37o"]
+[ext_resource type="PackedScene" uid="uid://b2hjtqmk2dtt6" path="res://assets/gltf/kitchencounter_straight_A_decorated.gltf" id="106_omcwe"]
+[ext_resource type="PackedScene" uid="uid://cjmjrmx2k5iix" path="res://assets/gltf/kitchencounter_sink_backsplash.gltf" id="107_svag3"]
+[ext_resource type="PackedScene" uid="uid://b6cqchul7cna8" path="res://assets/prolog/Ceiling_Lamp_IKEA_NYMANE.fbx" id="108_uji6j"]
+[ext_resource type="PackedScene" uid="uid://cqk4fnb63l0lw" path="res://assets/gltf/kitchencounter_straight_A.gltf" id="108_vr3fe"]
+[ext_resource type="PackedScene" uid="uid://dduy5b1ubiipb" path="res://assets/gltf/kitchencounter_straight_decorated.gltf" id="109_aywln"]
+[ext_resource type="PackedScene" uid="uid://c3hylbg74l4nf" path="res://assets/gltf/shelf_papertowel_decorated.gltf" id="110_aywln"]
+[ext_resource type="PackedScene" uid="uid://bfdtoko4p1ed0" path="res://assets/gltf/crate_steak.gltf" id="111_qsdxv"]
+[ext_resource type="PackedScene" uid="uid://buf85tmgskcnf" path="res://assets/gltf/crate_potatoes.gltf" id="112_dkffk"]
+[ext_resource type="Script" uid="uid://dt3jv68tomi8a" path="res://scripts/kitchen_papernote.gd" id="116_qsdxv"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_y8pcn"]
 size = Vector3(3.951416, 1.8839111, 0.41845703)
@@ -916,13 +927,35 @@ size = Vector3(73.420166, 14.771307, 121.56059)
 [sub_resource type="BoxShape3D" id="BoxShape3D_flrjl"]
 size = Vector3(74.81244, 9.912048, 122.71933)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_qsdxv"]
+size = Vector3(1.1940918, 1.605896, 3.9180908)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_y0inr"]
+size = Vector3(1.1791992, 1.9880371, 2.1715088)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hrxsu"]
+size = Vector3(1, 1.3408203, 2.0594482)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ie37o"]
+size = Vector3(2.2336426, 1.3110352, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_aywln"]
+bg_color = Color(0.12156863, 0.12156863, 0.12156863, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_dkffk"]
+size = Vector3(1.5244141, 1, 1.2387695)
+
 [node name="Main" type="Node3D"]
 
 [node name="ItemTestCube" parent="." instance=ExtResource("15_yye4h")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.74466, 2.06755, -3.812183)
 
 [node name="PlayerBody" parent="." instance=ExtResource("15_v04fw")]
-transform = Transform3D(-4.3711385e-08, 0, 0.99999994, 0, 1, 0, -0.99999994, 0, -4.3711385e-08, -0.9769964, 6.179942, -3.877298)
+transform = Transform3D(-4.3711385e-08, 0, 0.99999994, 0, 1, 0, -0.99999994, 0, -4.3711385e-08, -0.9769964, 6.179942, 4.380674)
 
 [node name="World" parent="." instance=ExtResource("2_br8qb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.713779, -1.1960267, -41.27668)
@@ -2956,6 +2989,11 @@ transform = Transform3D(0.99996424, 0, 0, 0, 1, 0, 0, 0, 0.99996424, 2.0019011, 
 operation = 2
 size = Vector3(5.0039063, 1.9914551, 6.599243)
 
+[node name="Ceiling" type="CSGBox3D" parent="ThirdRoom/CSGCombiner3D"]
+transform = Transform3D(6.380333, 0, 0, 0, 1, 0, 0, 0, 1, -0.68207693, 3.1391268, 9.35934)
+size = Vector3(1.947937, 0.39271545, 19.314543)
+material = SubResource("StandardMaterial3D_snkc6")
+
 [node name="Whiteboard" parent="ThirdRoom" instance=ExtResource("4_iihbi")]
 transform = Transform3D(-4.3711385e-08, 0, -0.99999994, 0, 1, 0, 0.99999994, 0, -4.3711385e-08, -6.323081, -1.3295016, 4.9656563)
 
@@ -3312,6 +3350,225 @@ transform = Transform3D(5.3003216e-17, 1.7484554e-09, -0.012610874, 0.027740419,
 transform = Transform3D(1.0000004, 3.5811354e-12, 7.4115383e-22, -3.5527137e-15, 1.0001004, -3.1086245e-14, -3.8751757e-19, -8.6402e-12, 1, 0.16020203, 1.1669312, -8.87661)
 shape = SubResource("BoxShape3D_flrjl")
 
+[node name="kichen_cabinet2" type="StaticBody3D" parent="ThirdRoom/Kitchen"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.6360571, 0, 14.600876)
+
+[node name="kitchencounter_straight_A_decorated2" parent="ThirdRoom/Kitchen/kichen_cabinet2" instance=ExtResource("106_omcwe")]
+transform = Transform3D(-2.1855694e-08, 0, 0.5, 0, 0.5, 0, -0.5, 0, -2.1855694e-08, -0.68, -0.3000002, 0.950263)
+
+[node name="kitchencounter_sink_backsplash2" parent="ThirdRoom/Kitchen/kichen_cabinet2" instance=ExtResource("107_svag3")]
+transform = Transform3D(-2.1855694e-08, 0, 0.5, 0, 0.5, 0, -0.5, 0, -2.1855694e-08, -0.68, -0.3, 1.926)
+
+[node name="kitchencounter_straight_A2" parent="ThirdRoom/Kitchen/kichen_cabinet2" instance=ExtResource("108_vr3fe")]
+transform = Transform3D(-2.1855694e-08, 0, 0.5, 0, 0.5, 0, -0.5, 0, -2.1855694e-08, -0.68, -0.3000002, -0.9572134)
+
+[node name="kitchencounter_straight_decorated2" parent="ThirdRoom/Kitchen/kichen_cabinet2" instance=ExtResource("109_aywln")]
+transform = Transform3D(-2.1855694e-08, 0, 0.5, 0, 0.5, 0, -0.5, 0, -2.1855694e-08, -0.68, -0.3, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ThirdRoom/Kitchen/kichen_cabinet2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5802002, 0.0074768066, 0.38336182)
+shape = SubResource("BoxShape3D_qsdxv")
+
+[node name="shelf_papertowel_decorated2" parent="ThirdRoom/Kitchen/kichen_cabinet2" instance=ExtResource("110_aywln")]
+transform = Transform3D(-0.5, 0, -4.371139e-08, 0, 0.5, 0, 4.371139e-08, 0, -0.5, 0.3452835, 1.8437376, 4.262909)
+
+[node name="crate_steak2" parent="ThirdRoom/Kitchen/kichen_cabinet2" instance=ExtResource("111_qsdxv")]
+transform = Transform3D(0.375, 0, 0, 0, 0.375, 0, 0, 0, 0.375, 0.43037534, 0.19730759, 3.9257298)
+
+[node name="crate_potatoes2" parent="ThirdRoom/Kitchen/kichen_cabinet2" instance=ExtResource("112_dkffk")]
+transform = Transform3D(0.375, 0, 0, 0, 0.375, 0, 0, 0, 0.375, -0.7076392, 0.18447304, 2.8922024)
+
+[node name="Kitchen_cabinet1" type="StaticBody3D" parent="ThirdRoom/Kitchen"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.20225, 0, 14.327966)
+
+[node name="kitchencabinet2" parent="ThirdRoom/Kitchen/Kitchen_cabinet1" instance=ExtResource("106_ie37o")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 3.3661613, -0.49894094, 3.5028372)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ThirdRoom/Kitchen/Kitchen_cabinet1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.8417335, 2.4345264, 3.4811964)
+shape = SubResource("BoxShape3D_y0inr")
+
+[node name="kichen_cabinet" type="StaticBody3D" parent="ThirdRoom/Kitchen"]
+
+[node name="kitchencabinet_corner_half2" parent="ThirdRoom/Kitchen/kichen_cabinet" instance=ExtResource("106_05fsw")]
+transform = Transform3D(-0.99999994, 0, -8.742277e-08, 0, 1, 0, 8.742277e-08, 0, -0.99999994, 1.5052972, -3.8131294, 18.90169)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ThirdRoom/Kitchen/kichen_cabinet"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0172722, -0.17041016, 17.892857)
+shape = SubResource("BoxShape3D_hrxsu")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="ThirdRoom/Kitchen/kichen_cabinet"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.6241655, -0.15551758, 18.368637)
+shape = SubResource("BoxShape3D_ie37o")
+
+[node name="Kitchen_lamps" type="Node3D" parent="ThirdRoom/Kitchen"]
+
+[node name="Ceiling_Lamp_IKEA_NYMANE" parent="ThirdRoom/Kitchen/Kitchen_lamps" instance=ExtResource("108_uji6j")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -6.3007903, -3.506587, -38.716656)
+
+[node name="SpotLight3D" type="SpotLight3D" parent="ThirdRoom/Kitchen/Kitchen_lamps/Ceiling_Lamp_IKEA_NYMANE"]
+transform = Transform3D(0.5, 0, 0, 0, -2.1855694e-08, 0.5, 0, -0.5, -2.1855694e-08, 4.70091, 3.4294748, 27.1455)
+spot_range = 5.82092
+spot_attenuation = 0.3
+spot_angle = 80.0
+
+[node name="Ceiling_Lamp_IKEA_NYMANE2" parent="ThirdRoom/Kitchen/Kitchen_lamps" instance=ExtResource("108_uji6j")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -12.406, -3.507, -38)
+
+[node name="SpotLight3D" type="SpotLight3D" parent="ThirdRoom/Kitchen/Kitchen_lamps/Ceiling_Lamp_IKEA_NYMANE2"]
+transform = Transform3D(0.5, 0, 0, 0, -2.1855694e-08, 0.5, 0, -0.5, -2.1855694e-08, 4.70091, 3.4294748, 27.1455)
+spot_range = 8.5
+spot_attenuation = 0.3
+spot_angle = 60.0
+
+[node name="Ceiling_Lamp_IKEA_NYMANE3" parent="ThirdRoom/Kitchen/Kitchen_lamps" instance=ExtResource("108_uji6j")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -12.406, -3.507, -44)
+
+[node name="SpotLight3D" type="SpotLight3D" parent="ThirdRoom/Kitchen/Kitchen_lamps/Ceiling_Lamp_IKEA_NYMANE3"]
+transform = Transform3D(0.5, 0, 0, 0, -2.1855694e-08, 0.5, 0, -0.5, -2.1855694e-08, 4.70091, 3.4294748, 27.1455)
+spot_range = 8.5
+spot_attenuation = 0.3
+spot_angle = 60.0
+
+[node name="Ceiling_Lamp_IKEA_NYMANE4" parent="ThirdRoom/Kitchen/Kitchen_lamps" instance=ExtResource("108_uji6j")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -12.406, -3.507, -50)
+
+[node name="SpotLight3D" type="SpotLight3D" parent="ThirdRoom/Kitchen/Kitchen_lamps/Ceiling_Lamp_IKEA_NYMANE4"]
+transform = Transform3D(0.5, 0, 0, 0, -2.1855694e-08, 0.5, 0, -0.5, -2.1855694e-08, 4.70091, 3.4294748, 27.1455)
+spot_range = 8.5
+spot_attenuation = 0.3
+spot_angle = 60.0
+
+[node name="Ceiling_Lamp_IKEA_NYMANE5" parent="ThirdRoom/Kitchen/Kitchen_lamps" instance=ExtResource("108_uji6j")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -7.2718315, -3.507, -50)
+
+[node name="SpotLight3D" type="SpotLight3D" parent="ThirdRoom/Kitchen/Kitchen_lamps/Ceiling_Lamp_IKEA_NYMANE5"]
+transform = Transform3D(0.5, 0, 0, 0, -2.1855694e-08, 0.5, 0, -0.5, -2.1855694e-08, 4.70091, 3.4294748, 27.1455)
+spot_range = 8.5
+spot_attenuation = 0.3
+spot_angle = 60.0
+
+[node name="Ceiling_Lamp_IKEA_NYMANE6" parent="ThirdRoom/Kitchen/Kitchen_lamps" instance=ExtResource("108_uji6j")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -7.272, -3.507, -44)
+
+[node name="SpotLight3D" type="SpotLight3D" parent="ThirdRoom/Kitchen/Kitchen_lamps/Ceiling_Lamp_IKEA_NYMANE6"]
+transform = Transform3D(0.5, 0, 0, 0, -2.1855694e-08, 0.5, 0, -0.5, -2.1855694e-08, 4.70091, 3.4294748, 27.1455)
+spot_range = 8.5
+spot_attenuation = 0.1
+spot_angle = 60.0
+
+[node name="Kitchen_papernote" type="Node3D" parent="ThirdRoom/Kitchen"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0646167, 0.17854548, 13.555106)
+script = ExtResource("116_qsdxv")
+panel_path = NodePath("CanvasLayer/Panel")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="ThirdRoom/Kitchen/Kitchen_papernote"]
+transform = Transform3D(0.18646602, 0, 0.036475044, 0, 0.19000003, 0, -0.036475044, 0, 0.18646602, -0.14615107, 0.016965866, 0.15645695)
+mesh = ExtResource("61_8vvdv")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="ThirdRoom/Kitchen/Kitchen_papernote"]
+
+[node name="Panel" type="Panel" parent="ThirdRoom/Kitchen/Kitchen_papernote/CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 208.0
+offset_top = 19.0
+offset_right = -208.0
+offset_bottom = -19.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_aywln")
+
+[node name="MarginContainer" type="MarginContainer" parent="ThirdRoom/Kitchen/Kitchen_papernote/CanvasLayer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ThirdRoom/Kitchen/Kitchen_papernote/CanvasLayer/Panel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Title" type="Label" parent="ThirdRoom/Kitchen/Kitchen_papernote/CanvasLayer/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9490196, 0.9490196, 0.9490196, 1)
+theme_override_font_sizes/font_size = 32
+text = "STANOWISKO ROBOCZE"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="ThirdRoom/Kitchen/Kitchen_papernote/CanvasLayer/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Instruction" type="RichTextLabel" parent="ThirdRoom/Kitchen/Kitchen_papernote/CanvasLayer/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/default_color = Color(0.8156863, 0.8156863, 0.8156863, 1)
+theme_override_font_sizes/normal_font_size = 18
+bbcode_enabled = true
+text = "Aby uruchomić stanowisko pracy,
+niezbędny jest kompletny zestaw elementów.
+
+Brak jednego z nich uniemożliwia rozpoczęcie pracy.
+"
+
+[node name="RequirementsList" type="VBoxContainer" parent="ThirdRoom/Kitchen/Kitchen_papernote/CanvasLayer/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ThirdRoom/Kitchen/Kitchen_papernote/CanvasLayer/Panel/MarginContainer/VBoxContainer/RequirementsList"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7372549, 0.7372549, 0.7372549, 1)
+theme_override_font_sizes/font_size = 18
+text = "• Talerz"
+
+[node name="Label2" type="Label" parent="ThirdRoom/Kitchen/Kitchen_papernote/CanvasLayer/Panel/MarginContainer/VBoxContainer/RequirementsList"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7372549, 0.7372549, 0.7372549, 1)
+theme_override_font_sizes/font_size = 18
+text = "•  Deska"
+
+[node name="Label3" type="Label" parent="ThirdRoom/Kitchen/Kitchen_papernote/CanvasLayer/Panel/MarginContainer/VBoxContainer/RequirementsList"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7372549, 0.7372549, 0.7372549, 1)
+theme_override_font_sizes/font_size = 18
+text = "• Nóż"
+
+[node name="Label4" type="Label" parent="ThirdRoom/Kitchen/Kitchen_papernote/CanvasLayer/Panel/MarginContainer/VBoxContainer/RequirementsList"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7372549, 0.7372549, 0.7372549, 1)
+theme_override_font_sizes/font_size = 18
+text = "• Przyprawa"
+
+[node name="Label5" type="Label" parent="ThirdRoom/Kitchen/Kitchen_papernote/CanvasLayer/Panel/MarginContainer/VBoxContainer/RequirementsList"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7372549, 0.7372549, 0.7372549, 1)
+theme_override_font_sizes/font_size = 18
+text = "• Papier"
+
+[node name="HSeparator2" type="HSeparator" parent="ThirdRoom/Kitchen/Kitchen_papernote/CanvasLayer/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Question" type="Label" parent="ThirdRoom/Kitchen/Kitchen_papernote/CanvasLayer/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Ile pełnych stanowisk można przygotować
+z dostępnych elementów?
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Area3D" type="Area3D" parent="ThirdRoom/Kitchen/Kitchen_papernote"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ThirdRoom/Kitchen/Kitchen_papernote/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.48760474, -0.18363857, 0.13989162)
+shape = SubResource("BoxShape3D_dkffk")
+
 [connection signal="body_entered" from="FirstRoom/AlgebraPuzzle/InteractArea" to="FirstRoom/AlgebraPuzzle" method="_on_interact_area_body_entered"]
 [connection signal="body_exited" from="FirstRoom/AlgebraPuzzle/InteractArea" to="FirstRoom/AlgebraPuzzle" method="_on_interact_area_body_exited"]
 [connection signal="body_entered" from="FirstRoom/locker/ShelfArea" to="FirstRoom/AlgebraPuzzle" method="_on_shelf_area_body_entered"]
@@ -3331,7 +3588,7 @@ shape = SubResource("BoxShape3D_flrjl")
 [connection signal="pressed" from="SecondRoom/PC/Computer/ComputerUI/Panel/MarginContainer/VBoxContainer/HBoxButtons/ButtonSubmit" to="SecondRoom/PC/Computer" method="_on_button_submit_pressed"]
 [connection signal="keypad_locked" from="SecondRoom/KeyPad" to="SecondRoom/Secondroom_door/Dialogues/Secondroom_dialogue5" method="_on_key_pad_keypad_locked"]
 [connection signal="keypad_unlocked" from="SecondRoom/KeyPad" to="SecondRoom/CSGCombiner3D/Secondroom_ExitDoor" method="_on_keypad_unlocked"]
-[connection signal="cash_register_solved" from="ThirdRoom/Tables/StaticBody3D2/Computer" to="ThirdRoom/Kitchen/Bench_mesh/bench" method="_on_computer_cash_register_solved"]
 [connection signal="cash_register_solved" from="ThirdRoom/Tables/StaticBody3D2/Computer" to="ThirdRoom/Dialogues_thirdroom/Thirdroom_dialogue2" method="_on_computer_cash_register_solved"]
+[connection signal="cash_register_solved" from="ThirdRoom/Tables/StaticBody3D2/Computer" to="ThirdRoom/Kitchen/Bench_mesh/bench" method="_on_computer_cash_register_solved"]
 [connection signal="body_entered" from="ThirdRoom/Dialogues_thirdroom/Thirdroom_dialogue1" to="ThirdRoom/Dialogues_thirdroom/Thirdroom_dialogue1" method="_on_body_entered"]
 [connection signal="body_entered" from="ThirdRoom/Dialogues_thirdroom/Thirdroom_dialogue2" to="ThirdRoom/Dialogues_thirdroom/Thirdroom_dialogue2" method="_on_body_entered"]
