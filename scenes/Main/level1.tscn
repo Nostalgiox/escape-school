@@ -1,4 +1,4 @@
-[gd_scene load_steps=234 format=3 uid="uid://bk83ojjrx7ee3"]
+[gd_scene load_steps=251 format=3 uid="uid://bk83ojjrx7ee3"]
 
 [ext_resource type="PackedScene" uid="uid://cyexwquywx03s" path="res://scenes/world.tscn" id="2_br8qb"]
 [ext_resource type="PackedScene" uid="uid://b5s20kntva38x" path="res://scenes/Level1/assets/whiteboard.glb" id="4_iihbi"]
@@ -116,6 +116,13 @@
 [ext_resource type="PackedScene" uid="uid://bfdtoko4p1ed0" path="res://assets/gltf/crate_steak.gltf" id="111_qsdxv"]
 [ext_resource type="PackedScene" uid="uid://buf85tmgskcnf" path="res://assets/gltf/crate_potatoes.gltf" id="112_dkffk"]
 [ext_resource type="Script" uid="uid://dt3jv68tomi8a" path="res://scripts/kitchen_papernote.gd" id="116_qsdxv"]
+[ext_resource type="PackedScene" uid="uid://cvmnrqi7rbfef" path="res://assets/Third_Room/chef+hat+3d+model.fbx" id="117_dkffk"]
+[ext_resource type="AudioStream" uid="uid://i3xatck0w7xg" path="res://assets/prolog/sounds/paper-ripping-dechirure-de-papier-audio-not-edited-18466.mp3" id="117_jjv1s"]
+[ext_resource type="PackedScene" uid="uid://chndeagx0yi8g" path="res://assets/gltf/kitchentable_A_large.gltf" id="118_86d32"]
+[ext_resource type="PackedScene" uid="uid://bx33ubt8l2syf" path="res://assets/Third_Room/oven+mitt+3d+model.fbx" id="119_51wng"]
+[ext_resource type="PackedScene" uid="uid://6sxka30jq3is" path="res://assets/gltf/chair_stool.gltf" id="120_jjv1s"]
+[ext_resource type="Script" uid="uid://cxsrvm26by3vl" path="res://scripts/paper_puzzle_3.gd" id="122_eco42"]
+[ext_resource type="Script" uid="uid://convfoql054jb" path="res://scripts/kitchen_dialogue_1.gd" id="123_js2kx"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_y8pcn"]
 size = Vector3(3.951416, 1.8839111, 0.41845703)
@@ -949,13 +956,54 @@ corner_radius_bottom_left = 12
 [sub_resource type="BoxShape3D" id="BoxShape3D_dkffk"]
 size = Vector3(1.5244141, 1, 1.2387695)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_86d32"]
+size = Vector3(1.1071777, 0.9152832, 2.069336)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_klnpf"]
+size = Vector3(1.5703125, 0.9389343, 1.1436768)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_51wng"]
+size = Vector3(2.0490723, 1, 3.0771484)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_eco42"]
+size = Vector3(0.8029785, 0.55163574, 0.9020996)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_51wng"]
+height = 1.0102539
+radius = 1.5820313
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_jjv1s"]
+radius = 1.0619146
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_js2kx"]
+bg_color = Color(0.9490196, 0.9411765, 0.9098039, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.12156863, 0.12156863, 0.12156863, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ed1qc"]
+bg_color = Color(1, 1, 1, 1)
+border_color = Color(0.12156863, 0.12156863, 0.12156863, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mgrj8"]
+bg_color = Color(0.12156863, 0.12156863, 0.12156863, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1o6l7"]
+bg_color = Color(0.17254902, 0.17254902, 0.17254902, 1)
+
 [node name="Main" type="Node3D"]
 
 [node name="ItemTestCube" parent="." instance=ExtResource("15_yye4h")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.74466, 2.06755, -3.812183)
 
 [node name="PlayerBody" parent="." instance=ExtResource("15_v04fw")]
-transform = Transform3D(-4.3711385e-08, 0, 0.99999994, 0, 1, 0, -0.99999994, 0, -4.3711385e-08, -0.9769964, 6.179942, 4.380674)
+transform = Transform3D(-4.3711385e-08, 0, 0.99999994, 0, 1, 0, -0.99999994, 0, -4.3711385e-08, -2.023396, 5.9990835, 2.4240959)
 
 [node name="World" parent="." instance=ExtResource("2_br8qb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.713779, -1.1960267, -41.27668)
@@ -3053,7 +3101,7 @@ bus = &"SFX"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5.7414165)
 
 [node name="RedBookArithmetic" parent="ThirdRoom/Books_ThirdRoom" instance=ExtResource("93_g0raj")]
-transform = Transform3D(-2.0980528e-08, -0.4799785, 0.87728024, 1, -4.371139e-08, 0, 3.8347135e-08, 0.87728024, 0.4799785, 0, -0.28423548, 1.493886)
+transform = Transform3D(-2.0980528e-08, -0.4799785, 0.87728024, 1, -4.371139e-08, 0, 3.8347135e-08, 0.87728024, 0.4799785, 1.6980138, -0.28423548, -1.5005236)
 
 [node name="Tables" type="Node3D" parent="ThirdRoom"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4.529794)
@@ -3296,7 +3344,7 @@ stream = ExtResource("44_8gufu")
 bus = &"SFX"
 
 [node name="GreenBookEstimating" parent="ThirdRoom" instance=ExtResource("96_imsit")]
-transform = Transform3D(-2.9655634e-08, -0.6784418, 0.7346541, 1, -4.371139e-08, 0, 3.211275e-08, 0.7346541, 0.6784418, -4.938251, -1.3710232, 2.0885289)
+transform = Transform3D(-2.9655634e-08, -0.6784418, 0.7346541, 1, -4.371139e-08, 0, 3.211275e-08, 0.7346541, 0.6784418, 1.542486, -1.8566566, 2.0885289)
 
 [node name="Kitchen" type="Node3D" parent="ThirdRoom"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.44101238, 0)
@@ -3457,10 +3505,13 @@ spot_range = 8.5
 spot_attenuation = 0.1
 spot_angle = 60.0
 
-[node name="Kitchen_papernote" type="Node3D" parent="ThirdRoom/Kitchen"]
+[node name="Kitchen_papernote" type="Node3D" parent="ThirdRoom/Kitchen" node_paths=PackedStringArray("audio")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0646167, 0.17854548, 13.555106)
 script = ExtResource("116_qsdxv")
 panel_path = NodePath("CanvasLayer/Panel")
+answer_input_path = NodePath("CanvasLayer/Panel/MarginContainer/VBoxContainer/AnswerContainer/LineEdit")
+answer_button_path = NodePath("CanvasLayer/Panel/MarginContainer/VBoxContainer/Button")
+audio = NodePath("paper_tear")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="ThirdRoom/Kitchen/Kitchen_papernote"]
 transform = Transform3D(0.18646602, 0, 0.036475044, 0, 0.19000003, 0, -0.036475044, 0, 0.18646602, -0.14615107, 0.016965866, 0.15645695)
@@ -3563,11 +3614,264 @@ z dostępnych elementów?
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="AnswerContainer" type="HBoxContainer" parent="ThirdRoom/Kitchen/Kitchen_papernote/CanvasLayer/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Label" type="Label" parent="ThirdRoom/Kitchen/Kitchen_papernote/CanvasLayer/Panel/MarginContainer/VBoxContainer/AnswerContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Odpowiedź: "
+
+[node name="LineEdit" type="LineEdit" parent="ThirdRoom/Kitchen/Kitchen_papernote/CanvasLayer/Panel/MarginContainer/VBoxContainer/AnswerContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+placeholder_text = "Wpisz odpowiedź"
+alignment = 1
+max_length = 3
+
+[node name="Button" type="Button" parent="ThirdRoom/Kitchen/Kitchen_papernote/CanvasLayer/Panel/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(80, 60)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "OK"
+
 [node name="Area3D" type="Area3D" parent="ThirdRoom/Kitchen/Kitchen_papernote"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="ThirdRoom/Kitchen/Kitchen_papernote/Area3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.48760474, -0.18363857, 0.13989162)
 shape = SubResource("BoxShape3D_dkffk")
+
+[node name="paper_tear" type="AudioStreamPlayer" parent="ThirdRoom/Kitchen/Kitchen_papernote"]
+stream = ExtResource("117_jjv1s")
+bus = &"SFX"
+
+[node name="kitchen_cabinet4" type="StaticBody3D" parent="ThirdRoom/Kitchen"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.6135974, -3.893008, 12.012173)
+
+[node name="chef+hat+3d+model" parent="ThirdRoom/Kitchen/kitchen_cabinet4" instance=ExtResource("117_dkffk")]
+transform = Transform3D(0.385, 0, 0, 0, 0.385, 0, 0, 0, 0.385, -0.47270536, 4.1904106, 0.46726894)
+
+[node name="kitchencabinet_corner_half2" parent="ThirdRoom/Kitchen/kitchen_cabinet4" instance=ExtResource("106_05fsw")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ThirdRoom/Kitchen/kitchen_cabinet4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.39978027, 3.540757, 1.0232496)
+shape = SubResource("BoxShape3D_86d32")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="ThirdRoom/Kitchen/kitchen_cabinet4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.28515625, 3.540343, 0.45269585)
+shape = SubResource("BoxShape3D_klnpf")
+
+[node name="chef+hat+3d+model2" parent="ThirdRoom/Kitchen/kitchen_cabinet4" instance=ExtResource("117_dkffk")]
+transform = Transform3D(0.385, 0, 0, 0, 0.385, 0, 0, 0, 0.385, 0.49732828, 4.1904106, 0.46726894)
+
+[node name="chef+hat+3d+model3" parent="ThirdRoom/Kitchen/kitchen_cabinet4" instance=ExtResource("117_dkffk")]
+transform = Transform3D(0.38499996, 0, 0, 0, 0.38476402, -0.013476597, 0, 0.013476597, 0.38476402, -1.0488043, 4.262103, -7.9340835)
+
+[node name="kitchentable_A_large2" parent="ThirdRoom/Kitchen/kitchen_cabinet4" instance=ExtResource("118_86d32")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -0.060860157, 3.0701416, 5.3492966)
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="ThirdRoom/Kitchen/kitchen_cabinet4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.08312988, 3.5797918, 5.3202744)
+shape = SubResource("BoxShape3D_51wng")
+
+[node name="oven+mitt+3d+model" parent="ThirdRoom/Kitchen/kitchen_cabinet4" instance=ExtResource("119_51wng")]
+transform = Transform3D(0.39500672, 0, -0.4039736, 0, 0.565, 0, 0.4039736, 0, 0.39500672, 0.5658674, 4.0384054, 1.6175947)
+
+[node name="oven+mitt+3d+model2" parent="ThirdRoom/Kitchen/kitchen_cabinet4" instance=ExtResource("119_51wng")]
+transform = Transform3D(0.4656794, 0, 0.4676994, 0, 0.66, 0, -0.4676994, 0, 0.4656794, -0.18611288, 3.6153276, -6.743619)
+
+[node name="kitchen_riddle" type="Node3D" parent="ThirdRoom/Kitchen"]
+
+[node name="Chairs" type="Node3D" parent="ThirdRoom/Kitchen"]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="ThirdRoom/Kitchen/Chairs"]
+
+[node name="chair_stool2" parent="ThirdRoom/Kitchen/Chairs/StaticBody3D" instance=ExtResource("120_jjv1s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.405216, -0.8145232, 5.276235)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ThirdRoom/Kitchen/Chairs/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.3498363, -0.5238333, 5.29373)
+shape = SubResource("BoxShape3D_eco42")
+
+[node name="StaticBody3D2" type="StaticBody3D" parent="ThirdRoom/Kitchen/Chairs"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.609239, 0, 2.23549)
+
+[node name="chair_stool2" parent="ThirdRoom/Kitchen/Chairs/StaticBody3D2" instance=ExtResource("120_jjv1s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5703682, -0.8145232, 6.4958787)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ThirdRoom/Kitchen/Chairs/StaticBody3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5651038, -0.5238333, 6.4593673)
+shape = SubResource("BoxShape3D_eco42")
+
+[node name="StaticBody3D3" type="StaticBody3D" parent="ThirdRoom/Kitchen/Chairs"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.8847852, 0, 3.3233304)
+
+[node name="chair_stool2" parent="ThirdRoom/Kitchen/Chairs/StaticBody3D3" instance=ExtResource("120_jjv1s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5703682, -0.8145232, 6.4958787)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ThirdRoom/Kitchen/Chairs/StaticBody3D3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5651038, -0.5238333, 6.4593673)
+shape = SubResource("BoxShape3D_eco42")
+
+[node name="StaticBody3D4" type="StaticBody3D" parent="ThirdRoom/Kitchen/Chairs"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.972392, 0, 1.881712)
+
+[node name="chair_stool2" parent="ThirdRoom/Kitchen/Chairs/StaticBody3D4" instance=ExtResource("120_jjv1s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5703682, -0.8145232, 6.4958787)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ThirdRoom/Kitchen/Chairs/StaticBody3D4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5651038, -0.5238333, 6.4593673)
+shape = SubResource("BoxShape3D_eco42")
+
+[node name="StaticBody3D5" type="StaticBody3D" parent="ThirdRoom/Kitchen/Chairs"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.447491, 0, 3.2425535)
+
+[node name="chair_stool2" parent="ThirdRoom/Kitchen/Chairs/StaticBody3D5" instance=ExtResource("120_jjv1s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5703682, -0.8145232, 6.4958787)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ThirdRoom/Kitchen/Chairs/StaticBody3D5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5651038, -0.5238333, 6.4593673)
+shape = SubResource("BoxShape3D_eco42")
+
+[node name="StaticBody3D6" type="StaticBody3D" parent="ThirdRoom/Kitchen/Chairs"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.1635437, 0, 4.7487144)
+
+[node name="chair_stool2" parent="ThirdRoom/Kitchen/Chairs/StaticBody3D6" instance=ExtResource("120_jjv1s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5703682, -0.8145232, 6.4958787)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ThirdRoom/Kitchen/Chairs/StaticBody3D6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5651038, -0.5238333, 6.4593673)
+shape = SubResource("BoxShape3D_eco42")
+
+[node name="Tables" type="Node3D" parent="ThirdRoom/Kitchen"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.7994461, 5.222392)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="ThirdRoom/Kitchen/Tables"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.6614916, 0, -1.8471556)
+
+[node name="table_round_A2" parent="ThirdRoom/Kitchen/Tables/StaticBody3D" instance=ExtResource("95_l4l1q")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ThirdRoom/Kitchen/Tables/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.49487305, 0)
+shape = SubResource("CylinderShape3D_51wng")
+
+[node name="Paper_Puzzle3" type="Node3D" parent="ThirdRoom/Kitchen" node_paths=PackedStringArray("monolog", "mesh")]
+script = ExtResource("122_eco42")
+monolog = NodePath("../Kitchen_dialogues/Kitchen_dialogue1")
+mesh = NodePath("MeshInstance3D")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="ThirdRoom/Kitchen/Paper_Puzzle3"]
+transform = Transform3D(0.189351, 0, -0.13056108, 0, 0.23, 0, 0.13056108, 0, 0.189351, 2.5866547, 0.19675112, 3.6760716)
+mesh = ExtResource("61_8vvdv")
+skeleton = NodePath("../../Tables")
+
+[node name="Area3D" type="Area3D" parent="ThirdRoom/Kitchen/Paper_Puzzle3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4382267, 0, 3.69515)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ThirdRoom/Kitchen/Paper_Puzzle3/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.42390907, 0, 0.39463186)
+shape = SubResource("SphereShape3D_jjv1s")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="ThirdRoom/Kitchen/Paper_Puzzle3"]
+
+[node name="Panel" type="Panel" parent="ThirdRoom/Kitchen/Paper_Puzzle3/CanvasLayer"]
+custom_minimum_size = Vector2(500, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_js2kx")
+
+[node name="MarginContainer" type="MarginContainer" parent="ThirdRoom/Kitchen/Paper_Puzzle3/CanvasLayer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ThirdRoom/Kitchen/Paper_Puzzle3/CanvasLayer/Panel/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="TitleLabel" type="Label" parent="ThirdRoom/Kitchen/Paper_Puzzle3/CanvasLayer/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.12156863, 0.12156863, 0.12156863, 1)
+theme_override_font_sizes/font_size = 22
+text = "Zadanie - stanowiska pracy"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="ThirdRoom/Kitchen/Paper_Puzzle3/CanvasLayer/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="TaskLabel" type="RichTextLabel" parent="ThirdRoom/Kitchen/Paper_Puzzle3/CanvasLayer/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/default_color = Color(0.16470589, 0.16470589, 0.16470589, 1)
+bbcode_enabled = true
+text = "Na suszarce znajdują się [b]4 talerze[/b].
+Obok leżą:
+• deska do krojenia  
+• nóż  
+• 2 pojemniki z przyprawami  
+• 2 stojaki na ręczniki papierowe  
+
+Każde stanowisko pracy musi mieć:
+– 1 talerz  
+– dostęp do noża  
+– dostęp do przypraw  
+
+[b]Ile pełnych stanowisk pracy można przygotować?[/b]
+"
+fit_content = true
+
+[node name="AnswerContainer" type="HBoxContainer" parent="ThirdRoom/Kitchen/Paper_Puzzle3/CanvasLayer/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="AnswerLabel" type="Label" parent="ThirdRoom/Kitchen/Paper_Puzzle3/CanvasLayer/Panel/MarginContainer/VBoxContainer/AnswerContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.12156863, 0.12156863, 0.12156863, 1)
+text = "Odpowiedź:"
+
+[node name="AnswerLineEdit" type="LineEdit" parent="ThirdRoom/Kitchen/Paper_Puzzle3/CanvasLayer/Panel/MarginContainer/VBoxContainer/AnswerContainer"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_ed1qc")
+placeholder_text = "Wpisz liczbę"
+max_length = 2
+
+[node name="Button" type="Button" parent="ThirdRoom/Kitchen/Paper_Puzzle3/CanvasLayer/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9490196, 0.9411765, 0.9098039, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_mgrj8")
+theme_override_styles/hover = SubResource("StyleBoxFlat_1o6l7")
+text = "Sprawdź"
+
+[node name="MessageLabel" type="Label" parent="ThirdRoom/Kitchen/Paper_Puzzle3/CanvasLayer/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Kitchen_dialogues" type="Node3D" parent="ThirdRoom/Kitchen"]
+
+[node name="Kitchen_dialogue1" type="Area3D" parent="ThirdRoom/Kitchen/Kitchen_dialogues"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1452324, 0.4079051, 12.559123)
+monitoring = false
+monitorable = false
+script = ExtResource("123_js2kx")
+monolog_ui_path = NodePath("../../../../MonologUI")
+typing_sfx_player_path = NodePath("Monolog_keyboard_typing")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ThirdRoom/Kitchen/Kitchen_dialogues/Kitchen_dialogue1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.48001)
+shape = SubResource("SphereShape3D_7i0et")
+
+[node name="Monolog_keyboard_typing" type="AudioStreamPlayer" parent="ThirdRoom/Kitchen/Kitchen_dialogues/Kitchen_dialogue1"]
+stream = ExtResource("44_8gufu")
+bus = &"SFX"
 
 [connection signal="body_entered" from="FirstRoom/AlgebraPuzzle/InteractArea" to="FirstRoom/AlgebraPuzzle" method="_on_interact_area_body_entered"]
 [connection signal="body_exited" from="FirstRoom/AlgebraPuzzle/InteractArea" to="FirstRoom/AlgebraPuzzle" method="_on_interact_area_body_exited"]
@@ -3592,3 +3896,5 @@ shape = SubResource("BoxShape3D_dkffk")
 [connection signal="cash_register_solved" from="ThirdRoom/Tables/StaticBody3D2/Computer" to="ThirdRoom/Kitchen/Bench_mesh/bench" method="_on_computer_cash_register_solved"]
 [connection signal="body_entered" from="ThirdRoom/Dialogues_thirdroom/Thirdroom_dialogue1" to="ThirdRoom/Dialogues_thirdroom/Thirdroom_dialogue1" method="_on_body_entered"]
 [connection signal="body_entered" from="ThirdRoom/Dialogues_thirdroom/Thirdroom_dialogue2" to="ThirdRoom/Dialogues_thirdroom/Thirdroom_dialogue2" method="_on_body_entered"]
+[connection signal="note_solved" from="ThirdRoom/Kitchen/Kitchen_papernote" to="ThirdRoom/Kitchen/Paper_Puzzle3" method="_on_kitchen_papernote_note_solved"]
+[connection signal="body_entered" from="ThirdRoom/Kitchen/Kitchen_dialogues/Kitchen_dialogue1" to="ThirdRoom/Kitchen/Kitchen_dialogues/Kitchen_dialogue1" method="_on_body_entered"]

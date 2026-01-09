@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dcywnmle2jte6" path="res://Items/Notatka/Notatka.gd" id="1_ik8ql"]
 [ext_resource type="ArrayMesh" uid="uid://b78n4wn78krpc" path="res://scenes/Level1/assets/book_mesh.res" id="2_0y514"]
 [ext_resource type="Script" uid="uid://cpl20uhf5cl1r" path="res://Items/Notatka/info_panel.gd" id="2_4xefr"]
-[ext_resource type="ArrayMesh" uid="uid://cgyksw13tmd4r" path="res://scenes/Prologue/exclamation_mark.res" id="3_t24gr"]
+[ext_resource type="ArrayMesh" uid="uid://17aabv1ac8k7" path="res://scenes/Prologue/exclamation_mark.res" id="3_t24gr"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ik8ql"]
 radius = 2.69847
