@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=3 uid="uid://cr16qvxkng034"]
+[gd_scene load_steps=56 format=3 uid="uid://cr16qvxkng034"]
 
 [ext_resource type="Script" uid="uid://c4hufc8gty534" path="res://Player/PlayerController.gd" id="1_lqs8g"]
 [ext_resource type="Script" uid="uid://bfbu2ih0dvxc2" path="res://Player/Interaction/PlayerInteractionHandler.gd" id="2_kykvu"]
@@ -30,6 +30,8 @@
 [ext_resource type="PackedScene" uid="uid://c666sj4wbtjci" path="res://Items/Books/red_book_arithmetic.tscn" id="22_psheb"]
 [ext_resource type="PackedScene" uid="uid://buagwitws33vn" path="res://Items/Books/green_book_estimating.tscn" id="23_2lp6d"]
 [ext_resource type="FontFile" uid="uid://foyrjdpuehqk" path="res://fonts/Cinzel-Bold.ttf" id="23_jqaai"]
+[ext_resource type="PackedScene" uid="uid://dkrlqpx5pnnam" path="res://Items/Books/greeb_book_kombinatoryka.tscn" id="24_2d1al"]
+[ext_resource type="PackedScene" uid="uid://xvns77lrqosv" path="res://Items/Books/blue_book_working_station.tscn" id="25_32ct5"]
 [ext_resource type="Texture2D" uid="uid://ddee3kyx6lymp" path="res://assets/images/inventory.png" id="26_2lp6d"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_jqxt5"]
@@ -279,6 +281,83 @@ Metoda ta znajduje zastosowanie m.in. w rozliczeniach, analizie kosztów oraz ko
 Warto pamiętać, że wynik pośredni (np. cena jednego produktu) często nie jest celem samym w sobie, lecz służy do uzyskania ostatecznej wartości, wymaganej w kolejnym etapie zadania."
 metadata/_custom_type_script = "uid://dlr5ccd40vty0"
 
+[sub_resource type="Resource" id="Resource_32ct5"]
+script = ExtResource("3_05jue")
+ItemName = "Kombinatoryka"
+Icon = ExtResource("11_kfnbn")
+ItemModelPrefab = ExtResource("24_2d1al")
+DetailsText = "Kombinatoryka zajmuje się liczeniem liczby możliwych układów, wyborów lub konfiguracji, bez konieczności wypisywania ich wszystkich po kolei.
+
+Jeśli mamy kilka elementów i każdy z nich może zostać wybrany lub ustawiony na określony sposób, całkowitą liczbę możliwości można często obliczyć przez mnożenie liczby opcji.
+
+Przykład:
+Jeżeli:
+
+do wyboru są 2 różne przedmioty typu A,
+
+3 różne przedmioty typu B,
+
+i 1 element typu C,
+
+to liczba możliwych zestawów wynosi:
+
+2 × 3 × 1 = 6
+
+Kolejność ma znaczenie tylko wtedy, gdy wpływa na wynik.
+Jeżeli liczy się wyłącznie to, co zostało wybrane, a nie kolejność wyboru — skupiamy się na liczbie dostępnych opcji.
+
+Czasem wystarczy uważnie policzyć elementy i zastanowić się, ile decyzji trzeba podjąć, by uzyskać kompletny zestaw."
+metadata/_custom_type_script = "uid://dlr5ccd40vty0"
+
+[sub_resource type="Resource" id="Resource_8svex"]
+script = ExtResource("3_05jue")
+ItemName = "Stanowiska Robocze"
+Icon = ExtResource("9_jqaai")
+ItemModelPrefab = ExtResource("25_32ct5")
+DetailsText = "W zadaniach opartych na rzeczywistych obiektach często nie chodzi o same przedmioty, lecz o liczbę możliwych konfiguracji ich użycia.
+
+Stanowisko robocze można traktować jak zestaw elementów, z których:
+
+każdy pełni określoną funkcję,
+
+niektóre przedmioty mogą być użyte zamiennie,
+
+a inne występują tylko w jednej wersji.
+
+Przykład analizy:
+Jeżeli na stanowisku znajdują się:
+
+4 talerze,
+
+1 nóż,
+
+1 deska,
+
+2 pojemniki z przyprawami,
+
+a zadanie wymaga wybrania:
+
+jednego talerza,
+
+jednego noża,
+
+jednej deski,
+
+i jednego pojemnika z przyprawami,
+
+to liczba możliwych zestawów wynika bezpośrednio z liczby dostępnych opcji.
+
+Każdy element zwiększa liczbę możliwych konfiguracji, nawet jeśli sam w sobie wydaje się nieistotny.
+
+W takich zadaniach kluczowe jest:
+
+dokładne policzenie obiektów,
+
+zrozumienie które elementy są wybierane,
+
+oraz zauważenie, że całość sprowadza się do prostego rachunku możliwości."
+metadata/_custom_type_script = "uid://dlr5ccd40vty0"
+
 [sub_resource type="SphereShape3D" id="SphereShape3D_kv1ul"]
 radius = 2.25705
 
@@ -359,7 +438,7 @@ cull_mask = 786431
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("2_kykvu")
-ItemTypes = Array[ExtResource("3_05jue")]([SubResource("Resource_b7jcg"), SubResource("Resource_73ll8"), SubResource("Resource_mxh34"), SubResource("Resource_46m5n"), SubResource("Resource_8wo0o"), SubResource("Resource_jn4p5"), SubResource("Resource_5c26t"), SubResource("Resource_2wtmw"), SubResource("Resource_xloie"), SubResource("Resource_rhxug"), SubResource("Resource_psheb"), SubResource("Resource_2lp6d"), SubResource("Resource_2d1al")])
+ItemTypes = Array[ExtResource("3_05jue")]([SubResource("Resource_b7jcg"), SubResource("Resource_73ll8"), SubResource("Resource_mxh34"), SubResource("Resource_46m5n"), SubResource("Resource_8wo0o"), SubResource("Resource_jn4p5"), SubResource("Resource_5c26t"), SubResource("Resource_2wtmw"), SubResource("Resource_xloie"), SubResource("Resource_rhxug"), SubResource("Resource_psheb"), SubResource("Resource_2lp6d"), SubResource("Resource_2d1al"), SubResource("Resource_32ct5"), SubResource("Resource_8svex")])
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="InteractionArea"]
 shape = SubResource("SphereShape3D_kv1ul")
