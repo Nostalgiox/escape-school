@@ -1,7 +1,9 @@
-[gd_scene load_steps=56 format=3 uid="uid://cr16qvxkng034"]
+[gd_scene load_steps=59 format=3 uid="uid://cr16qvxkng034"]
 
 [ext_resource type="Script" uid="uid://c4hufc8gty534" path="res://Player/PlayerController.gd" id="1_lqs8g"]
 [ext_resource type="Script" uid="uid://bfbu2ih0dvxc2" path="res://Player/Interaction/PlayerInteractionHandler.gd" id="2_kykvu"]
+[ext_resource type="Texture2D" uid="uid://bmc3jd7xxg4us" path="res://assets/images/klawisz_i.png" id="2_mc8x1"]
+[ext_resource type="Texture2D" uid="uid://coi450px6kcft" path="res://assets/images/plecak.png" id="3_2qkk5"]
 [ext_resource type="Script" uid="uid://dlr5ccd40vty0" path="res://Inventory/ItemData.gd" id="3_05jue"]
 [ext_resource type="PackedScene" uid="uid://cuiklvlmyu8n6" path="res://Inventory/TestCube.tscn" id="4_g74hu"]
 [ext_resource type="Texture2D" uid="uid://dbsrp6eblbaao" path="res://Items/Books/redbook.png" id="5_em7n3"]
@@ -33,6 +35,7 @@
 [ext_resource type="PackedScene" uid="uid://dkrlqpx5pnnam" path="res://Items/Books/greeb_book_kombinatoryka.tscn" id="24_2d1al"]
 [ext_resource type="PackedScene" uid="uid://xvns77lrqosv" path="res://Items/Books/blue_book_working_station.tscn" id="25_32ct5"]
 [ext_resource type="Texture2D" uid="uid://ddee3kyx6lymp" path="res://assets/images/inventory.png" id="26_2lp6d"]
+[ext_resource type="PackedScene" uid="uid://c800t2qfd14sv" path="res://Player/Ranger.glb" id="34_8svex"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_jqxt5"]
 
@@ -420,6 +423,7 @@ script = ExtResource("1_lqs8g")
 CameraContainerNode = NodePath("CameraContainer")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+visible = false
 gi_mode = 2
 mesh = SubResource("CapsuleMesh_jqxt5")
 
@@ -433,6 +437,49 @@ transform = Transform3D(1, 0, 0, 0, 0.997021, 0.0771367, 0, -0.0771367, 0.997021
 cull_mask = 786431
 
 [node name="InteractRaycast" type="RayCast3D" parent="CameraContainer/Camera3D"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="CameraContainer"]
+
+[node name="HUDRoot" type="Control" parent="CameraContainer/CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="TextureRect" type="TextureRect" parent="CameraContainer/CanvasLayer/HUDRoot"]
+visible = false
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = -113.0
+offset_top = -220.0
+offset_right = 334.27954
+offset_bottom = 78.0
+grow_vertical = 0
+mouse_filter = 2
+texture = ExtResource("2_mc8x1")
+expand_mode = 3
+
+[node name="TextureRect2" type="TextureRect" parent="CameraContainer/CanvasLayer/HUDRoot"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -250.0
+offset_top = -165.0
+offset_right = 29.174438
+offset_bottom = 21.0
+grow_horizontal = 0
+grow_vertical = 0
+mouse_filter = 2
+texture = ExtResource("3_2qkk5")
+expand_mode = 3
 
 [node name="InteractionArea" type="Area3D" parent="."]
 collision_layer = 0
@@ -651,6 +698,9 @@ grow_vertical = 2
 [node name="Pickup" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("21_2wtmw")
 bus = &"SFX"
+
+[node name="Ranger" parent="." instance=ExtResource("34_8svex")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, -1.0746207, 0.675145)
 
 [connection signal="OnItemPickedUp" from="InteractionArea" to="InventoryUI" method="PickupItem"]
 [connection signal="body_entered" from="InteractionArea" to="InteractionArea" method="OnObjectEnteredArea"]

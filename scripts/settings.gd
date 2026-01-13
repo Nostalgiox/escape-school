@@ -31,7 +31,10 @@ var applied_settings = {}
 @onready var gamma_slider = $CenterContainer/VBoxContainer/PanelContainer/GrafikaPanel/OptionsList/Row_Gamma/GammaSlider
 @onready var fov_slider = $CenterContainer/VBoxContainer/PanelContainer/GrafikaPanel/OptionsList/Row_FOV/FOVSlider
 @onready var shadows_option = $CenterContainer/VBoxContainer/PanelContainer/GrafikaPanel/OptionsList/ShadowsOption
-@onready var textures_option = $CenterContainer/VBoxContainer/PanelContainer/GrafikaPanel/OptionsList/TexturesOption
+@onready var textures_option = $CenterContainer/VBoxContainer/PanelContainer/GrafikaPanel/OptionsList/Row_Textures/TexturesOption
+@onready var fps_option = $CenterContainer/VBoxContainer/PanelContainer/GrafikaPanel/OptionsList/Row_Framerate/FPSOption
+@onready var show_fps_checkbox = $CenterContainer/VBoxContainer/PanelContainer/GrafikaPanel/OptionsList/Row_FPS/MuteCheckbox
+
 
 #Elementy panelu sterowania
 @onready var mouse_sensitivity_slider = $CenterContainer/VBoxContainer/PanelContainer/SterowaniePanel/OptionsList/Row_Sensitivity/MouseSensitivitySlider
@@ -83,6 +86,10 @@ const PANEL_TITLES: Dictionary = {
 
 func _ready():
 	print("Poprzednia scena:", Global.previous_scene_path)
+	fps_option.clear()
+	for fps in [30, 60, 75, 120, 144, 165]:
+		fps_option.add_item(str(fps))
+
 
 	# --- Połączenia zakładek ---
 	grafika_btn.pressed.connect(func(): show_panel("grafika"))
@@ -116,14 +123,13 @@ func _ready():
 	fullscreen_checkbox.toggled.connect(_on_fullscreen_toggled)
 	resolution_dropdown.item_selected.connect(_on_resolution_selected)
 	vsync_checkbox.toggled.connect(_on_vsync_toggled)
-
+	fps_option.item_selected.connect(_on_fps_selected)
 	volume_slider.value_changed.connect(_on_volume_changed)
 	music_volume_slider.value_changed.connect(_on_music_volume_changed)
 	sfx_volume_slider.value_changed.connect(_on_sfx_volume_changed)
 	mute_checkbox.toggled.connect(_on_mute_toggled)
-
+	show_fps_checkbox.toggled.connect(_on_show_fps_toggled)
 	mouse_sensitivity_slider.value_changed.connect(_on_mouse_sensitivity_changed)
-
 	gamma_slider.value_changed.connect(_on_gamma_changed)
 	fov_slider.value_changed.connect(_on_fov_changed)
 	shadows_option.item_selected.connect(_on_shadows_selected)
@@ -150,7 +156,6 @@ func _ready():
 	# --- Wczytanie ustawień ---
 	_suppress = true
 	load_settings()
-	apply_settings()
 	applied_settings = get_current_settings()
 	_suppress = false
 	_refresh_binding_labels()
@@ -159,6 +164,13 @@ func _ready():
 	show_panel("grafika")
 	_update_section_title_for(PANEL_ORDER[_current_panel_index])
 
+func _on_fps_selected(index: int) -> void:
+	if not _suppress:
+		_set_dirty(true)
+
+func _on_show_fps_toggled(pressed: bool) -> void:
+	if not _suppress:
+		_set_dirty(true)
 
 func _update_section_title_for(name: String) -> void:
 	if not is_instance_valid(section_title_label):
@@ -348,6 +360,7 @@ func load_settings():
 		music_volume_slider.value = cfg.get_value("audio", "music_volume", 0.8)
 		sfx_volume_slider.value = cfg.get_value("audio", "sfx_volume", 0.8)
 		mute_checkbox.button_pressed = cfg.get_value("audio", "mute", false)
+		show_fps_checkbox.button_pressed = cfg.get_value("graphics", "show_fps", false)
 
 		# --- 🎮 Sterowanie ---
 		mouse_sensitivity_slider.value = cfg.get_value("controls", "mouse_sensitivity", 0.5)
@@ -356,8 +369,8 @@ func load_settings():
 		gamma_slider.value = cfg.get_value("graphics", "gamma", 1.0)
 		fov_slider.value = cfg.get_value("graphics", "fov", 75)
 		shadows_option.select(cfg.get_value("graphics", "shadows", 1))
-		textures_option.select(cfg.get_value("graphics", "textures", 1))
-
+		var tex_q: int = int(cfg.get_value("graphics", "textures", 1))
+		textures_option.select(tex_q)
 		if cfg.has_section_key("controls", "bindings"):
 			var map: Dictionary = cfg.get_value("controls", "bindings", {})
 			for action in map.keys():
@@ -365,6 +378,14 @@ func load_settings():
 				for evd in map[action]:
 					var ev = _dict_to_event(evd)
 					if ev: InputMap.action_add_event(action, ev)
+		var fps_limit: int = int(cfg.get_value("graphics", "fps_limit", 60))
+		var fps_idx := 0
+		for i in range(fps_option.item_count):
+			if int(fps_option.get_item_text(i)) == fps_limit:
+				fps_idx = i
+				break
+		fps_option.select(fps_idx)
+
 
 func _populate_resolutions():
 	var resolutions = [
@@ -436,6 +457,7 @@ func _on_textures_selected(index: int) -> void:
 
 func save_settings():
 	var cfg := ConfigFile.new()
+	var fps := int(fps_option.get_item_text(fps_option.selected))
 	var _err = cfg.load(config_path) # jeśli plik nie istnieje, save() i tak go utworzy
 
 	# grafika
@@ -464,7 +486,8 @@ func save_settings():
 	cfg.set_value("graphics", "fov", fov_slider.value)
 	cfg.set_value("graphics", "shadows", get_current_settings()["shadows"])
 	cfg.set_value("graphics", "textures", get_current_settings()["textures"])
-
+	cfg.set_value("graphics", "fps_limit", fps)
+	cfg.set_value("graphics", "show_fps", show_fps_checkbox.button_pressed)
 	var bindings : Dictionary =  {}
 	for item in REBIND_ACTIONS:
 		var action = item.action
@@ -516,30 +539,30 @@ func apply_settings():
 	Global.set_fov(fov_slider.value)
 	
 	var shadow_index = 0
-	var texture_index = 0
 
 	var shadow_items = shadows_option.get_selected_items()
 	if shadow_items.size() > 0:
 		shadow_index = shadow_items[0]
 
-	var texture_items = textures_option.get_selected_items()
-	if texture_items.size() > 0:
-		texture_index = texture_items[0]
+	var texture_index: int = textures_option.selected
+
 
 	Global.shadow_quality = shadow_index
 	Global.texture_quality = texture_index
+	var show_fps: bool = show_fps_checkbox.button_pressed
+	get_tree().call_group("fps_counter", "set_visible", show_fps)
+	var fps := int(fps_option.get_item_text(fps_option.selected))
+	Engine.max_fps = fps
+
 
 func get_current_settings():
 	var shadow_index = 0
-	var texture_index = 0
 
 	var shadow_items = shadows_option.get_selected_items()
 	if shadow_items.size() > 0:
 		shadow_index = shadow_items[0]
 
-	var texture_items = textures_option.get_selected_items()
-	if texture_items.size() > 0:
-		texture_index = texture_items[0]
+	var texture_index: int = textures_option.selected
 	return {
 		"fullscreen": fullscreen_checkbox.button_pressed,
 		"resolution": resolution_dropdown.selected,
@@ -552,7 +575,7 @@ func get_current_settings():
 		"mouse_sensitivity": mouse_sensitivity_slider.value,
 		"fov": fov_slider.value,
 		"shadows": shadow_index,
-		"textures": texture_index
+		"textures": textures_option.selected
 	}
 
 func _restore_settings(s):
@@ -572,7 +595,6 @@ func _restore_settings(s):
 	shadows_option.deselect_all()
 	shadows_option.select(s["shadows"])
 
-	textures_option.deselect_all()
 	textures_option.select(s["textures"])
 
 	_suppress = false

@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://51wi15wukev1"
+path="res://.godot/imported/Cień Na Klatce Schodowej.mp3-738b7c7ef7ff6746571a534cd09064b1.mp3str"
+
+[deps]
+
+source_file="res://assets/prolog/sounds/Cień Na Klatce Schodowej.mp3"
+dest_files=["res://.godot/imported/Cień Na Klatce Schodowej.mp3-738b7c7ef7ff6746571a534cd09064b1.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

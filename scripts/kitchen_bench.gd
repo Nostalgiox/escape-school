@@ -5,13 +5,14 @@ extends Node3D
 
 @onready var anim_player: AnimationPlayer = $AnimationPlayer2
 @onready var smash_sound: AudioStreamPlayer = $Wood_smash
+@onready var block: Label3D = $Label3D
 
 var opened := false
 
 func _on_computer_cash_register_solved() -> void:
 	if opened:
 		return
-
+	block.visible = false
 	opened = true
 
 	# dźwięk

@@ -138,11 +138,13 @@ offset_right = -42.0
 offset_bottom = -92.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "Witaj w Escape School! Budzisz się w opustoszałej szkole. Drzwi są zamknięte, a jedyna droga na zewnątrz wiedzie przez serię zagadek i łamigłówek matematycznych. Każda sala to nowe wyzwanie – od prostych działań i ułamków, przez równania i procenty, aż po logarytmy i sprytne łamigłówki logiczne. Szukaj wskazówek w książkach, na tablicach, w notatkach i urządzeniach – wszystko może kryć trop. Czasem otrzymasz cyfrę, innym razem symbol lub fragment kodu; łącz je, by otwierać kłódki, sejfy i drzwi prowadzące dalej.
+text = "Witaj w Escape School!
+Budzisz się w opustoszałej szkole. Drzwi są zamknięte, a jedyna droga na zewnątrz wiedzie przez serię zagadek i łamigłówek matematycznych. Każda sala to nowe wyzwanie – od prostych działań i ułamków, przez równania i procenty, aż po sprytne łamigłówki logiczne. Szukaj wskazówek w książkach, na tablicach, w notatkach i urządzeniach – wszystko może kryć trop. Czasem otrzymasz cyfrę, innym razem symbol lub fragment kodu; łącz je, by otwierać kłódki, sejfy i drzwi prowadzące dalej.
 
-Rozglądaj się uważnie, poruszaj (domyślnie WSAD), a przyciskiem F wchodź w interakcje z otoczeniem. Zebrane przedmioty i notatki znajdziesz w ekwipunku (I). Nie spiesz się – błędy to część nauki, a każda kolejna sala będzie odrobinę trudniejsza. Zapisuj to, co wydaje się ważne, a jeśli utkniesz, wróć do wskazówek i spróbuj połączyć fakty na nowo.
+Rozglądaj się uważnie i badaj otoczenie. Nie spiesz się – błędy to część nauki, a każda kolejna sala będzie odrobinę trudniejsza. Zapisuj to, co wydaje się ważne, a jeśli utkniesz, wróć do wskazówek i spróbuj połączyć fakty na nowo.
 
-Twoim celem jest uciec ze szkoły. Twoją bronią – spostrzegawczość, logika i odrobina odwagi. Powodzenia!"
+Twoim celem jest uciec ze szkoły. Twoją bronią – spostrzegawczość, logika i odrobina odwagi.
+Powodzenia!"
 autowrap_mode = 2
 
 [node name="Button" type="Button" parent="CanvasLayer/InfoPanel"]

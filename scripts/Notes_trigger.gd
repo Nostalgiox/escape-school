@@ -9,6 +9,9 @@ var _interact_prev_pressed: bool = false
 func _ready() -> void:
 	connect("body_entered", Callable(self, "_on_enter"))
 	connect("body_exited", Callable(self, "_on_exit"))
+	body_entered.connect(_on_body_entered)
+	body_exited.connect(_on_body_exited)
+	
 	notes = get_node_or_null(notes_path)
 	# ustaw stan początkowy edge-detection
 	_interact_prev_pressed = Input.is_action_pressed("interact")
@@ -35,3 +38,13 @@ func _process(_delta: float) -> void:
 			if vp and vp.has_method("set_input_as_handled"):
 				vp.set_input_as_handled()
 	_interact_prev_pressed = cur
+
+func _on_body_entered(body: Node3D) -> void:
+	if body.is_in_group("player"):
+		if body.has_method("enter_interaction_area"):
+			body.enter_interaction_area(self)
+
+func _on_body_exited(body: Node3D) -> void:
+	if body.is_in_group("player"):
+		if body.has_method("exit_interaction_area"):
+			body.exit_interaction_area(self)

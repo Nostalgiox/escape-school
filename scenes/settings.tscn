@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://yhkjeo8u6sf1"]
+[gd_scene load_steps=6 format=3 uid="uid://yhkjeo8u6sf1"]
 
 [ext_resource type="Script" uid="uid://bj6x3w5uf1mkv" path="res://scripts/settings.gd" id="1_5p8wc"]
 [ext_resource type="FontFile" uid="uid://dhy1wb811s8vq" path="res://fonts/Cinzel-VariableFont_wght.ttf" id="1_r6d6q"]
+[ext_resource type="Script" uid="uid://bd6pilk07ds6g" path="res://scripts/fps_label.gd" id="3_6wm04"]
 
 [sub_resource type="Theme" id="Theme_6wm04"]
 default_font = ExtResource("1_r6d6q")
@@ -171,6 +172,41 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="TexturesOption" type="ItemList" parent="CenterContainer/VBoxContainer/PanelContainer/GrafikaPanel/OptionsList"]
+layout_mode = 2
+
+[node name="Row_Framerate" type="HBoxContainer" parent="CenterContainer/VBoxContainer/PanelContainer/GrafikaPanel/OptionsList"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer/PanelContainer/GrafikaPanel/OptionsList/Row_Framerate"]
+layout_mode = 2
+text = "Zmiana częstotliwości odświeżania"
+
+[node name="FPSOption" type="OptionButton" parent="CenterContainer/VBoxContainer/PanelContainer/GrafikaPanel/OptionsList/Row_Framerate"]
+layout_mode = 2
+
+[node name="Row_FPS" type="HBoxContainer" parent="CenterContainer/VBoxContainer/PanelContainer/GrafikaPanel/OptionsList"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer/PanelContainer/GrafikaPanel/OptionsList/Row_FPS" groups=["fps_counter"]]
+visible = false
+layout_mode = 2
+text = "Pokaż FPS"
+horizontal_alignment = 2
+script = ExtResource("3_6wm04")
+
+[node name="MuteCheckbox" type="CheckBox" parent="CenterContainer/VBoxContainer/PanelContainer/GrafikaPanel/OptionsList/Row_FPS"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Row_Textures" type="HBoxContainer" parent="CenterContainer/VBoxContainer/PanelContainer/GrafikaPanel/OptionsList"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer/PanelContainer/GrafikaPanel/OptionsList/Row_Textures"]
+layout_mode = 2
+text = "Jakość tekstur"
+
+[node name="TexturesOption" type="OptionButton" parent="CenterContainer/VBoxContainer/PanelContainer/GrafikaPanel/OptionsList/Row_Textures"]
 layout_mode = 2
 
 [node name="DzwiekPanel" type="VBoxContainer" parent="CenterContainer/VBoxContainer/PanelContainer"]

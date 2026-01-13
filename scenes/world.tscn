@@ -1,6 +1,7 @@
-[gd_scene load_steps=48 format=4 uid="uid://cyexwquywx03s"]
+[gd_scene load_steps=49 format=4 uid="uid://cyexwquywx03s"]
 
 [ext_resource type="PackedScene" uid="uid://bkqfelvhemybo" path="res://assets/CityBuilder/building_A_withoutBase.gltf" id="1_4wyf3"]
+[ext_resource type="Script" uid="uid://mumh0b5eq26m" path="res://scripts/world_graphic.gd" id="1_luhhm"]
 [ext_resource type="Script" uid="uid://dnp52wa6wriks" path="res://addons/sky_3d/src/Sky3D.gd" id="1_navra"]
 [ext_resource type="PackedScene" uid="uid://kxsls0epfkce" path="res://assets/CityBuilder/building_B.gltf" id="2_k0juu"]
 [ext_resource type="Script" uid="uid://y87suynydyrs" path="res://addons/sky_3d/src/Skydome.gd" id="2_luhhm"]
@@ -42,7 +43,6 @@ background_mode = 2
 sky = SubResource("Sky_luhhm")
 ambient_light_source = 3
 ambient_light_color = Color(1, 1, 1, 1)
-ambient_light_sky_contribution = 0.7639599
 reflected_light_source = 2
 tonemap_mode = 3
 tonemap_exposure = 0.5
@@ -140,6 +140,7 @@ buffer = PackedFloat32Array(0.124581, 0, 0.992209, 21.7173, 0, 1, 0, 0.5, -0.992
 adjustment_enabled = true
 
 [node name="World" type="Node3D"]
+script = ExtResource("1_luhhm")
 
 [node name="Sky3D" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_fh13f")

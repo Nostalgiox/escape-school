@@ -1,17 +1,18 @@
 [gd_scene load_steps=4 format=3 uid="uid://4r3ccoi7jdkb"]
 
 [ext_resource type="Script" uid="uid://c0lqioebpielm" path="res://Teacher/teacher.gd" id="1_xsls3"]
+[ext_resource type="PackedScene" uid="uid://boyaf5n0ypdaw" path="res://Teacher/Mage.glb" id="2_j2oro"]
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_xm7yp"]
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_xsls3"]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_j2oro"]
+radius = 0.7607422
+height = 2.7111816
 
 [node name="CharacterBody3D" type="StaticBody3D"]
 script = ExtResource("1_xsls3")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-shape = SubResource("CapsuleShape3D_xm7yp")
+[node name="Mage" parent="." instance=ExtResource("2_j2oro")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.6745651, 0)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D"]
-mesh = SubResource("CapsuleMesh_xsls3")
-skeleton = NodePath("../..")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5911865, 0)
+shape = SubResource("CapsuleShape3D_j2oro")

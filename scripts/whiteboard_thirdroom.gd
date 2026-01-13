@@ -46,6 +46,8 @@ var _cursor_visible: bool = false
 var _cursor_timer: float = 0.0
 
 func _ready() -> void:
+	body_entered.connect(_on_body_entered)
+	body_exited.connect(_on_body_exited)
 	# connect area signals (only once)
 	if not is_connected("body_entered", Callable(self, "_on_body_entered")):
 		connect("body_entered", Callable(self, "_on_body_entered"))
@@ -102,12 +104,16 @@ func _process(delta: float) -> void:
 # area enter/exit
 func _on_body_entered(body: Node) -> void:
 	if body and body.is_in_group("player"):
+		if body.has_method("enter_interaction_area"):
+			body.enter_interaction_area(self)
 		_player_in_area = true
 		print("Whiteboard: player entered area")
 
 
 func _on_body_exited(body: Node) -> void:
 	if body and body.is_in_group("player"):
+		if body.has_method("exit_interaction_area"):
+			body.exit_interaction_area(self)
 		_player_in_area = false
 		print("Whiteboard: player exited area")
 		if _editing:

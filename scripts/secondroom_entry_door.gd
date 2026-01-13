@@ -14,6 +14,8 @@ var player_in_area: bool = false
 var door_open: bool = false   # false – zamknięte, true – otwarte
 
 func _ready() -> void:
+	body_entered.connect(_on_body_entered)
+	body_exited.connect(_on_body_exited)
 	# podłącz zdarzenia
 	connect("body_entered", Callable(self, "_on_body_entered"))
 	connect("body_exited", Callable(self, "_on_body_exited"))
@@ -36,11 +38,15 @@ func _ready() -> void:
 
 func _on_body_entered(body: Node) -> void:
 	if body.is_in_group("player"):
+		if body.has_method("enter_interaction_area"):
+			body.enter_interaction_area(self)
 		player_in_area = true
 
 
 func _on_body_exited(body: Node) -> void:
 	if body.is_in_group("player"):
+		if body.has_method("exit_interaction_area"):
+			body.exit_interaction_area(self)
 		player_in_area = false
 
 

@@ -57,7 +57,9 @@ func hide_panel() -> void:
 func _input(event: InputEvent) -> void:
 	if not panel.visible:
 		return
-
+	if event.is_action_pressed("inventory"):
+		get_viewport().set_input_as_handled()
+		
 	if event.is_action_pressed("ui_cancel", false):
 		hide_panel()
 		get_viewport().set_input_as_handled()
